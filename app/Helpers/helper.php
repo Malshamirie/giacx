@@ -1523,78 +1523,7 @@ function getGeneralSettings($key = null)
  * */
 function getFeaturesSettings($key = null)
 {
-    try {
-        // التحقق من وجود الجداول أولاً
-        if (!\Illuminate\Support\Facades\Schema::hasTable('settings') || !\Illuminate\Support\Facades\Schema::hasTable('setting_translations')) {
-            // إرجاع قيم افتراضية إذا لم تكن الجداول موجودة
-            $defaultSettings = [
-                'maintenance_status' => false,
-                'maintenance_access_key' => 'maintenance123',
-                'store_status' => true,
-                'forum_status' => true,
-                'mobile_app_status' => true,
-                'registration_packages_status' => false,
-                'instructor_finder_wizard_status' => true,
-                'rewards_status' => false,
-                'financial_status' => true,
-                'multi_language_status' => true,
-                'rtl_status' => true,
-                'certificate_status' => true,
-                'installments_status' => false,
-                'registration_bonus_status' => false,
-                'ai_contents_status' => false,
-                'gifts_status' => false,
-                'advertising_modal_status' => false,
-                'others_personalization_status' => true,
-                'statistics_status' => true,
-                'restriction_status' => false,
-                'general_options_status' => true,
-                'abandoned_cart_status' => false,
-                'sms_channels_status' => false
-            ];
-            
-            if (!empty($key)) {
-                return $defaultSettings[$key] ?? null;
-            }
-            
-            return $defaultSettings;
-        }
-        
-        return App\Models\Setting::getFeaturesSettings($key);
-    } catch (\Exception $e) {
-        // إرجاع قيم افتراضية في حالة حدوث خطأ
-        $defaultSettings = [
-            'maintenance_status' => false,
-            'maintenance_access_key' => 'maintenance123',
-            'store_status' => true,
-            'forum_status' => true,
-            'mobile_app_status' => true,
-            'registration_packages_status' => false,
-            'instructor_finder_wizard_status' => true,
-            'rewards_status' => false,
-            'financial_status' => true,
-            'multi_language_status' => true,
-            'rtl_status' => true,
-            'certificate_status' => true,
-            'installments_status' => false,
-            'registration_bonus_status' => false,
-            'ai_contents_status' => false,
-            'gifts_status' => false,
-            'advertising_modal_status' => false,
-            'others_personalization_status' => true,
-            'statistics_status' => true,
-            'restriction_status' => false,
-            'general_options_status' => true,
-            'abandoned_cart_status' => false,
-            'sms_channels_status' => false
-        ];
-        
-        if (!empty($key)) {
-            return $defaultSettings[$key] ?? null;
-        }
-        
-        return $defaultSettings;
-    }
+    return App\Models\Setting::getFeaturesSettings($key);
 }
 
 
@@ -1909,74 +1838,7 @@ function getRemindersSettings($key = null)
 
 function getGeneralSecuritySettings($key = null)
 {
-    try {
-        // التحقق من وجود الجداول أولاً
-        if (!\Illuminate\Support\Facades\Schema::hasTable('settings') || !\Illuminate\Support\Facades\Schema::hasTable('setting_translations')) {
-            // إرجاع قيم افتراضية إذا لم تكن الجداول موجودة
-            $defaultSettings = [
-                'login_device_limit' => 5,
-                'admin_panel_url' => 'admin',
-                'force_ssl' => false,
-                'maintenance_mode' => false,
-                'login_attempts_limit' => 5,
-                'session_timeout' => 120,
-                'password_min_length' => 8,
-                'require_strong_password' => false,
-                'two_factor_auth' => false,
-                'captcha_enabled' => false,
-                'captcha_for_login' => false,
-                'captcha_for_register' => false,
-                'captcha_for_forgot_pass' => false,
-                'captcha_for_admin_login' => false,
-                'captcha_for_admin_forgot_pass' => false,
-                'ip_whitelist' => '',
-                'blocked_ips' => '',
-                'security_headers' => true,
-                'csrf_protection' => true,
-                'xss_protection' => true,
-                'content_security_policy' => true
-            ];
-            
-            if (!empty($key)) {
-                return $defaultSettings[$key] ?? null;
-            }
-            
-            return $defaultSettings;
-        }
-        
-        return App\Models\Setting::getGeneralSecuritySettings($key);
-    } catch (\Exception $e) {
-        // إرجاع قيم افتراضية في حالة حدوث خطأ
-        $defaultSettings = [
-            'login_device_limit' => 5,
-            'admin_panel_url' => 'admin',
-            'force_ssl' => false,
-            'maintenance_mode' => false,
-            'login_attempts_limit' => 5,
-            'session_timeout' => 120,
-            'password_min_length' => 8,
-            'require_strong_password' => false,
-            'two_factor_auth' => false,
-            'captcha_enabled' => false,
-            'captcha_for_login' => false,
-            'captcha_for_register' => false,
-            'captcha_for_forgot_pass' => false,
-            'captcha_for_admin_login' => false,
-            'captcha_for_admin_forgot_pass' => false,
-            'ip_whitelist' => '',
-            'blocked_ips' => '',
-            'security_headers' => true,
-            'csrf_protection' => true,
-            'xss_protection' => true,
-            'content_security_policy' => true
-        ];
-        
-        if (!empty($key)) {
-            return $defaultSettings[$key] ?? null;
-        }
-        
-        return $defaultSettings;
-    }
+    return App\Models\Setting::getGeneralSecuritySettings($key);
 }
 
 function getAbandonedCartSettings($key = null)
