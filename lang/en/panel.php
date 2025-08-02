@@ -290,4 +290,54 @@ return [
     'affiliate_url' => 'Your Affiliate URL',
 	'content_defined' => 'Content Defined',
   	'purchased_courses' => 'Purchased Courses',
+
+    'managers' => 'Managers',
+    'create_managers' => 'Create Manager',
+    'add_manager' => 'Add Manager',
+
+    // Projects
+    'projects' => 'Projects',
+    'create_project' => 'Create New Project',
+    'edit_project' => 'Edit Project',
+    'project_created_successfully' => 'Project created successfully',
+    'project_updated_successfully' => 'Project updated successfully',
+    'project_deleted_successfully' => 'Project deleted successfully',
+    'file_deleted_successfully' => 'File deleted successfully',
+
+    // Project Fields
+    'training' => 'Training',
+    'consulting' => 'Consulting',
+    'other_services' => 'Other Services',
+
+    // Venue Types
+    'hotel' => 'Hotel',
+    'client_venue' => 'Client Venue',
+    'center_venue' => 'Center Venue',
+
+    // Logistics Services
+    'coffee_break' => 'Coffee Break',
+    'lunch' => 'Lunch',
+    'other' => 'Other',
+
+    // Project Status
+    'draft' => 'Draft',
+    'active' => 'Active',
+    'completed' => 'Completed',
+    'cancelled' => 'Cancelled',
+
+    // Project Form Labels
+    'project_name' => 'Project Name',
+    'project_field' => 'Project Field',
+    'start_date' => 'Start Date',
+    'end_date' => 'End Date',
+    'project_manager' => 'Project Manager',
+    'project_coordinator' => 'Project Coordinator',
+    'project_consultant' => 'Project Consultant',
+    'venue_type' => 'Venue Type',
+    'logistics_services' => 'Logistics Services',
+    'instructions' => 'Instructions',
+    'project_files' => 'Project Files',
+    'webinars_count' => 'Webinars Count',
+    'participants_count' => 'Participants Count',
+    'landing_page_slug' => 'Landing Page URL',
 ];

@@ -12,6 +12,7 @@ class UserPackage
     public $package_id;
     public $instructors_count;
     public $students_count;
+    public $managers_count; // إضافة خاصية managers_count
     public $courses_capacity;
     public $courses_count;
     public $meeting_count;
@@ -46,6 +47,7 @@ class UserPackage
         if ($checkAccountRestrictions) {
             $package->instructors_count = (!empty($data) and isset($data->instructors_count)) ? $data->instructors_count : null;
             $package->students_count = (!empty($data) and isset($data->students_count)) ? $data->students_count : null;
+            $package->managers_count = (!empty($data) and isset($data->managers_count)) ? $data->managers_count : null; // إضافة managers_count
             $package->courses_capacity = (!empty($data) and isset($data->courses_capacity)) ? $data->courses_capacity : null;
             $package->courses_count = (!empty($data) and isset($data->courses_count)) ? $data->courses_count : null;
             $package->meeting_count = (!empty($data) and isset($data->meeting_count)) ? $data->meeting_count : null;
@@ -168,7 +170,7 @@ class UserPackage
     }
 
     /**
-     * @param $type => instructors_count, students_count, courses_capacity, courses_count, meeting_count, product_count
+     * @param $type => instructors_count, students_count, managers_count, courses_capacity, courses_count, meeting_count, product_count
      * */
     public function checkPackageLimit($type, $count = null)
     {
@@ -185,6 +187,10 @@ class UserPackage
 
                 case 'students_count':
                     $usedCount = $user->getOrganizationStudents()->count();
+                    break;
+
+                case 'managers_count':
+                    $usedCount = $user->getOrganizationManagers()->count(); // إضافة managers_count
                     break;
 
                 case 'courses_capacity':

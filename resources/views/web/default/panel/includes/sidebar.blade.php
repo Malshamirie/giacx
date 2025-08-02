@@ -101,6 +101,36 @@
                 </li>
             @endcan
 
+            @can('panel_organization_managers')
+                <li class="sidenav-item {{ (request()->is('panel/managers') or request()->is('panel/manage/managers*')) ? 'sidenav-item-active' : '' }}">
+                    <a class="d-flex align-items-center" data-toggle="collapse" href="#managersCollapse" role="button" aria-expanded="false" aria-controls="managersCollapse">
+                <span class="sidenav-item-icon mr-10">
+                    <i data-feather="users" class="img-cover"></i>
+                </span>
+                        <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.managers') }}</span>
+                    </a>
+
+                    <div class="collapse {{ (request()->is('panel/managers') or request()->is('panel/manage/managers*')) ? 'show' : '' }}" id="managersCollapse">
+                        <ul class="sidenav-item-collapse">
+                            @can('panel_organization_managers_create')
+                                <li class="mt-5 {{ (request()->is('panel/managers/new')) ? 'active' : '' }}">
+                                    <a href="/panel/manage/managers/new">{{ trans('public.new') }}</a>
+                                </li>
+                            @endcan
+
+                            @can('panel_organization_managers_lists')
+                                <li class="mt-5 {{ (request()->is('panel/manage/managers')) ? 'active' : '' }}">
+                                    <a href="/panel/manage/managers">{{ trans('public.list') }}</a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+
+
+            
+
             @can('panel_organization_students')
                 <li class="sidenav-item {{ (request()->is('panel/students') or request()->is('panel/manage/students*')) ? 'sidenav-item-active' : '' }}">
                     <a class="d-flex align-items-center" data-toggle="collapse" href="#studentsCollapse" role="button" aria-expanded="false" aria-controls="studentsCollapse">

@@ -541,12 +541,14 @@ class UserController extends Controller
     {
         $this->authorize("panel_organization_{$user_type}_lists");
 
-        $valid_type = ['instructors', 'students'];
+        $valid_type = ['instructors', 'students', 'managers'];
         $organization = auth()->user();
 
         if ($organization->isOrganization() and in_array($user_type, $valid_type)) {
             if ($user_type == 'instructors') {
                 $query = $organization->getOrganizationTeachers();
+            } elseif ($user_type == 'managers') {
+                $query = $organization->getOrganizationManagers();
             } else {
                 $query = $organization->getOrganizationStudents();
             }
@@ -602,7 +604,7 @@ class UserController extends Controller
                 ->paginate(10);
 
             $data = [
-                'pageTitle' => trans('public.' . $user_type),
+                'pageTitle' => trans('panel.' . $user_type),
                 'user_type' => $user_type,
                 'organization' => $organization,
                 'users' => $users,
@@ -621,12 +623,12 @@ class UserController extends Controller
     {
         $this->authorize("panel_organization_{$user_type}_create");
 
-        $valid_type = ['instructors', 'students'];
+        $valid_type = ['instructors', 'students', 'managers'];
         $organization = auth()->user();
 
         if ($organization->isOrganization() and in_array($user_type, $valid_type)) {
 
-            $packageType = $user_type == 'instructors' ? 'instructors_count' : 'students_count';
+            $packageType = $user_type == 'instructors' ? 'instructors_count' : ($user_type == 'managers' ? 'managers_count' : 'students_count');
             $userPackage = new UserPackage();
             $userAccountLimited = $userPackage->checkPackageLimit($packageType);
 
@@ -647,18 +649,20 @@ class UserController extends Controller
                 $userLanguages = [];
             }
 
+            $countries = Region::select(DB::raw('*, ST_AsText(geo_center) as geo_center'))
+                ->where('type', Region::$country)
+                ->get();
+
             $data = [
-                'pageTitle' => trans('public.new') . ' ' . trans('quiz.' . $user_type),
-                'new_user' => true,
+                'pageTitle' => trans('panel.create_' . $user_type),
                 'user_type' => $user_type,
-                'user' => $organization,
+                'organization' => $organization,
                 'categories' => $categories,
-                'organization_id' => $organization->id,
                 'userLanguages' => $userLanguages,
-                'currentStep' => 1,
+                'countries' => $countries,
             ];
 
-            return view(getTemplate() . '.panel.setting.index', $data);
+            return view(getTemplate() . '.panel.manage.create_user', $data);
         }
 
         abort(404);
@@ -668,51 +672,60 @@ class UserController extends Controller
     {
         $this->authorize("panel_organization_{$user_type}_create");
 
-        $valid_type = ['instructors', 'students'];
+        $valid_type = ['instructors', 'students', 'managers'];
         $organization = auth()->user();
 
         if ($organization->isOrganization() and in_array($user_type, $valid_type)) {
             $this->validate($request, [
-                'email' => 'required|string|email|max:255|unique:users',
-                'full_name' => 'required|string',
-                'mobile' => 'required|numeric|unique:users',
-                'password' => 'required|confirmed|min:6',
+                'full_name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'mobile' => 'nullable|string|max:255',
+                'password' => 'required|string|min:6',
+                'role_name' => 'required|string',
             ]);
 
             $data = $request->all();
-            $role_name = ($user_type == 'instructors') ? Role::$teacher : Role::$user;
-            $role_id = ($user_type == 'instructors') ? Role::getTeacherRoleId() : Role::getUserRoleId();
 
-            $referralSettings = getReferralSettings();
-            $usersAffiliateStatus = (!empty($referralSettings) and !empty($referralSettings['users_affiliate_status']));
+            if ($user_type == 'instructors') {
+                $role = Role::where('name', Role::$teacher)->first();
+            } elseif ($user_type == 'managers') {
+                $role = Role::where('name', Role::$manager)->first();
+            } else {
+                $role = Role::where('name', Role::$user)->first();
+            }
+
+            if (empty($role)) {
+                return back()->withErrors(['role' => trans('validation.exists', ['attribute' => trans('validation.attributes.role')])]);
+            }
 
             $user = User::create([
-                'role_name' => $role_name,
-                'role_id' => $role_id,
-                'email' => $data['email'],
-                'organ_id' => $organization->id,
-                'password' => Hash::make($data['password']),
                 'full_name' => $data['full_name'],
-                'mobile' => $data['mobile'],
-                'language' => $data['language'] ?? null,
-                'timezone' => $data['timezone'] ?? null,
-                'currency' => $data['currency'] ?? null,
-                'affiliate' => $usersAffiliateStatus,
-                'newsletter' => (!empty($data['join_newsletter']) and $data['join_newsletter'] == 'on'),
-                'public_message' => (!empty($data['public_messages']) and $data['public_messages'] == 'on'),
-                'created_at' => time()
+                'email' => $data['email'],
+                'mobile' => $data['mobile'] ?? null,
+                'password' => Hash::make($data['password']),
+                'role_name' => $role->name,
+                'role_id' => $role->id,
+                'organ_id' => $organization->id,
+                'status' => 'active',
+                'created_at' => time(),
             ]);
 
+            if (!empty($data['categories'])) {
+                foreach ($data['categories'] as $categoryId) {
+                    UserOccupation::create([
+                        'user_id' => $user->id,
+                        'category_id' => $categoryId,
+                    ]);
+                }
+            }
 
-            $notifyOptions = [
-                '[organization.name]' => $organization->full_name,
-                '[u.name]' => $user->full_name,
-                '[u.role]' => trans("update.role_{$user->role_name}"),
+            $toastData = [
+                'title' => trans('public.request_success'),
+                'msg' => trans('panel.user_created_successfully'),
+                'status' => 'success'
             ];
-            sendNotification('new_organization_user', $notifyOptions, 1);
 
-
-            return redirect('/panel/manage/' . $user_type . '/' . $user->id . '/edit');
+            return redirect('/panel/manage/' . $user_type)->with(['toast' => $toastData]);
         }
 
         abort(404);
@@ -921,5 +934,15 @@ class UserController extends Controller
         }
 
         return response()->json([], 422);
+    }
+
+    public function isManager()
+    {
+        return $this->role_name === Role::$manager;
+    }
+
+    public function getOrganizationManagers()
+    {
+        return $this->hasMany($this, 'organ_id', 'id')->where('role_name', Role::$manager);
     }
 }

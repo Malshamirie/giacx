@@ -630,6 +630,13 @@ class SectionsTableSeeder extends Seeder
         Section::updateOrCreate(['id' => 1701], ['name' => 'admin_agora_history_lists', 'section_group_id' => 1700, 'caption' => 'Agora History Lists']);
         Section::updateOrCreate(['id' => 1702], ['name' => 'admin_agora_history_export', 'section_group_id' => 1700, 'caption' => 'Agora History Export']);
 
+        // Projects sections
+        Section::updateOrCreate(['id' => 100200], ['name' => 'panel_projects', 'created_at' => time()]);
+        Section::updateOrCreate(['id' => 100201], ['name' => 'panel_projects_lists', 'created_at' => time()]);
+        Section::updateOrCreate(['id' => 100202], ['name' => 'panel_projects_create', 'created_at' => time()]);
+        Section::updateOrCreate(['id' => 100203], ['name' => 'panel_projects_edit', 'created_at' => time()]);
+        Section::updateOrCreate(['id' => 100204], ['name' => 'panel_projects_delete', 'created_at' => time()]);
+
         /* Run Panel Sections */
         $this->runPanelSections();
     }
@@ -637,6 +644,8 @@ class SectionsTableSeeder extends Seeder
     private function runPanelSections()
     {
 
+        // Organization Instructors 1 - 9
+       
         // Organization Instructors 1 - 9
         $this->createPanelSection(['id' => 1], ['name' => 'panel_organization_instructors', 'caption' => 'Organization Instructors']);
         $this->createPanelSection(['id' => 2], ['name' => 'panel_organization_instructors_lists', 'section_group_id' => 1, 'caption' => 'Lists']);
@@ -751,7 +760,7 @@ class SectionsTableSeeder extends Seeder
         $this->createPanelSection(['id' => 166], ['name' => 'panel_marketing_new_coupon', 'section_group_id' => 160, 'caption' => 'Create Coupons']);
         $this->createPanelSection(['id' => 167], ['name' => 'panel_marketing_delete_coupon', 'section_group_id' => 160, 'caption' => 'Delete Coupons']);
 
-
+    
         // Forums 180 - 199
         $this->createPanelSection(['id' => 180], ['name' => 'panel_forums', 'caption' => 'Forums']);
         $this->createPanelSection(['id' => 181], ['name' => 'panel_forums_new_topic', 'section_group_id' => 180, 'caption' => 'New Topic']);
@@ -792,7 +801,19 @@ class SectionsTableSeeder extends Seeder
         $this->createPanelSection(['id' => 302], ['name' => 'panel_others_profile_url', 'section_group_id' => 300, 'caption' => 'Profile Url']);
         $this->createPanelSection(['id' => 303], ['name' => 'panel_others_logout', 'section_group_id' => 300, 'caption' => 'Logout']);
 
+        // Organization Projects 4000 - 4004
+        $this->createPanelSection(['id' => 4000], ['name' => 'panel_organization_projects', 'caption' => 'Organization Projects']);
+        $this->createPanelSection(['id' => 4001], ['name' => 'panel_organization_projects_lists', 'section_group_id' => 4000, 'caption' => 'Lists']);
+        $this->createPanelSection(['id' => 4002], ['name' => 'panel_organization_projects_create', 'section_group_id' => 4000, 'caption' => 'Create']);
+        $this->createPanelSection(['id' => 4003], ['name' => 'panel_organization_projects_edit', 'section_group_id' => 4000, 'caption' => 'Edit']);
+        $this->createPanelSection(['id' => 4004], ['name' => 'panel_organization_projects_delete', 'section_group_id' => 4000, 'caption' => 'Delete']);
 
+        // Organization Managers 4005 - 4009
+        $this->createPanelSection(['id' => 4005], ['name' => 'panel_organization_managers', 'caption' => 'Organization Managers']);
+        $this->createPanelSection(['id' => 4006], ['name' => 'panel_organization_managers_lists', 'section_group_id' => 4005, 'caption' => 'Lists']);
+        $this->createPanelSection(['id' => 4007], ['name' => 'panel_organization_managers_create', 'section_group_id' => 4005, 'caption' => 'Create']);
+        $this->createPanelSection(['id' => 4008], ['name' => 'panel_organization_managers_edit', 'section_group_id' => 4005, 'caption' => 'Edit']);
+        $this->createPanelSection(['id' => 4009], ['name' => 'panel_organization_managers_delete', 'section_group_id' => 4005, 'caption' => 'Delete']);
     }
 
     private function createPanelSection($arr1, $arr2)

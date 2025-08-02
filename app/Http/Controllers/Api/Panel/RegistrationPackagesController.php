@@ -40,6 +40,7 @@ class RegistrationPackagesController extends Controller
             'package_id' => $activePackage->package_id,
             'instructors_count' => !is_null($activePackage->instructors_count) ? (int)$activePackage->instructors_count : null,
             'students_count' => !is_null($activePackage->students_count) ? (int)$activePackage->students_count : null,
+            'managers_count' => !is_null($activePackage->managers_count) ? (int)$activePackage->managers_count : null, // إضافة managers_count
             'meeting_count' => !is_null($activePackage->meeting_count) ? (int)$activePackage->meeting_count : null,
             'courses_capacity' => !is_null($activePackage->courses_capacity) ? (int)$activePackage->courses_capacity : null,
             'courses_count' => !is_null($activePackage->courses_count) ? (int)$activePackage->courses_count : null,
@@ -72,7 +73,7 @@ class RegistrationPackagesController extends Controller
             'account_courses_capacity' => ($activePackage and $activePackage['courses_capacity']) ? $activePackage['courses_capacity'] : null,
             'account_instructors_count' => ($activePackage and $activePackage['instructors_count']) ? $accountStatistics['myInstructorsCount'] . '/' . $activePackage['instructors_count'] : null,
             'account_students_count' => ($activePackage and $activePackage['students_count']) ? $accountStatistics['myStudentsCount'] . '/' . $activePackage['students_count'] : null,
-
+            'account_managers_count' => ($activePackage and $activePackage['managers_count']) ? $accountStatistics['myManagersCount'] . '/' . $activePackage['managers_count'] : null, // إضافة managers_count
             'account_statistics' => $accountStatistics,
         ];
 
@@ -98,9 +99,11 @@ class RegistrationPackagesController extends Controller
     {
         $myInstructorsCount = 0;
         $myStudentsCount = 0;
+        $myManagersCount = 0; // إضافة managers_count
         if ($user->isOrganization()) {
             $myInstructorsCount = $user->getOrganizationTeachers()->count();
             $myStudentsCount = $user->getOrganizationStudents()->count();
+            $myManagersCount = $user->getOrganizationManagers()->count(); // إضافة managers_count
         }
 
         $myCoursesCount = Webinar::where('creator_id', $user->id)->count();
@@ -110,6 +113,7 @@ class RegistrationPackagesController extends Controller
         return [
             'myInstructorsCount' => $myInstructorsCount,
             'myStudentsCount' => $myStudentsCount,
+            'myManagersCount' => $myManagersCount, // إضافة managers_count
             'myCoursesCount' => $myCoursesCount,
             'myMeetingCount' => $myMeetingCount,
             'myProductCount' => $myProductCount,

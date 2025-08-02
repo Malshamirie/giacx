@@ -112,6 +112,9 @@ class User extends Model implements JWTSubject
             'organization_teachers' => $this->getOrganizationTeachers->map(function ($teacher) {
                 return $teacher->brief;
             }),
+            'organization_managers' => $this->getOrganizationManagers->map(function ($manager) {
+                return $manager->brief;
+            }),
             'country_id' => $this->country_id,
             'province_id' => $this->province_id,
             'city_id' => $this->city_id,
@@ -362,6 +365,11 @@ class User extends Model implements JWTSubject
     public function getOrganizationTeachers()
     {
         return $this->hasMany($this, 'organ_id', 'id')->where('role_name', Role::$teacher);
+    }
+
+    public function getOrganizationManagers()
+    {
+        return $this->hasMany($this, 'organ_id', 'id')->where('role_name', Role::$manager);
     }
 
     public function purchases()

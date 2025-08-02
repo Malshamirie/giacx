@@ -109,6 +109,16 @@ class User extends Authenticatable
         return $this->role_name === Role::$organization;
     }
 
+    public function isManager()
+    {
+        return $this->role_name === Role::$manager;
+    }
+
+    public function getOrganizationManagers()
+    {
+        return $this->hasMany($this, 'organ_id', 'id')->where('role_name', Role::$manager);
+    }
+
     public function hasPermission($section_name)
     {
         if (!isset($this->permissions)) {

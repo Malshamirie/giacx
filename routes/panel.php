@@ -496,4 +496,16 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
 
 });
 
+// Projects Routes
+Route::group(['prefix' => 'projects'], function () {
+    Route::get('/', 'ProjectController@index')->name('panelProjects');
+    Route::get('/create', 'ProjectController@create')->name('panelProjectsCreate');
+    Route::post('/store', 'ProjectController@store')->name('panelProjectsStore');
+    Route::get('/{id}', 'ProjectController@show')->name('panelProjectsShow');
+    Route::get('/{id}/edit', 'ProjectController@edit')->name('panelProjectsEdit');
+    Route::post('/{id}/update', 'ProjectController@update')->name('panelProjectsUpdate');
+    Route::post('/{id}/delete', 'ProjectController@destroy')->name('panelProjectsDelete');
+    Route::post('/{projectId}/files/{fileId}/delete', 'ProjectController@deleteFile')->name('panelProjectsDeleteFile');
+});
+
 

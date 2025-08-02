@@ -466,72 +466,72 @@ class UserController extends Controller
         return $username;
     }
 
-    public function store(Request $request)
-    {
-        $this->authorize('admin_users_create');
-        $data = $request->all();
+    // public function store(Request $request)
+    // {
+    //     $this->authorize('admin_users_create');
+    //     $data = $request->all();
+    //     dd($data);
+    //     $username = $this->username($data);
+    //     $data[$username] = $data['username'];
+    //     $request->merge([$username => $data['username']]);
+    //     unset($data['username']);
 
-        $username = $this->username($data);
-        $data[$username] = $data['username'];
-        $request->merge([$username => $data['username']]);
-        unset($data['username']);
+    //     $this->validate($request, [
+    //         $username => ($username == 'mobile') ? 'required|numeric|unique:users' : 'required|string|email|max:255|unique:users',
+    //         'full_name' => 'required|min:3|max:128',
+    //         'role_id' => 'required|exists:roles,id',
+    //         'password' => 'required|string|min:6',
+    //         'status' => 'required',
+    //     ]);
 
-        $this->validate($request, [
-            $username => ($username == 'mobile') ? 'required|numeric|unique:users' : 'required|string|email|max:255|unique:users',
-            'full_name' => 'required|min:3|max:128',
-            'role_id' => 'required|exists:roles,id',
-            'password' => 'required|string|min:6',
-            'status' => 'required',
-        ]);
+    //     if (!empty($data['role_id'])) {
+    //         $role = Role::find($data['role_id']);
 
-        if (!empty($data['role_id'])) {
-            $role = Role::find($data['role_id']);
-
-            if (!empty($role)) {
-                $referralSettings = getReferralSettings();
-                $usersAffiliateStatus = (!empty($referralSettings) and !empty($referralSettings['users_affiliate_status']));
+    //         if (!empty($role)) {
+    //             $referralSettings = getReferralSettings();
+    //             $usersAffiliateStatus = (!empty($referralSettings) and !empty($referralSettings['users_affiliate_status']));
 
 
-                $user = User::create([
-                    'full_name' => $data['full_name'],
-                    'role_name' => $role->name,
-                    'role_id' => $data['role_id'],
-                    $username => $data[$username],
-                    'password' => User::generatePassword($data['password']),
-                    'status' => $data['status'],
-                    'affiliate' => $usersAffiliateStatus,
-                    'verified' => true,
-                    'created_at' => time(),
-                ]);
+    //             $user = User::create([
+    //                 'full_name' => $data['full_name'],
+    //                 'role_name' => $role->name,
+    //                 'role_id' => $data['role_id'],
+    //                 $username => $data[$username],
+    //                 'password' => User::generatePassword($data['password']),
+    //                 'status' => $data['status'],
+    //                 'affiliate' => $usersAffiliateStatus,
+    //                 'verified' => true,
+    //                 'created_at' => time(),
+    //             ]);
 
-                if (!empty($data['group_id'])) {
-                    $group = Group::find($data['group_id']);
+    //             if (!empty($data['group_id'])) {
+    //                 $group = Group::find($data['group_id']);
 
-                    if (!empty($group)) {
-                        GroupUser::create([
-                            'group_id' => $group->id,
-                            'user_id' => $user->id,
-                            'created_at' => time(),
-                        ]);
+    //                 if (!empty($group)) {
+    //                     GroupUser::create([
+    //                         'group_id' => $group->id,
+    //                         'user_id' => $user->id,
+    //                         'created_at' => time(),
+    //                     ]);
 
-                        $notifyOptions = [
-                            '[u.g.title]' => $group->name,
-                        ];
-                        sendNotification("add_to_user_group", $notifyOptions, $user->id);
-                    }
-                }
+    //                     $notifyOptions = [
+    //                         '[u.g.title]' => $group->name,
+    //                     ];
+    //                     sendNotification("add_to_user_group", $notifyOptions, $user->id);
+    //                 }
+    //             }
 
-                return redirect(getAdminPanelUrl() . '/users/' . $user->id . '/edit');
-            }
-        }
+    //             return redirect(getAdminPanelUrl() . '/users/' . $user->id . '/edit');
+    //         }
+    //     }
 
-        $toastData = [
-            'title' => '',
-            'msg' => 'Role not find!',
-            'status' => 'error'
-        ];
-        return back()->with(['toast' => $toastData]);
-    }
+    //     $toastData = [
+    //         'title' => '',
+    //         'msg' => 'Role not find!',
+    //         'status' => 'error'
+    //     ];
+    //     return back()->with(['toast' => $toastData]);
+    // }
 
     public function edit(Request $request, $id)
     {
@@ -1324,6 +1324,7 @@ class UserController extends Controller
         $this->validate($request, [
             'instructors_count' => 'nullable|numeric',
             'students_count' => 'nullable|numeric',
+            'managers_count' => 'nullable|numeric', // إضافة managers_count
             'courses_capacity' => 'nullable|numeric',
             'courses_count' => 'nullable|numeric',
             'meeting_count' => 'nullable|numeric',
@@ -1339,6 +1340,7 @@ class UserController extends Controller
             ], [
                 'instructors_count' => $data['instructors_count'] ?? null,
                 'students_count' => $data['students_count'] ?? null,
+                'managers_count' => $data['managers_count'] ?? null, // إضافة managers_count
                 'courses_capacity' => $data['courses_capacity'] ?? null,
                 'courses_count' => $data['courses_count'] ?? null,
                 'meeting_count' => $data['meeting_count'] ?? null,

@@ -19,6 +19,7 @@ class Role extends Model implements TranslatableContract
     static $user = 'user';
     static $teacher = 'teacher';
     static $organization = 'organization';
+    static $manager = 'manager';
 
     public $translatedAttributes = ['caption'];
 
@@ -30,7 +31,7 @@ class Role extends Model implements TranslatableContract
 
     public function canDelete()
     {
-        return !in_array($this->name, [self::$admin, self::$user, self::$organization, self::$teacher]);
+        return !in_array($this->name, [self::$admin, self::$user, self::$organization, self::$teacher, self::$manager]);
     }
 
     public function users()
@@ -40,7 +41,7 @@ class Role extends Model implements TranslatableContract
 
     public function isDefaultRole()
     {
-        return in_array($this->name, [self::$admin, self::$user, self::$organization, self::$teacher]);
+        return in_array($this->name, [self::$admin, self::$user, self::$organization, self::$teacher, self::$manager]);
     }
 
     public function isMainAdminRole()
@@ -68,9 +69,18 @@ class Role extends Model implements TranslatableContract
 
     public static function getOrganizationRoleId()
     {
-        $id = 3; // teacher role id
+        $id = 3; // organization role id
 
         $role = self::where('name', self::$organization)->first();
+
+        return !empty($role) ? $role->id : $id;
+    }
+
+    public static function getManagerRoleId()
+    {
+        $id = 5; // manager role id
+
+        $role = self::where('name', self::$manager)->first();
 
         return !empty($role) ? $role->id : $id;
     }

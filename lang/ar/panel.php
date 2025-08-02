@@ -266,4 +266,53 @@ return [
     'affiliate_url' => 'رابط الإنتساب الخاص بك',
 	'content_defined' => 'تم تعريف المحتوى',
   	'purchased_courses' => 'الدورات المشتراه',
+    'managers' => 'المديرين',
+    'create_managers' => 'إنشاء مدير',
+    'add_manager' => 'إضافة مدير',
+
+    // Projects
+    'projects' => 'المشاريع',
+    'create_project' => 'إنشاء مشروع جديد',
+    'edit_project' => 'تعديل المشروع',
+    'project_created_successfully' => 'تم إنشاء المشروع بنجاح',
+    'project_updated_successfully' => 'تم تحديث المشروع بنجاح',
+    'project_deleted_successfully' => 'تم حذف المشروع بنجاح',
+    'file_deleted_successfully' => 'تم حذف الملف بنجاح',
+
+    // Project Fields
+    'training' => 'التدريب',
+    'consulting' => 'الاستشارات',
+    'other_services' => 'خدمات أخرى',
+
+    // Venue Types
+    'hotel' => 'فندق',
+    'client_venue' => 'مقر العميل',
+    'center_venue' => 'مقر المركز',
+
+    // Logistics Services
+    'coffee_break' => 'كوفي بريك',
+    'lunch' => 'غداء',
+    'other' => 'أخرى',
+
+    // Project Status
+    'draft' => 'مسودة',
+    'active' => 'نشط',
+    'completed' => 'مكتمل',
+    'cancelled' => 'ملغي',
+
+    // Project Form Labels
+    'project_name' => 'اسم المشروع',
+    'project_field' => 'مجال المشروع',
+    'start_date' => 'تاريخ البداية',
+    'end_date' => 'تاريخ النهاية',
+    'project_manager' => 'مدير المشروع',
+    'project_coordinator' => 'منسق المشروع',
+    'project_consultant' => 'مستشار المشروع',
+    'venue_type' => 'مكان تنفيذ المشروع',
+    'logistics_services' => 'الخدمات اللوجستية',
+    'instructions' => 'تعليمات حول المشروع',
+    'project_files' => 'ملفات المشروع',
+    'webinars_count' => 'عدد الدورات',
+    'participants_count' => 'عدد المشاركين',
+    'landing_page_slug' => 'رابط صفحة الهبوط',
 ];

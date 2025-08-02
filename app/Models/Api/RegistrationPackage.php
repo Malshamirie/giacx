@@ -17,6 +17,7 @@ class RegistrationPackage extends Model
             'role' => $this->role,
             'instructors_count' => $this->instructors_count??'unlimited',
             'students_count' => $this->students_count??"unlimited",
+            'managers_count' => $this->managers_count??"unlimited", // إضافة managers_count
             'courses_capacity' => $this->courses_capacity??"unlimited",
             'courses_count' => $this->courses_count??'unlimited',
             'meeting_count' => $this->meeting_count??'unlimited',
@@ -24,7 +25,6 @@ class RegistrationPackage extends Model
             'created_at' => $this->created_at,
             'title' => $this->title,
             'description' => $this->description,
-
         ];
     }
 }

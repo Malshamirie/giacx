@@ -80,9 +80,12 @@ class RegistrationPackagesController extends Controller
     {
         $myInstructorsCount = 0;
         $myStudentsCount = 0;
+        $myManagersCount = 0; // إضافة managers_count
+        
         if ($user->isOrganization()) {
             $myInstructorsCount = $user->getOrganizationTeachers()->count();
             $myStudentsCount = $user->getOrganizationStudents()->count();
+            $myManagersCount = $user->getOrganizationManagers()->count(); // إضافة managers_count
         }
 
         $myCoursesCount = Webinar::where('creator_id', $user->id)->count();
@@ -92,6 +95,7 @@ class RegistrationPackagesController extends Controller
         return [
             'myInstructorsCount' => $myInstructorsCount,
             'myStudentsCount' => $myStudentsCount,
+            'myManagersCount' => $myManagersCount, // إضافة managers_count
             'myCoursesCount' => $myCoursesCount,
             'myMeetingCount' => $myMeetingCount,
             'myProductCount' => $myProductCount,

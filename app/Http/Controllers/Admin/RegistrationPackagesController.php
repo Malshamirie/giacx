@@ -88,6 +88,7 @@ class RegistrationPackagesController extends Controller
             'role' => 'required|in:instructors,organizations',
             'instructors_count' => 'nullable|numeric',
             'students_count' => 'nullable|numeric',
+            'managers_count' => 'nullable|numeric', // إضافة managers_count
             'courses_capacity' => 'nullable|numeric',
             'courses_count' => 'nullable|numeric',
             'meeting_count' => 'nullable|numeric',
@@ -107,6 +108,7 @@ class RegistrationPackagesController extends Controller
             'role' => $data['role'],
             'instructors_count' => $data['instructors_count'] ?? null,
             'students_count' => $data['students_count'] ?? null,
+            'managers_count' => $data['managers_count'] ?? null, // إضافة managers_count
             'courses_capacity' => $data['courses_capacity'] ?? null,
             'courses_count' => $data['courses_count'] ?? null,
             'meeting_count' => $data['meeting_count'] ?? null,
@@ -160,6 +162,7 @@ class RegistrationPackagesController extends Controller
             'role' => 'required|in:instructors,organizations',
             'instructors_count' => 'nullable|numeric',
             'students_count' => 'nullable|numeric',
+            'managers_count' => 'nullable|numeric', // إضافة managers_count
             'courses_capacity' => 'nullable|numeric',
             'courses_count' => 'nullable|numeric',
             'meeting_count' => 'nullable|numeric',
@@ -179,6 +182,7 @@ class RegistrationPackagesController extends Controller
             'role' => $data['role'],
             'instructors_count' => $data['instructors_count'] ?? null,
             'students_count' => $data['students_count'] ?? null,
+            'managers_count' => $data['managers_count'] ?? null, // إضافة managers_count
             'courses_capacity' => $data['courses_capacity'] ?? null,
             'courses_count' => $data['courses_count'] ?? null,
             'meeting_count' => $data['meeting_count'] ?? null,

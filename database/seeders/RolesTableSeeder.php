@@ -17,5 +17,6 @@ class RolesTableSeeder extends Seeder
         \App\Models\Role::updateOrCreate(['id' => 2], ['name' => 'admin', 'caption' => 'Admin role', 'is_admin' => 1, 'created_at' => time()]);
         \App\Models\Role::updateOrCreate(['id' => 3], ['name' => 'organization', 'caption' => 'Organization role', 'is_admin' => 0, 'created_at' => time()]);
         \App\Models\Role::updateOrCreate(['id' => 4], ['name' => 'teacher', 'caption' => 'Teacher role', 'is_admin' => 0, 'created_at' => time()]);
+        \App\Models\Role::updateOrCreate(['id' => 5], ['name' => 'manager', 'caption' => 'Manager', 'is_admin' => 1, 'created_at' => time()]);
     }
 }
