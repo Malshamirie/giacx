@@ -15,7 +15,6 @@ class CreateFiltersTable extends Migration
     {
         Schema::create('filters', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->string('title',64);
             $table->integer('category_id')->unsigned();

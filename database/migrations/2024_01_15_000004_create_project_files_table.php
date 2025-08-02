@@ -17,12 +17,12 @@ class CreateProjectFilesTable extends Migration
             $table->engine = "InnoDB";
 
             $table->bigIncrements('id');
-            $table->bigInteger('project_id')->unsigned(); // تغيير إلى bigInteger
+            $table->bigInteger('project_id')->unsigned();
             $table->string('file_path'); // مسار الملف
-            $table->string('file_name'); // اسم الملف الأصلي
-            $table->string('file_type'); // نوع الملف
-            $table->integer('file_size')->unsigned(); // حجم الملف
-            $table->integer('created_at')->unsigned();
+            $table->string('file_name')->nullable(); // اسم الملف الأصلي
+            $table->string('file_type')->nullable(); // نوع الملف
+            $table->integer('file_size')->unsigned()->nullable(); // حجم الملف
+            $table->timestamps();
 
             $table->foreign('project_id')->on('projects')->references('id')->cascadeOnDelete();
         });

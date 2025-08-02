@@ -128,8 +128,36 @@
                 </li>
             @endcan
 
+            @can('panel_organization_projects')
+                <li class="sidenav-item {{ (request()->is('panel/projects') or request()->is('panel/projects/*')) ? 'sidenav-item-active' : '' }}">
+                    <a class="d-flex align-items-center" data-toggle="collapse" href="#projectsCollapse" role="button" aria-expanded="false" aria-controls="projectsCollapse">
+                <span class="sidenav-item-icon mr-10">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 2L2 9L9 16L16 9L9 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 6L14 11L9 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 6L4 11L9 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                        <span class="font-14 text-dark-blue font-weight-500">{{ trans('panel.projects') }}</span>
+                    </a>
 
-            
+                    <div class="collapse {{ (request()->is('panel/projects') or request()->is('panel/projects/*')) ? 'show' : '' }}" id="projectsCollapse">
+                        <ul class="sidenav-item-collapse">
+                            @can('panel_organization_projects_create')
+                                <li class="mt-5 {{ (request()->is('panel/projects/new')) ? 'active' : '' }}">
+                                    <a href="/panel/projects/new">{{ trans('public.new') }}</a>
+                                </li>
+                            @endcan
+
+                            @can('panel_organization_projects_lists')
+                                <li class="mt-5 {{ (request()->is('panel/projects')) ? 'active' : '' }}">
+                                    <a href="/panel/projects">{{ trans('public.list') }}</a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+            @endcan
 
             @can('panel_organization_students')
                 <li class="sidenav-item {{ (request()->is('panel/students') or request()->is('panel/manage/students*')) ? 'sidenav-item-active' : '' }}">

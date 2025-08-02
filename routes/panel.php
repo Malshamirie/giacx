@@ -356,6 +356,39 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
         Route::get('/{user_type}/{user_id}/delete', 'UserController@deleteUser');
     });
 
+    // Projects routes
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('/', 'ProjectController@index');
+        Route::get('/new', 'ProjectController@create');
+        Route::post('/store', 'ProjectController@store');
+        Route::get('/{id}/edit', 'ProjectController@edit');
+        Route::post('/{id}/update', 'ProjectController@update');
+        Route::get('/{id}/delete', 'ProjectController@destroy');
+        Route::get('/{id}/show', 'ProjectController@show');
+        
+                        // Project files routes
+                Route::group(['prefix' => 'files'], function () {
+                    Route::post('/store', 'ProjectController@storeFile');
+                    Route::post('/{id}/update', 'ProjectController@updateFile');
+                    Route::get('/{id}/delete', 'ProjectController@deleteFile');
+                    Route::get('/{id}/download', 'ProjectController@downloadFile');
+                });
+        
+        // Project participants routes
+        Route::group(['prefix' => 'participants'], function () {
+            Route::get('/{project_id}', 'ProjectController@participants');
+            Route::post('/{project_id}/add', 'ProjectController@addParticipant');
+            Route::get('/{project_id}/{user_id}/remove', 'ProjectController@removeParticipant');
+        });
+        
+        // Project webinars routes
+        Route::group(['prefix' => 'webinars'], function () {
+            Route::get('/{project_id}', 'ProjectController@webinars');
+            Route::post('/{project_id}/add', 'ProjectController@addWebinar');
+            Route::get('/{project_id}/{webinar_id}/remove', 'ProjectController@removeWebinar');
+        });
+    });
+
     Route::group(['prefix' => 'rewards'], function () {
         Route::get('/', 'RewardController@index');
         Route::post('/exchange', 'RewardController@exchange');

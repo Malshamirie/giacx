@@ -18,9 +18,9 @@ class CreateProjectParticipantsTable extends Migration
 
             $table->bigIncrements('id');
             $table->bigInteger('project_id')->unsigned(); // تغيير إلى bigInteger
-            $table->bigInteger('user_id')->unsigned(); // تغيير إلى bigInteger
+            $table->integer('user_id')->unsigned();
             $table->enum('status', ['active', 'completed', 'dropped'])->default('active');
-            $table->integer('created_at')->unsigned();
+            $table->timestamps();
 
             $table->foreign('project_id')->on('projects')->references('id')->cascadeOnDelete();
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();

@@ -15,11 +15,10 @@ class CreateProjectWebinarsTable extends Migration
     {
         Schema::create('project_webinars', function (Blueprint $table) {
             $table->engine = "InnoDB";
-
             $table->bigIncrements('id');
-            $table->bigInteger('project_id')->unsigned(); // تغيير إلى bigInteger
-            $table->bigInteger('webinar_id')->unsigned(); // تغيير إلى bigInteger
-            $table->integer('created_at')->unsigned();
+            $table->bigInteger('project_id')->unsigned();
+            $table->unsignedInteger('webinar_id');
+            $table->timestamps();
 
             $table->foreign('project_id')->on('projects')->references('id')->cascadeOnDelete();
             $table->foreign('webinar_id')->on('webinars')->references('id')->cascadeOnDelete();

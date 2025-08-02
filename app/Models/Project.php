@@ -7,14 +7,9 @@ use Illuminate\Support\Str;
 
 class Project extends Model
 {
+    // public $timestamps = false;
     protected $table = 'projects';
     protected $guarded = ['id'];
-    protected $dateFormat = 'U';
-
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
 
     // Constants
     const FIELD_TRAINING = 'training';
@@ -144,7 +139,7 @@ class Project extends Model
         $slug = $baseSlug;
         $counter = 1;
 
-        while (self::where('landing_page_slug', $slug)->where('id', '!=', $this->id)->exists()) {
+        while (self::where('slug', $slug)->where('id', '!=', $this->id)->exists()) {
             $slug = $baseSlug . '-' . $counter;
             $counter++;
         }
@@ -157,14 +152,14 @@ class Project extends Model
         parent::boot();
 
         static::creating(function ($project) {
-            if (empty($project->landing_page_slug)) {
-                $project->landing_page_slug = $project->generateSlug();
+            if (empty($project->slug)) {
+                $project->slug = $project->generateSlug();
             }
         });
 
         static::updating(function ($project) {
-            if ($project->isDirty('name') && empty($project->landing_page_slug)) {
-                $project->landing_page_slug = $project->generateSlug();
+            if ($project->isDirty('name') && empty($project->slug)) {
+                $project->slug = $project->generateSlug();
             }
         });
     }
