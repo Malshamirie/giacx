@@ -18,6 +18,7 @@ class CreateWebinarsTable extends Migration
 
             $table->increments('id');
             $table->integer('teacher_id')->unsigned();
+            $table->integer('project_id')->unsigned();
             $table->integer('creator_user_id')->unsigned();
             $table->string('title', 64);
             $table->integer('start_date');
@@ -36,6 +37,7 @@ class CreateWebinarsTable extends Migration
             $table->integer('updated_at')->nullable();
             $table->integer('deleted_at')->nullable();
 
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('creator_user_id')->references('id')->on('users')->onDelete('cascade');
         });

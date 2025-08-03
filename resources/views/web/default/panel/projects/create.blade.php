@@ -8,7 +8,6 @@
 
 @section('content')
     <section>
-        <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center justify-content-between">
@@ -19,7 +18,7 @@
                         </div>
 
                         <div class="d-flex align-items-center">
-                            <a href="/panel/projects" class="btn btn-sm btn-gray-200">{{ trans('public.back') }}</a>
+                            <a href="/panel/projects" class="btn btn-sm btn-gray-200">{{ trans('panel.back') }}</a>
                         </div>
                     </div>
 
@@ -79,7 +78,7 @@
                                 
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
-                                        <label class="input-label">{{ trans('public.end_date') }}</label>
+                                        <label class="input-label">{{ trans('panel.end_date') }}</label>
                                         <input type="text" name="end_date" value="{{ old('end_date') }}" class="form-control @error('end_date') is-invalid @enderror" placeholder="YYYY-MM-DD">
                                         @error('end_date')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -261,7 +260,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
     </section>
     @include('web.default.panel.projects.modals.file')
 @endsection

@@ -16,8 +16,8 @@ class CreateProjectFilesTable extends Migration
         Schema::create('project_files', function (Blueprint $table) {
             $table->engine = "InnoDB";
 
-            $table->bigIncrements('id');
-            $table->bigInteger('project_id')->unsigned();
+            $table->increments('id');
+            $table->integer('project_id')->unsigned();
             $table->string('file_path'); // مسار الملف
             $table->string('file_name')->nullable(); // اسم الملف الأصلي
             $table->string('file_type')->nullable(); // نوع الملف

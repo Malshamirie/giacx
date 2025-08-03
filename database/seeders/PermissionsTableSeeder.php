@@ -365,11 +365,25 @@ class PermissionsTableSeeder extends Seeder
         \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100203], ['allow' => 1]); // panel_projects_edit
         \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100204], ['allow' => 1]); // panel_projects_delete
 
+        // Managers permissions for organizations (role_id = 3)
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104005], ['allow' => 1]); // panel_organization_managers
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104006], ['allow' => 1]); // panel_organization_managers_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104007], ['allow' => 1]); // panel_organization_managers_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104008], ['allow' => 1]); // panel_organization_managers_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104009], ['allow' => 1]); // panel_organization_managers_delete
+
         // Projects permissions for managers (role_id = 5)
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 100200], ['allow' => 1]); // panel_projects
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 100201], ['allow' => 1]); // panel_projects_lists
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 100202], ['allow' => 1]); // panel_projects_create
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 100203], ['allow' => 1]); // panel_projects_edit
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 100204], ['allow' => 1]); // panel_projects_delete
+
+        // Managers permissions for managers (role_id = 5)
+        \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104005], ['allow' => 1]); // panel_organization_managers
+        \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104006], ['allow' => 1]); // panel_organization_managers_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104007], ['allow' => 1]); // panel_organization_managers_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104008], ['allow' => 1]); // panel_organization_managers_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104009], ['allow' => 1]); // panel_organization_managers_delete
     }
 }

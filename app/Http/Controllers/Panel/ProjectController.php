@@ -67,16 +67,15 @@ class ProjectController extends Controller
         
         $request->validate([
             'name' => 'required|string|max:255',
-            'field' => 'required|in:training,consultation,other_services',
+            'field' => 'required|in:training,consulting,other_services',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'slug' => 'nullable|string|max:255|unique:projects,slug',
             'project_manager_id' => 'required|exists:users,id',
             'project_coordinator_id' => 'nullable|exists:users,id',
             'project_consultant_id' => 'nullable|exists:users,id',
-            'location' => 'required|string|max:255',
             'venue_type' => 'required|in:hotel,client_venue,center_venue',
-            'logistics' => 'required',
+            'logistics_services' => 'required|in:coffee_break,lunch,other',
             'instructions' => 'nullable|string',
             'uploaded_files' => 'nullable|array',
             'uploaded_files.*' => 'exists:project_files,id'
@@ -98,15 +97,13 @@ class ProjectController extends Controller
         $data['project_manager_id'] = $request->project_manager_id;
         $data['project_coordinator_id'] = $request->project_coordinator_id;
         $data['project_consultant_id'] = $request->project_consultant_id;
-        $data['location'] = $request->location;
         $data['venue_type'] = $request->venue_type;
-        $data['logistics_services'] = $request->logistics;
-        // return $request->start_date;
+        $data['logistics_services'] = $request->logistics_services;
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
         $data['status'] = 'active';
         $data['instructions'] = $request->instructions;
-        $data['slug'] =  $request->slug ?? Str::slug($request->name);
+        $data['slug'] = $request->slug ?? Str::slug($request->name);
         $data['organization_id'] = $user->id;
 
         $project = Project::create($data);
@@ -158,13 +155,12 @@ class ProjectController extends Controller
             'projectCoordinator', 
             'projectConsultant',
             'files',
-            'webinars.webinar',
             'participants.user'
         ])
-        ->withCount(['webinars', 'participants'])
         ->findOrFail($id);
 
-        return view('web.default.panel.projects.show', compact('project'));
+        $webinars = Webinar::where('project_id', $project->id)->get();
+        return view(getTemplate() . '.panel.projects.show', compact('project', 'webinars'));
     }
 
     public function edit($id)
@@ -215,17 +211,15 @@ class ProjectController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|in:training,consultation,other',
+            'field' => 'required|in:training,consulting,other_services',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'slug' => 'nullable|string|max:255|unique:projects,slug,' . $id,
             'project_manager_id' => 'required|exists:users,id',
             'project_coordinator_id' => 'nullable|exists:users,id',
             'project_consultant_id' => 'nullable|exists:users,id',
-            'location' => 'required|string|max:255',
-            'venue_type' => 'required|in:hotel,client_office,center_office',
-            'logistics' => 'nullable|array',
-            'logistics.*' => 'in:coffee_break,lunch,other',
+            'venue_type' => 'required|in:hotel,client_venue,center_venue',
+            'logistics_services' => 'required|in:coffee_break,lunch,other',
             'instructions' => 'nullable|string',
             'status' => 'required|in:active,completed,pending'
         ]);
@@ -235,7 +229,7 @@ class ProjectController extends Controller
             $data['slug'] = Str::slug($data['name']);
         }
 
-        $data['logistics'] = json_encode($data['logistics'] ?? []);
+        // Keep logistics_services as is
 
         $project->update($data);
 
@@ -575,11 +569,34 @@ class ProjectController extends Controller
 
         $project = $query->with(['webinars.webinar'])->findOrFail($projectId);
         
+        $availableWebinars = Webinar::where('project_id', $project->id)
+           
+            ->get();
+
+        return view('web.default.panel.projects.webinars', compact('project', 'availableWebinars'));
+    }
+
+    public function courses($projectId)
+    {
+        // return $projectId;
+        $this->authorize('panel_organization_projects_lists');
+
+        $user = auth()->user();
+        $query = Project::query();
+
+        if ($user->isOrganization()) {
+            $query->where('organization_id', $user->id);
+        } elseif ($user->isManager() && $user->organ_id) {
+            $query->where('organization_id', $user->organ_id);
+        }
+
+        $project = $query->with(['webinars.webinar'])->findOrFail($projectId);
+        
         $availableWebinars = Webinar::where('creator_id', $project->organization_id)
             ->whereNotIn('id', $project->webinars->pluck('webinar_id'))
             ->get();
 
-        return view('web.default.panel.projects.webinars', compact('project', 'availableWebinars'));
+        return view('web.default.panel.projects.courses', compact('project', 'availableWebinars'));
     }
 
     public function addWebinar(Request $request, $projectId)

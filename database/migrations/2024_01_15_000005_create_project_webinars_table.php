@@ -15,8 +15,8 @@ class CreateProjectWebinarsTable extends Migration
     {
         Schema::create('project_webinars', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->bigIncrements('id');
-            $table->bigInteger('project_id')->unsigned();
+            $table->increments('id');
+            $table->integer('project_id')->unsigned();
             $table->unsignedInteger('webinar_id');
             $table->timestamps();
 

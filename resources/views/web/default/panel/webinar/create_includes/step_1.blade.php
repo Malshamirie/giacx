@@ -4,7 +4,24 @@
 
 <div class="row">
     <div class="col-12 col-md-4 mt-15">
-
+        <div class="form-group">
+            <label class="input-label">{{ trans('panel.select_project') }}</label>
+            <select name="project_id" class="custom-select select2 @error('project_id') is-invalid @enderror">
+                <option value="">{{ trans('panel.select_project') }}</option>
+                @if(!empty($projects))
+                    @foreach($projects as $project)
+                        <option value="{{ $project->id }}" {{ (old('project_id') == $project->id || (!empty($webinar) && $webinar->project_id == $project->id)) ? 'selected' : '' }}>
+                            {{ $project->name }}
+                        </option>
+                    @endforeach
+                @endif
+            </select>
+            @error('project_id')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
         @if(!empty(getGeneralSettings('content_translate')))
             <div class="form-group">
                 <label class="input-label">{{ trans('auth.language') }}</label>

@@ -1,376 +1,554 @@
-@extends('web.default.panel.layouts.panel_layout')
+@extends(getTemplate() .'.panel.layouts.panel_layout')
 
 @push('styles_top')
-    <link rel="stylesheet" href="/assets/default/vendors/daterangepicker/daterangepicker.min.css">
-@endsection
+    <style>
+        .project-overview-card {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .project-overview-card .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            border: none;
+            padding: 20px;
+        }
+        
+        .project-overview-card .card-body {
+            padding: 25px;
+        }
+        
+        .stats-card {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .stats-card .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stats-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .nav-pills .nav-link {
+            border-radius: 25px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            border: none;
+            font-weight: 500;
+        }
+        
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .nav-pills .nav-link:not(.active) {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+        
+        .action-buttons .btn {
+            border-radius: 25px;
+            padding: 10px 20px;
+            margin-left: 10px;
+        }
+        
+        .table-custom th {
+            background: #f8f9fa;
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .table-custom td {
+            padding: 15px;
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-completed {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .course-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+        
+        .course-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(#667eea 0deg, #667eea 87deg, #e9ecef 87deg, #e9ecef 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .progress-circle::before {
+            content: '';
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        .progress-text {
+            position: absolute;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+    </style>
+@endpush
 
 @section('content')
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="section-title mx-0">
-                                <h2 class="section-title font-24 text-dark-blue font-weight-bold">{{ $project->name }}</h2>
-                            </div>
-                        </div>
+<section>
+    <h2 class="section-title mb-20">{{ $project->name }}</h2>
+</section>
 
-                        <div class="d-flex align-items-center">
-                            @can('panel_organization_projects_edit')
-                                <a href="/panel/projects/{{ $project->id }}/edit" class="btn btn-primary">{{ trans('public.edit') }}</a>
-                            @endcan
-                            <a href="/panel/projects" class="btn btn-sm btn-gray-200 ml-10">{{ trans('public.back') }}</a>
-                        </div>
+<section>
+    <!-- Project Overview Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card project-overview-card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-chart-line mr-2"></i>{{ trans('panel.project_report') }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a href="#" class="text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-arrow-left mr-2 text-primary"></i>
+                            {{ trans('panel.improvement_rate_report') }}
+                        </a>
                     </div>
-
-                    <div class="panel-section-card py-20 px-25 mt-20">
-                        <!-- المعلومات الرئيسية -->
-                        <div class="row">
-                            <div class="col-12">
-                                <h3 class="font-16 text-dark-blue font-weight-bold mb-20">{{ trans('panel.basic_information') }}</h3>
-                            </div>
-                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="input-label font-weight-bold">{{ trans('panel.project_type') }}</label>
-                                    <div class="mt-10">
-                                        <span class="badge badge-{{ $project->type == 'training' ? 'primary' : ($project->type == 'consultation' ? 'success' : 'warning') }}">
-                                            {{ trans('panel.project_type_' . $project->type) }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="input-label font-weight-bold">{{ trans('public.status') }}</label>
-                                    <div class="mt-10">
-                                        @if($project->status == 'active')
-                                            <span class="badge badge-success">{{ trans('public.active') }}</span>
-                                        @elseif($project->status == 'completed')
-                                            <span class="badge badge-primary">{{ trans('public.completed') }}</span>
-                                        @else
-                                            <span class="badge badge-warning">{{ trans('public.pending') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="input-label font-weight-bold">{{ trans('public.start_date') }}</label>
-                                    <div class="mt-10">
-                                        <span>{{ dateTimeFormat($project->start_date, 'j M Y') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="input-label font-weight-bold">{{ trans('public.end_date') }}</label>
-                                    <div class="mt-10">
-                                        <span>{{ dateTimeFormat($project->end_date, 'j M Y') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            @if($project->slug)
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label class="input-label font-weight-bold">{{ trans('panel.landing_page_slug') }}</label>
-                                        <div class="mt-10">
-                                            <span>{{ $project->slug }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-                        <!-- مدراء المشروع -->
-                        <div class="row mt-30">
-                            <div class="col-12">
-                                <h3 class="font-16 text-dark-blue font-weight-bold mb-20">{{ trans('panel.project_managers') }}</h3>
-                            </div>
-                            
-                            @if($project->projectManager)
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label class="input-label font-weight-bold">{{ trans('panel.project_manager') }}</label>
-                                        <div class="mt-10">
-                                            <div class="user-inline-avatar d-flex align-items-center">
-                                                <div class="avatar bg-gray200 rounded-circle">
-                                                    <span class="text-dark-blue font-weight-bold">{{ substr($project->projectManager->full_name, 0, 1) }}</span>
-                                                </div>
-                                                <div class="ml-5">
-                                                    <span class="d-block text-dark-blue font-weight-500">{{ $project->projectManager->full_name }}</span>
-                                                    <span class="d-block font-12 text-gray">{{ $project->projectManager->email }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            
-                            @if($project->projectCoordinator)
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label class="input-label font-weight-bold">{{ trans('panel.project_coordinator') }}</label>
-                                        <div class="mt-10">
-                                            <div class="user-inline-avatar d-flex align-items-center">
-                                                <div class="avatar bg-gray200 rounded-circle">
-                                                    <span class="text-dark-blue font-weight-bold">{{ substr($project->projectCoordinator->full_name, 0, 1) }}</span>
-                                                </div>
-                                                <div class="ml-5">
-                                                    <span class="d-block text-dark-blue font-weight-500">{{ $project->projectCoordinator->full_name }}</span>
-                                                    <span class="d-block font-12 text-gray">{{ $project->projectCoordinator->email }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            
-                            @if($project->projectConsultant)
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label class="input-label font-weight-bold">{{ trans('panel.project_consultant') }}</label>
-                                        <div class="mt-10">
-                                            <div class="user-inline-avatar d-flex align-items-center">
-                                                <div class="avatar bg-gray200 rounded-circle">
-                                                    <span class="text-dark-blue font-weight-bold">{{ substr($project->projectConsultant->full_name, 0, 1) }}</span>
-                                                </div>
-                                                <div class="ml-5">
-                                                    <span class="d-block text-dark-blue font-weight-500">{{ $project->projectConsultant->full_name }}</span>
-                                                    <span class="d-block font-12 text-gray">{{ $project->projectConsultant->email }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-                        <!-- الخدمات -->
-                        <div class="row mt-30">
-                            <div class="col-12">
-                                <h3 class="font-16 text-dark-blue font-weight-bold mb-20">{{ trans('panel.services') }}</h3>
-                            </div>
-                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="input-label font-weight-bold">{{ trans('panel.project_location') }}</label>
-                                    <div class="mt-10">
-                                        <span>{{ $project->location }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label class="input-label font-weight-bold">{{ trans('panel.training_venue') }}</label>
-                                    <div class="mt-10">
-                                        <span>{{ trans('panel.' . $project->venue_type) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            @if($project->logistics)
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label class="input-label font-weight-bold">{{ trans('panel.logistics_services') }}</label>
-                                        <div class="mt-10">
-                                            @foreach(json_decode($project->logistics) as $logistic)
-                                                <span class="badge badge-info mr-5">{{ trans('panel.' . $logistic) }}</span>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-                        <!-- تعليمات إضافية -->
-                        @if($project->instructions)
-                            <div class="row mt-30">
-                                <div class="col-12">
-                                    <h3 class="font-16 text-dark-blue font-weight-bold mb-20">{{ trans('panel.additional_instructions') }}</h3>
-                                    <div class="form-group">
-                                        <div class="mt-10">
-                                            <p>{{ $project->instructions }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-                        <!-- ملفات المشروع -->
-                        <div class="row mt-30">
-                            <div class="col-12">
-                                <div class="d-flex align-items-center justify-content-between mb-20">
-                                    <h3 class="font-16 text-dark-blue font-weight-bold">{{ trans('panel.project_files') }}</h3>
-                                    @can('panel_organization_projects_edit')
-                                        <a href="/panel/projects/{{ $project->id }}/edit" class="btn btn-primary btn-sm">
-                                            <i data-feather="edit" width="16" height="16" class="mr-5"></i>
-                                            {{ trans('panel.manage_files') }}
-                                        </a>
-                                    @endcan
-                                </div>
-                                @if($project->files->count() > 0)
-                                    <div class="row">
-                                        @foreach($project->files as $file)
-                                            <div class="col-12 col-md-6 col-lg-4 mb-20">
-                                                <div class="file-card bg-white border border-gray300 rounded-sm p-15">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="file-icon mr-15">
-                                                            <i data-feather="{{ $file->getIconByType() }}" width="30" height="30" class="text-primary"></i>
-                                                        </div>
-                                                        <div class="file-info flex-grow-1">
-                                                            <h4 class="font-14 text-dark-blue font-weight-bold mb-5">{{ $file->file_name }}</h4>
-                                                            <p class="font-12 text-gray mb-5">{{ $file->getFileSize() }}</p>
-                                                            <p class="font-12 text-gray">{{ ucfirst($file->file_type) }}</p>
-                                                        </div>
-                                                        <div class="file-actions">
-                                                            <a href="/panel/projects/files/{{ $file->id }}/download" class="btn btn-sm btn-outline-primary">
-                                                                <i data-feather="download" width="16" height="16"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <div class="text-center py-30">
-                                        <i data-feather="file" width="50" height="50" class="text-gray"></i>
-                                        <h4 class="mt-10 font-16 text-gray">{{ trans('panel.no_files_found') }}</h4>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- الدورات المرتبطة -->
-                        <div class="row mt-30">
-                            <div class="col-12">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h3 class="font-16 text-dark-blue font-weight-bold mb-20">{{ trans('panel.courses_count') }} ({{ $project->webinars_count }})</h3>
-                                    @can('panel_organization_projects_edit')
-                                        <a href="/panel/projects/webinars/{{ $project->id }}" class="btn btn-sm btn-primary">{{ trans('panel.manage_courses') }}</a>
-                                    @endcan
-                                </div>
-                                
-                                @if($project->webinars->count() > 0)
-                                    <div class="table-responsive">
-                                        <table class="table text-center font-14">
-                                            <thead>
-                                                <tr class="text-gray">
-                                                    <th>{{ trans('public.name') }}</th>
-                                                    <th>{{ trans('public.instructor') }}</th>
-                                                    <th>{{ trans('public.status') }}</th>
-                                                    <th>{{ trans('public.actions') }}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($project->webinars as $projectWebinar)
-                                                    <tr>
-                                                        <td class="text-left">{{ $projectWebinar->webinar->title }}</td>
-                                                        <td>{{ $projectWebinar->webinar->teacher->full_name }}</td>
-                                                        <td>
-                                                            @if($projectWebinar->webinar->status == 'active')
-                                                                <span class="badge badge-success">{{ trans('public.active') }}</span>
-                                                            @else
-                                                                <span class="badge badge-warning">{{ trans('public.pending') }}</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <a href="/panel/webinars/{{ $projectWebinar->webinar->id }}/edit" class="btn btn-sm btn-primary">{{ trans('public.view') }}</a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @else
-                                    <div class="text-center mt-30">
-                                        <p class="text-gray">{{ trans('panel.no_courses_found') }}</p>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- المشاركين -->
-                        <div class="row mt-30">
-                            <div class="col-12">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h3 class="font-16 text-dark-blue font-weight-bold mb-20">{{ trans('panel.participants_count') }} ({{ $project->participants_count }})</h3>
-                                    @can('panel_organization_projects_edit')
-                                        <a href="/panel/projects/participants/{{ $project->id }}" class="btn btn-sm btn-primary">{{ trans('panel.manage_participants') }}</a>
-                                    @endcan
-                                </div>
-                                
-                                @if($project->participants->count() > 0)
-                                    <div class="table-responsive">
-                                        <table class="table text-center font-14">
-                                            <thead>
-                                                <tr class="text-gray">
-                                                    <th>{{ trans('public.name') }}</th>
-                                                    <th>{{ trans('public.email') }}</th>
-                                                    <th>{{ trans('public.status') }}</th>
-                                                    <th>{{ trans('public.actions') }}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($project->participants as $participant)
-                                                    <tr>
-                                                        <td class="text-left">
-                                                            <div class="user-inline-avatar d-flex align-items-center">
-                                                                <div class="avatar bg-gray200 rounded-circle">
-                                                                    <span class="text-dark-blue font-weight-bold">{{ substr($participant->user->full_name, 0, 1) }}</span>
-                                                                </div>
-                                                                <div class="ml-5">
-                                                                    <span class="d-block text-dark-blue font-weight-500">{{ $participant->user->full_name }}</span>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ $participant->user->email }}</td>
-                                                        <td>
-                                                            @if($participant->status == 'active')
-                                                                <span class="badge badge-success">{{ trans('public.active') }}</span>
-                                                            @elseif($participant->status == 'completed')
-                                                                <span class="badge badge-primary">{{ trans('public.completed') }}</span>
-                                                            @else
-                                                                <span class="badge badge-warning">{{ trans('public.dropped') }}</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <a href="/panel/manage/students/{{ $participant->user->id }}/edit" class="btn btn-sm btn-primary">{{ trans('public.view') }}</a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @else
-                                    <div class="text-center mt-30">
-                                        <p class="text-gray">{{ trans('panel.no_participants_found') }}</p>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <a href="#" class="text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-arrow-left mr-2 text-primary"></i>
+                            {{ trans('panel.project_card') }}
+                        </a>
+                    </div>
+                    <button class="btn btn-primary btn-block">{{ trans('panel.export') }}</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card project-overview-card">
+                <div class="card-header" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);">
+                    <h5 class="mb-0"><i class="fas fa-tools mr-2"></i>{{ trans('panel.project_tools') }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a href="/panel/projects/{{ $project->id }}/edit" class="text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-arrow-left mr-2 text-primary"></i>
+                            {{ trans('panel.edit_project') }}
+                        </a>
+                    </div>
+                    <div class="mb-3">
+                        <a href="#" class="text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-arrow-left mr-2 text-primary"></i>
+                            {{ trans('panel.supervision_team') }}
+                        </a>
+                    </div>
+                    <div class="mb-3">
+                        <a href="#" class="text-decoration-none d-flex align-items-center">
+                            <i class="fas fa-arrow-left mr-2 text-primary"></i>
+                            {{ trans('panel.add_note') }}
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <div class="col-md-3">
+            <div class="card project-overview-card">
+                <div class="card-header" style="background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);">
+                    <h5 class="mb-0"><i class="fas fa-info-circle mr-2"></i>{{ trans('panel.project_info') }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>{{ trans('panel.contract_number') }}:</strong>
+                        <span class="text-primary">#{{ $project->id }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>{{ trans('panel.status') }}:</strong>
+                        <span class="status-badge status-{{ $project->status }}">
+                            {{ trans('panel.status_' . $project->status) }}
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>{{ trans('panel.landing_page_link') }}:</strong>
+                        <a href="#" class="text-primary">{{ $project->slug }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="card project-overview-card">
+                <div class="card-header" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <h5 class="mb-0"><i class="fas fa-database mr-2"></i>{{ trans('panel.project_data') }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>{{ trans('panel.project_type') }}:</strong>
+                        <span class="text-primary">{{ trans('panel.field_' . $project->field) }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>{{ trans('panel.start_date') }}:</strong>
+                        <span class="text-primary">{{ date('d/m/Y', strtotime($project->start_date)) }}</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>{{ trans('panel.end_date') }}:</strong>
+                        <span class="text-primary">{{ date('d/m/Y', strtotime($project->end_date)) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-2">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="stats-number text-primary">50%</div>
+                    <div class="stats-label">{{ trans('panel.general_improvement_rate') }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="stats-number text-success">100</div>
+                    <div class="stats-label">{{ trans('panel.pre_test_score') }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="stats-number text-info">24/30</div>
+                    <div class="stats-label">{{ trans('panel.certificate_request_pass_rate') }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="stats-number text-warning">34/50</div>
+                    <div class="stats-label">{{ trans('panel.post_test_score') }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="stats-number text-danger">{{ $project->participants_count ?? 0 }}</div>
+                    <div class="stats-label">{{ trans('panel.total_participants') }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <div class="stats-number text-purple">{{ $project->webinars_count ?? 0 }}</div>
+                    <div class="stats-label">{{ trans('panel.total_courses') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation and Actions -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#project-logbook" data-toggle="tab">
+                        <i class="fas fa-book mr-2"></i>{{ trans('panel.project_logbook') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#candidates" data-toggle="tab">
+                        <i class="fas fa-users mr-2"></i>{{ trans('panel.candidates') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#organizational-chart" data-toggle="tab">
+                        <i class="fas fa-sitemap mr-2"></i>{{ trans('panel.organizational_chart') }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 text-right action-buttons">
+            <a href="/panel/webinars/new" class="btn btn-primary">
+                <i class="fas fa-plus mr-2"></i>{{ trans('panel.create_new_course') }}
+            </a>
+           
+            
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+        <!-- Project Logbook Tab -->
+        <div class="tab-pane fade show active" id="project-logbook">
+            <div class="card">
+                <div class="card-body">
+                    <div class="input-group mt-2 col-md-4 mb-3">
+                        <input type="text" class="form-control" placeholder="{{ trans('panel.search') }}">
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>{{ trans('panel.course_name') }}</th>
+                                    <th>{{ trans('panel.instructor_name') }}</th>
+                                    <th>{{ trans('panel.level') }}</th>
+                                    <th>{{ trans('panel.start_date') }}</th>
+                                    <th>{{ trans('panel.duration') }}</th>
+                                    <th>{{ trans('panel.course_language') }}</th>
+                                    <th>{{ trans('panel.status') }}</th>
+                                    <th>{{ trans('panel.registered_count') }}</th>
+                                    <th>{{ trans('panel.certificate_percentage') }}</th>
+                                    <th>{{ trans('panel.action') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if($webinars && $webinars->count() > 0)
+                                @foreach($webinars as $webinar)
+
+                                    <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="{{ $webinar->getImage() }}" class="course-image mr-3" alt="{{ $webinar->title }}">
+                                                    <div>
+                                                        <div class="font-weight-bold">{{ $webinar->title }}</div>
+                                                        <small class="text-muted">{{ trans('panel.external_course') }}</small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{ $webinar->teacher->full_name ?? '--' }}</td>
+                                            <td>-- --</td>
+                                            <td>{{  dateTimeFormat($webinar->start_date,'j M Y') }}</td>
+                                            <td>{{ convertMinutesToHourAndMinute($webinar->duration) }} Hrs </td>
+                                            <td>{{ trans('panel.arabic') }}</td>
+                                            <td>
+                                                <div class="badges-lists">
+                                                    @if(!empty($webinar->deleteRequest) and $webinar->deleteRequest->status == "pending")
+                                                        <span class="badge badge-danger">{{ trans('update.removal_request_sent') }}</span>
+                                                    @else
+                                                        @switch($webinar->status)
+                                                            @case(\App\Models\Webinar::$active)
+                                                                @if($webinar->isWebinar())
+                                                                    @if($webinar->start_date > time())
+                                                                        <span class="badge badge-primary">{{  trans('panel.not_conducted') }}</span>
+                                                                    @elseif($webinar->isProgressing())
+                                                                        <span class="badge badge-secondary">{{ trans('webinars.in_progress') }}</span>
+                                                                    @else
+                                                                        <span class="badge badge-secondary">{{ trans('public.finished') }}</span>
+                                                                    @endif
+                                                                @else
+                                                                    <span class="badge badge-secondary">{{ trans('webinars.'.$webinar->type) }}</span>
+                                                                @endif
+                                                                @break
+                                                            @case(\App\Models\Webinar::$isDraft)
+                                                                <span class="badge badge-danger">{{ trans('public.draft') }}</span>
+                                                                @break
+                                                            @case(\App\Models\Webinar::$pending)
+                                                                <span class="badge badge-warning">{{ trans('public.waiting') }}</span>
+                                                                @break
+                                                            @case(\App\Models\Webinar::$inactive)
+                                                                <span class="badge badge-danger">{{ trans('public.rejected') }}</span>
+                                                                @break
+                                                        @endswitch
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>{{ $webinar->students_count ?? 6 }}</td>
+                                            <td>
+                                                <div class="progress-circle">
+                                                    <span class="progress-text">87%</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if($webinar->isOwner($authUser->id) or $webinar->isPartnerTeacher($authUser->id))
+                                                <div class="btn-group dropdown table-actions">
+                                                    <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i data-feather="more-vertical" height="20"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu ">
+                                                        @if(!empty($webinar->start_date))
+                                                            <button type="button" data-webinar-id="{{ $webinar->id }}" class="js-webinar-next-session webinar-actions btn-transparent d-block">{{ trans('public.create_join_link') }}</button>
+                                                        @endif
+        
+        
+                                                        @can('panel_webinars_learning_page')
+                                                            <a href="{{ $webinar->getLearningPageUrl() }}" target="_blank" class="webinar-actions d-block mt-10">{{ trans('update.learning_page') }}</a>
+                                                        @endcan
+        
+                                                        @can('panel_webinars_create')
+                                                            <a href="/panel/webinars/{{ $webinar->id }}/edit" class="webinar-actions d-block mt-10">{{ trans('public.edit') }}</a>
+                                                        @endcan
+        
+                                                        @if($webinar->isWebinar())
+                                                            @can('panel_webinars_create')
+                                                                <a href="/panel/webinars/{{ $webinar->id }}/step/4" class="webinar-actions d-block mt-10">{{ trans('public.sessions') }}</a>
+                                                            @endcan
+                                                        @endif
+        
+                                                        @can('panel_webinars_create')
+                                                            <a href="/panel/webinars/{{ $webinar->id }}/step/4" class="webinar-actions d-block mt-10">{{ trans('public.files') }}</a>
+                                                        @endcan
+        
+                                                        @can('panel_webinars_export_students_list')
+                                                            <a href="/panel/webinars/{{ $webinar->id }}/export-students-list" class="webinar-actions d-block mt-10">{{ trans('public.export_list') }}</a>
+                                                        @endcan
+        
+                                                        @if($authUser->id == $webinar->creator_id)
+                                                            @can('panel_webinars_duplicate')
+                                                                <a href="/panel/webinars/{{ $webinar->id }}/duplicate" class="webinar-actions d-block mt-10">{{ trans('public.duplicate') }}</a>
+                                                            @endcan
+                                                        @endif
+        
+                                                        @can('panel_webinars_statistics')
+                                                            <a href="/panel/webinars/{{ $webinar->id }}/statistics" class="webinar-actions d-block mt-10">{{ trans('update.statistics') }}</a>
+                                                        @endcan
+        
+                                                        @if($webinar->creator_id == $authUser->id)
+                                                            @can('panel_webinars_delete')
+                                                                @include('web.default.panel.includes.content_delete_btn', [
+                                                                    'deleteContentUrl' => "/panel/webinars/{$webinar->id}/delete",
+                                                                    'deleteContentClassName' => 'webinar-actions d-block mt-10 text-danger',
+                                                                    'deleteContentItem' => $webinar,
+                                                                    'deleteContentItemType' => "course",
+                                                                ])
+                                                            @endcan
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endif
+                                               
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="10" class="text-center py-4">
+                                            <div class="text-muted">
+                                                <i class="fas fa-inbox fa-3x mb-3"></i>
+                                                <p>{{ trans('panel.no_courses_found') }}</p>
+                                                <a href="/panel/webinars/new" class="btn btn-primary">
+                                                    {{ trans('panel.add_course') }}
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Candidates Tab -->
+        <div class="tab-pane fade" id="candidates">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center py-4">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">{{ trans('panel.candidates_section') }}</h5>
+                        <p class="text-muted">{{ trans('panel.candidates_section_description') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organizational Chart Tab -->
+        <div class="tab-pane fade" id="organizational-chart">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center py-4">
+                        <i class="fas fa-sitemap fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">{{ trans('panel.organizational_chart_section') }}</h5>
+                        <p class="text-muted">{{ trans('panel.organizational_chart_description') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
 
 @push('scripts_bottom')
-    <script>
-        $('.delete-action').on('click', function(e) {
-            e.preventDefault();
-            
-            if (confirm('{{ trans("public.are_you_sure_delete") }}')) {
-                window.location.href = $(this).attr('href');
-            }
-        });
-    </script>
+<script>
+$(document).ready(function() {
+    // Tab functionality
+    $('.nav-pills a').on('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+});
+</script>
 @endpush 

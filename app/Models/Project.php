@@ -28,7 +28,6 @@ class Project extends Model
     const STATUS_ACTIVE = 'active';
     const STATUS_COMPLETED = 'completed';
     const STATUS_CANCELLED = 'cancelled';
-
     // Relationships
     public function organization()
     {
@@ -55,9 +54,14 @@ class Project extends Model
         return $this->hasMany('App\Models\ProjectFile', 'project_id', 'id');
     }
 
+    // public function webinars()
+    // {
+    //     return $this->belongsToMany('App\Models\Webinar', 'project_webinars', 'project_id', 'webinar_id');
+    // }
+
     public function webinars()
     {
-        return $this->belongsToMany('App\Models\Webinar', 'project_webinars', 'project_id', 'webinar_id');
+        return $this->hasMany('App\Models\Webinar', 'project_id', 'id');
     }
 
     public function participants()

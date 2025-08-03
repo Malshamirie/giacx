@@ -386,5 +386,13 @@ return [
     'forbidden_request_toast_lang' => '"FORBIDDEN" Request',
     'forbidden_request_toast_msg_lang' => 'You not access to this content.',
     'redirect_to_app' => 'Redirect to app',
+    'full_name' => 'Full Name',
+    'password' => 'Password',
+    'confirm_password' => 'Confirm Password',
+    'email_address' => 'Email Address',
+    'phone_number' => 'Phone Number',
+    'address' => 'Address',
+    'city' => 'City',
+    'state' => 'State',
 
 ];

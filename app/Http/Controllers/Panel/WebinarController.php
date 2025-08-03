@@ -2,35 +2,36 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Exports\WebinarStudents;
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Panel\Traits\VideoDemoTrait;
-use App\Mixins\RegistrationPackage\UserPackage;
-use App\Models\BundleWebinar;
-use App\Models\Category;
+use App\User;
+use Validator;
 use App\Models\Faq;
+use App\Models\Tag;
 use App\Models\File;
 use App\Models\Gift;
-use App\Models\Prerequisite;
 use App\Models\Quiz;
 use App\Models\Role;
 use App\Models\Sale;
-use App\Models\Session;
-use App\Models\Tag;
-use App\Models\TextLesson;
 use App\Models\Ticket;
-use App\Models\Translation\WebinarTranslation;
-use App\Models\WebinarChapter;
-use App\Models\WebinarChapterItem;
-use App\Models\WebinarExtraDescription;
-use App\User;
+use App\Models\Project;
+use App\Models\Session;
 use App\Models\Webinar;
-use App\Models\WebinarPartnerTeacher;
-use App\Models\WebinarFilterOption;
+use App\Models\Category;
+use App\Models\TextLesson;
+use App\Models\Prerequisite;
 use Illuminate\Http\Request;
+use App\Models\BundleWebinar;
+use App\Models\WebinarChapter;
+use App\Exports\WebinarStudents;
+use App\Models\WebinarChapterItem;
 use Illuminate\Support\Facades\DB;
+use App\Models\WebinarFilterOption;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use Validator;
+use App\Models\WebinarPartnerTeacher;
+use App\Models\WebinarExtraDescription;
+use App\Models\Translation\WebinarTranslation;
+use App\Mixins\RegistrationPackage\UserPackage;
+use App\Http\Controllers\Panel\Traits\VideoDemoTrait;
 
 class WebinarController extends Controller
 {
@@ -283,6 +284,8 @@ class WebinarController extends Controller
                 ->where('organ_id', $user->id)->get();
         }
 
+        $projects = Project::where('organization_id', $user->id)->get();
+
         $stepCount = empty(getGeneralOptionsSettings('direct_publication_of_courses')) ? 8 : 7;
 
         $data = [
@@ -293,8 +296,10 @@ class WebinarController extends Controller
             'currentStep' => 1,
             'stepCount' => $stepCount,
             'userLanguages' => getUserLanguagesLists(),
+            'projects' => $projects,
         ];
 
+        
         return view(getTemplate() . '.panel.webinar.create', $data);
     }
 
@@ -325,6 +330,7 @@ class WebinarController extends Controller
             'thumbnail' => 'required',
             'image_cover' => 'required',
             'description' => 'required',
+            'project_id' => 'required',
         ];
 
         $this->validate($request, $rules);
@@ -333,6 +339,7 @@ class WebinarController extends Controller
         $data = $this->handleVideoDemoData($request, $user->id, $data, "course_demo_" . time());
 
         $webinar = Webinar::create([
+            'project_id' => $data['project_id'],
             'teacher_id' => $user->isTeacher() ? $user->id : (!empty($data['teacher_id']) ? $data['teacher_id'] : $user->id),
             'creator_id' => $user->id,
             'slug' => Webinar::makeSlug($data['title']),
@@ -533,6 +540,7 @@ class WebinarController extends Controller
             $data['sumTicketsCapacities'] = $webinar->tickets->sum('capacity');
         }
 
+        $data['projects'] = Project::where('organization_id', $user->id)->get();
 
         return view(getTemplate() . '.panel.webinar.create', $data);
     }
@@ -572,6 +580,7 @@ class WebinarController extends Controller
 
         if ($currentStep == 1) {
             $rules = [
+                'project_id' => 'required',
                 'type' => 'required|in:webinar,course,text_lesson',
                 'title' => 'required|max:255',
                 'thumbnail' => 'required',
@@ -582,6 +591,7 @@ class WebinarController extends Controller
 
         if ($currentStep == 2) {
             $rules = [
+
                 'category_id' => 'required',
                 'duration' => 'required|numeric',
                 'partners' => 'required_if:partner_instructor,on',
@@ -620,6 +630,7 @@ class WebinarController extends Controller
         if ($currentStep == 1) {
             $data['private'] = (!empty($data['private']) and $data['private'] == 'on');
 
+            $data['project_id'] = $webinar->project_id;
             // Video Demo
             $data = $this->handleVideoDemoData($request, $webinar->creator_id, $data, "course_demo_" . time());
         }

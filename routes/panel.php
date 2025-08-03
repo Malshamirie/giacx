@@ -356,38 +356,7 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
         Route::get('/{user_type}/{user_id}/delete', 'UserController@deleteUser');
     });
 
-    // Projects routes
-    Route::group(['prefix' => 'projects'], function () {
-        Route::get('/', 'ProjectController@index');
-        Route::get('/new', 'ProjectController@create');
-        Route::post('/store', 'ProjectController@store');
-        Route::get('/{id}/edit', 'ProjectController@edit');
-        Route::post('/{id}/update', 'ProjectController@update');
-        Route::get('/{id}/delete', 'ProjectController@destroy');
-        Route::get('/{id}/show', 'ProjectController@show');
-        
-                        // Project files routes
-                Route::group(['prefix' => 'files'], function () {
-                    Route::post('/store', 'ProjectController@storeFile');
-                    Route::post('/{id}/update', 'ProjectController@updateFile');
-                    Route::get('/{id}/delete', 'ProjectController@deleteFile');
-                    Route::get('/{id}/download', 'ProjectController@downloadFile');
-                });
-        
-        // Project participants routes
-        Route::group(['prefix' => 'participants'], function () {
-            Route::get('/{project_id}', 'ProjectController@participants');
-            Route::post('/{project_id}/add', 'ProjectController@addParticipant');
-            Route::get('/{project_id}/{user_id}/remove', 'ProjectController@removeParticipant');
-        });
-        
-        // Project webinars routes
-        Route::group(['prefix' => 'webinars'], function () {
-            Route::get('/{project_id}', 'ProjectController@webinars');
-            Route::post('/{project_id}/add', 'ProjectController@addWebinar');
-            Route::get('/{project_id}/{webinar_id}/remove', 'ProjectController@removeWebinar');
-        });
-    });
+
 
     Route::group(['prefix' => 'rewards'], function () {
         Route::get('/', 'RewardController@index');
@@ -527,18 +496,38 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
         Route::post('/generate', 'AiContentController@generate');
     });
 
-});
+    // Projects Routes
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('/', 'ProjectController@index')->name('panelProjects');
+        Route::get('/new', 'ProjectController@create')->name('panelProjectsCreate');
+        Route::get('/create', 'ProjectController@create')->name('panelProjectsCreate');
+        Route::post('/store', 'ProjectController@store')->name('panelProjectsStore');
+        Route::get('/{id}/show', 'ProjectController@show')->name('panelProjectsShow');
+        Route::get('/{id}/edit', 'ProjectController@edit')->name('panelProjectsEdit');
+        Route::post('/{id}/update', 'ProjectController@update')->name('panelProjectsUpdate');
+        Route::post('/{id}/delete', 'ProjectController@destroy')->name('panelProjectsDelete');
+        
+        // Project files routes
+        Route::group(['prefix' => 'files'], function () {
+            Route::post('/store', 'ProjectController@storeFile');
+            Route::post('/{id}/update', 'ProjectController@updateFile');
+            Route::get('/{id}/delete', 'ProjectController@deleteFile');
+            Route::get('/{id}/download', 'ProjectController@downloadFile');
+        });
+        
+        // Project participants routes
+        Route::group(['prefix' => 'participants'], function () {
+            Route::get('/{project_id}', 'ProjectController@participants');
+            Route::post('/{project_id}/add', 'ProjectController@addParticipant');
+            Route::get('/{project_id}/{user_id}/remove', 'ProjectController@removeParticipant');
+        });
+        
+        // Project courses management
+        Route::get('/{projectId}/courses', 'ProjectController@courses')->name('panelProjectsCourses');
+        Route::post('/{projectId}/courses/add', 'ProjectController@addWebinar')->name('panelProjectsAddCourse');
+        Route::post('/{projectId}/courses/{webinarId}/remove', 'ProjectController@removeWebinar')->name('panelProjectsRemoveCourse');
+    });
 
-// Projects Routes
-Route::group(['prefix' => 'projects'], function () {
-    Route::get('/', 'ProjectController@index')->name('panelProjects');
-    Route::get('/create', 'ProjectController@create')->name('panelProjectsCreate');
-    Route::post('/store', 'ProjectController@store')->name('panelProjectsStore');
-    Route::get('/{id}', 'ProjectController@show')->name('panelProjectsShow');
-    Route::get('/{id}/edit', 'ProjectController@edit')->name('panelProjectsEdit');
-    Route::post('/{id}/update', 'ProjectController@update')->name('panelProjectsUpdate');
-    Route::post('/{id}/delete', 'ProjectController@destroy')->name('panelProjectsDelete');
-    Route::post('/{projectId}/files/{fileId}/delete', 'ProjectController@deleteFile')->name('panelProjectsDeleteFile');
 });
 
 

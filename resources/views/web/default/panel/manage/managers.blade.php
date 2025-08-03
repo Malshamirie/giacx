@@ -8,7 +8,7 @@
 
 
 <section>
-    <h2 class="section-title">{{ trans('back.managers') }}</h2>
+    <h2 class="section-title">{{ trans('panel.managers') }}</h2>
 
     <div class="activities-container mt-25 p-20 p-lg-35">
         <div class="row">
@@ -16,7 +16,7 @@
                 <div class="d-flex flex-column align-items-center text-center">
                     <img src="/assets/default/img/activity/48.svg" width="64" height="64" alt="">
                     <strong class="font-30 text-dark-blue font-weight-bold mt-5">{{ $users->count() }}</strong>
-                    <span class="font-16 text-gray font-weight-500">{{ trans('back.managers') }}</span>
+                    <span class="font-16 text-gray font-weight-500">{{ trans('panel.managers') }}</span>
                 </div>
             </div>
 
@@ -41,12 +41,12 @@
 </section>
 
 <section class="mt-35">
-    <h2 class="section-title">{{ trans('back.filter_managers') }}</h2>
+    <h2 class="section-title">{{ trans('panel.filter_managers') }}</h2>
 
     @include('web.default.panel.manage.filters')
 </section>
 <section class="mt-35">
-    <h2 class="section-title">{{ trans('back.managers_list') }}</h2>
+    <h2 class="section-title">{{ trans('panel.managers_list') }}</h2>
 
         
 

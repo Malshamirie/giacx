@@ -631,11 +631,11 @@ class SectionsTableSeeder extends Seeder
         Section::updateOrCreate(['id' => 1702], ['name' => 'admin_agora_history_export', 'section_group_id' => 1700, 'caption' => 'Agora History Export']);
 
         // Projects sections
-        Section::updateOrCreate(['id' => 100200], ['name' => 'panel_projects', 'created_at' => time()]);
-        Section::updateOrCreate(['id' => 100201], ['name' => 'panel_projects_lists', 'created_at' => time()]);
-        Section::updateOrCreate(['id' => 100202], ['name' => 'panel_projects_create', 'created_at' => time()]);
-        Section::updateOrCreate(['id' => 100203], ['name' => 'panel_projects_edit', 'created_at' => time()]);
-        Section::updateOrCreate(['id' => 100204], ['name' => 'panel_projects_delete', 'created_at' => time()]);
+        $this->createPanelSection(['id' => 200], ['name' => 'panel_projects', 'caption' => 'Projects']);
+        $this->createPanelSection(['id' => 201], ['name' => 'panel_projects_lists', 'section_group_id' => 200, 'caption' => 'Lists']);
+        $this->createPanelSection(['id' => 202], ['name' => 'panel_projects_create', 'section_group_id' => 200, 'caption' => 'Create']);
+        $this->createPanelSection(['id' => 203], ['name' => 'panel_projects_edit', 'section_group_id' => 200, 'caption' => 'Edit']);
+        $this->createPanelSection(['id' => 204], ['name' => 'panel_projects_delete', 'section_group_id' => 200, 'caption' => 'Delete']);
 
         /* Run Panel Sections */
         $this->runPanelSections();
@@ -801,26 +801,12 @@ class SectionsTableSeeder extends Seeder
         $this->createPanelSection(['id' => 302], ['name' => 'panel_others_profile_url', 'section_group_id' => 300, 'caption' => 'Profile Url']);
         $this->createPanelSection(['id' => 303], ['name' => 'panel_others_logout', 'section_group_id' => 300, 'caption' => 'Logout']);
 
-        // Organization Projects 4000 - 4004
-        $this->createPanelSection(['id' => 4000], ['name' => 'panel_organization_projects', 'caption' => 'Organization Projects']);
-        $this->createPanelSection(['id' => 4001], ['name' => 'panel_organization_projects_lists', 'section_group_id' => 4000, 'caption' => 'Lists']);
-        $this->createPanelSection(['id' => 4002], ['name' => 'panel_organization_projects_create', 'section_group_id' => 4000, 'caption' => 'Create']);
-        $this->createPanelSection(['id' => 4003], ['name' => 'panel_organization_projects_edit', 'section_group_id' => 4000, 'caption' => 'Edit']);
-        $this->createPanelSection(['id' => 4004], ['name' => 'panel_organization_projects_delete', 'section_group_id' => 4000, 'caption' => 'Delete']);
-
         // Organization Managers 4005 - 4009
         $this->createPanelSection(['id' => 4005], ['name' => 'panel_organization_managers', 'caption' => 'Organization Managers']);
         $this->createPanelSection(['id' => 4006], ['name' => 'panel_organization_managers_lists', 'section_group_id' => 4005, 'caption' => 'Lists']);
         $this->createPanelSection(['id' => 4007], ['name' => 'panel_organization_managers_create', 'section_group_id' => 4005, 'caption' => 'Create']);
         $this->createPanelSection(['id' => 4008], ['name' => 'panel_organization_managers_edit', 'section_group_id' => 4005, 'caption' => 'Edit']);
         $this->createPanelSection(['id' => 4009], ['name' => 'panel_organization_managers_delete', 'section_group_id' => 4005, 'caption' => 'Delete']);
-
-        // Organization Projects 4010 - 4019
-        $this->createPanelSection(['id' => 4010], ['name' => 'panel_organization_projects', 'caption' => 'Organization Projects']);
-        $this->createPanelSection(['id' => 4011], ['name' => 'panel_organization_projects_lists', 'section_group_id' => 4010, 'caption' => 'Lists']);
-        $this->createPanelSection(['id' => 4012], ['name' => 'panel_organization_projects_create', 'section_group_id' => 4010, 'caption' => 'Create']);
-        $this->createPanelSection(['id' => 4013], ['name' => 'panel_organization_projects_edit', 'section_group_id' => 4010, 'caption' => 'Edit']);
-        $this->createPanelSection(['id' => 4014], ['name' => 'panel_organization_projects_delete', 'section_group_id' => 4010, 'caption' => 'Delete']);
     }
 
     private function createPanelSection($arr1, $arr2)

@@ -301,7 +301,7 @@
             @endcan
         @endif
 
-        @if($authUser->isOrganization() or $authUser->isTeacher())
+        {{-- @if($authUser->isOrganization() or $authUser->isTeacher())
             @can('panel_bundles')
                 <li class="sidenav-item {{ (request()->is('panel/bundles') or request()->is('panel/bundles/*')) ? 'sidenav-item-active' : '' }}">
                     <a class="d-flex align-items-center" data-toggle="collapse" href="#bundlesCollapse" role="button" aria-expanded="false" aria-controls="bundlesCollapse">
@@ -310,7 +310,8 @@
                 </span>
                         <span class="font-14 text-dark-blue font-weight-500">{{ trans('update.bundles') }}</span>
                     </a>
-
+                   
+                    
                     <div class="collapse {{ (request()->is('panel/bundles') or request()->is('panel/bundles/*')) ? 'show' : '' }}" id="bundlesCollapse">
                         <ul class="sidenav-item-collapse">
                             @can('panel_bundles_create')
@@ -328,7 +329,7 @@
                     </div>
                 </li>
             @endcan
-        @endif
+        @endif --}}
 
         @if(getFeaturesSettings('webinar_assignment_status'))
             @can('panel_assignments')
@@ -363,7 +364,7 @@
         @endif
 
 
-        @can('panel_meetings')
+        {{-- @can('panel_meetings')
             <li class="sidenav-item {{ (request()->is('panel/meetings') or request()->is('panel/meetings/*')) ? 'sidenav-item-active' : '' }}">
                 <a class="d-flex align-items-center" data-toggle="collapse" href="#meetingCollapse" role="button" aria-expanded="false" aria-controls="meetingCollapse">
                 <span class="sidenav-item-icon mr-10">
@@ -397,7 +398,7 @@
                     </ul>
                 </div>
             </li>
-        @endcan
+        @endcan --}}
 
 
         @can('panel_quizzes')
@@ -559,7 +560,7 @@
             @endcan
         @endif
 
-        @can('panel_financial')
+        {{-- @can('panel_financial')
             <li class="sidenav-item {{ (request()->is('panel/financial') or request()->is('panel/financial/*')) ? 'sidenav-item-active' : '' }}">
                 <a class="d-flex align-items-center" data-toggle="collapse" href="#financialCollapse" role="button" aria-expanded="false" aria-controls="financialCollapse">
                 <span class="sidenav-item-icon mr-10">
@@ -621,7 +622,7 @@
                     </ul>
                 </div>
             </li>
-        @endcan
+        @endcan --}}
 
         @can('panel_support')
             <li class="sidenav-item {{ (request()->is('panel/support') or request()->is('panel/support/*')) ? 'sidenav-item-active' : '' }}">
@@ -659,7 +660,7 @@
         @endcan
 
 
-        @if(!$authUser->isUser() or (!empty($referralSettings) and $referralSettings['status'] and $authUser->affiliate) or (!empty(getRegistrationBonusSettings('status')) and $authUser->enable_registration_bonus))
+        {{-- @if(!$authUser->isUser() or (!empty($referralSettings) and $referralSettings['status'] and $authUser->affiliate) or (!empty(getRegistrationBonusSettings('status')) and $authUser->enable_registration_bonus))
             @can('panel_marketing')
                 <li class="sidenav-item {{ (request()->is('panel/marketing') or request()->is('panel/marketing/*')) ? 'sidenav-item-active' : '' }}">
                     <a class="d-flex align-items-center" data-toggle="collapse" href="#marketingCollapse" role="button" aria-expanded="false" aria-controls="marketingCollapse">
@@ -719,7 +720,7 @@
                     </div>
                 </li>
             @endcan
-        @endif
+        @endif --}}
 
 
         @if(getFeaturesSettings('forums_status'))

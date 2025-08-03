@@ -6,24 +6,91 @@
 @endpush
 
 @section('content')
+
+<section>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="section-title mx-0">
+                        <h2 class="section-title font-24 text-dark-blue font-weight-bold">{{ trans('panel.projects_list') }}</h2>
+                    </div>
+                </div>
+
+                @can('panel_organization_projects_create')
+                    <div class="d-flex align-items-center">
+                        <a href="/panel/projects/new" class="btn btn-primary">{{ trans('panel.create_projects') }}</a>
+                    </div>
+                @endcan
+            </div>
+        </div>
+    </div>
+</section>
+<div class="panel-section-card py-20 px-25 mt-20">
+    <form action="/panel/projects/index" method="get" class="row">
+        <div class="col-12 col-lg-4">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="input-label">{{ trans('public.from') }}</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="dateInputGroupPrepend">
+                                    <i data-feather="calendar" width="18" height="18" class="text-white"></i>
+                                </span>
+                            </div>
+                            <input type="text" name="from" autocomplete="off" value="{{ request()->get('from') }}" class="form-control {{ !empty(request()->get('from')) ? 'datepicker' : 'datefilter' }}" aria-describedby="dateInputGroupPrepend"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="input-label">{{ trans('public.to') }}</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="dateInputGroupPrepend">
+                                    <i data-feather="calendar" width="18" height="18" class="text-white"></i>
+                                </span>
+                            </div>
+                            <input type="text" name="to" autocomplete="off" value="{{ request()->get('to') }}" class="form-control {{ !empty(request()->get('to')) ? 'datepicker' : 'datefilter' }}" aria-describedby="dateInputGroupPrepend"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="row">
+                <div class="col-12 col-lg-5">
+                    <div class="form-group">
+                        <label class="input-label">{{ trans('public.search') }}</label>
+                        <input type="text" name="search" value="{{ request()->get('search',null) }}" class="form-control"/>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-3">
+                    <div class="form-group">
+                        <label class="input-label d-block">{{ trans('public.status') }}</label>
+                        <select name="type" class="form-control">
+                            <option >{{ trans('public.all') }}</option>
+                            <option value="active" @if(request()->get('type',null) == 'active') selected @endif>{{ trans('public.active') }}</option>
+                            <option value="inactive" @if(request()->get('type',null) == 'inactive') selected @endif>{{ trans('public.inactive') }}</option>
+                            <option value="verified" @if(request()->get('type',null) == 'verified') selected @endif>{{ trans('public.verified') }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-2 d-flex align-items-center justify-content-end">
+            <button type="submit" class="btn btn-sm btn-primary w-100 mt-2">{{ trans('public.show_results') }}</button>
+        </div>
+    </form>
+</div>
+
     <section>
-        <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="section-title mx-0">
-                                <h2 class="section-title font-24 text-dark-blue font-weight-bold">{{ trans('panel.projects') }}</h2>
-                            </div>
-                        </div>
-
-                        @can('panel_organization_projects_create')
-                            <div class="d-flex align-items-center">
-                                <a href="/panel/projects/new" class="btn btn-primary">{{ trans('panel.create_projects') }}</a>
-                            </div>
-                        @endcan
-                    </div>
-
                     <div class="panel-section-card py-20 px-25 mt-20">
                         <div class="row">
                             <div class="col-12">
@@ -32,11 +99,11 @@
                                         <thead>
                                             <tr class="text-gray">
                                                 <th>{{ trans('public.name') }}</th>
-                                                <th>{{ trans('public.type') }}</th>
+                                                <th>{{ trans('panel.manager') }}</th>
                                                 <th>{{ trans('public.start_date') }}</th>
-                                                <th>{{ trans('public.end_date') }}</th>
+                                                <th>{{ trans('panel.end_date') }}</th>
                                                 <th>{{ trans('panel.courses_count') }}</th>
-                                                <th>{{ trans('panel.participants_count') }}</th>
+                                                {{-- <th>{{ trans('panel.participants_count') }}</th> --}}
                                                 <th>{{ trans('public.status') }}</th>
                                                 <th></th>
                                             </tr>
@@ -45,31 +112,19 @@
                                             @if($projects->count() > 0)
                                                 @foreach($projects as $project)
                                                     <tr>
-                                                        <td class="text-left">
-                                                            <div class="user-inline-avatar d-flex align-items-center">
-                                                                <div class="avatar bg-gray200 rounded-circle">
-                                                                    <span class="text-dark-blue font-weight-bold">{{ substr($project->name, 0, 1) }}</span>
-                                                                </div>
-                                                                <div class=" ml-5">
-                                                                    <span class="d-block text-dark-blue font-weight-500">{{ $project->name }}</span>
-                                                                    @if($project->slug)
-                                                                        <span class="d-block font-12 text-gray">{{ $project->slug }}</span>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                        <td>{{ $project->name }}</td>
+                                                        <td>{{ $project->projectManager->full_name }}</td>
+                                                        <td>{{ $project->start_date }}</td>
+                                                        <td>{{ $project->end_date }}</td>
                                                         <td>
-                                                            <span class="badge badge-{{ $project->type == 'training' ? 'primary' : ($project->type == 'consultation' ? 'success' : 'warning') }}">
-                                                                {{ trans('panel.project_type_' . $project->type) }}
-                                                            </span>
+                                                                {{ $project->webinars->count() ?? 0 }}
+                                                           
                                                         </td>
-                                                        <td>{{ dateTimeFormat($project->start_date, 'j M Y') }}</td>
-                                                        <td>{{ dateTimeFormat($project->end_date, 'j M Y') }}</td>
-                                                        <td>{{ $project->webinars_count ?? 0 }}</td>
-                                                        <td>{{ $project->participants_count ?? 0 }}</td>
+                                                         {{--
+                                                        <td>{{ $project->participants_count ?? 0 }}</td> --}}
                                                         <td>
                                                             @if($project->status == 'active')
-                                                                <span class="badge badge-success">{{ trans('public.active') }}</span>
+                                                                <span class="badge badge-primary">{{ trans('public.active') }}</span>
                                                             @elseif($project->status == 'completed')
                                                                 <span class="badge badge-primary">{{ trans('public.completed') }}</span>
                                                             @else
@@ -123,7 +178,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+       
     </section>
 @endsection
 

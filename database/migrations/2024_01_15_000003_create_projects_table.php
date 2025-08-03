@@ -15,8 +15,8 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->bigIncrements('id');
-            $table->bigInteger('organization_id')->unsigned(); // تغيير إلى bigInteger
+            $table->increments('id');
+            $table->integer('organization_id')->unsigned(); // تغيير إلى bigInteger
             $table->string('name'); // اسم المشروع
             $table->enum('field', ['training', 'consulting', 'other_services']); // مجال المشروع
             $table->date('start_date'); // تاريخ البداية
@@ -24,9 +24,9 @@ class CreateProjectsTable extends Migration
             $table->string('slug')->unique(); // slug لصفحة الهبوط
             
             // مدراء المشروع
-            $table->bigInteger('project_manager_id')->unsigned(); // تغيير إلى bigInteger
-            $table->bigInteger('project_coordinator_id')->unsigned()->nullable(); // تغيير إلى bigInteger
-            $table->bigInteger('project_consultant_id')->unsigned()->nullable(); // تغيير إلى bigInteger
+            $table->integer('project_manager_id')->unsigned(); // تغيير إلى bigInteger
+            $table->integer('project_coordinator_id')->unsigned()->nullable(); // تغيير إلى bigInteger
+            $table->integer('project_consultant_id')->unsigned()->nullable(); // تغيير إلى bigInteger
             
             // الخدمات
             $table->enum('venue_type', ['hotel', 'client_venue', 'center_venue']); // مكان تنفيذ المشروع
