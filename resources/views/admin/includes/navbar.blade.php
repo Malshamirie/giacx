@@ -36,13 +36,13 @@
                 </a>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right">
                     <div class="dropdown-list-icons mb-0" height="150px">
-                            <a href="https://codecanyon.net/user/rocketsoft/portfolio" class="dropdown-item">
+                            <a href="https://HR Training Project.net/user/rocketsoft/portfolio" class="dropdown-item">
                                 <div class="dropdown-item-icon bg-info text-white d-flex align-items-center justify-content-center">
                                     <i class="fa fa-info"></i>
                                 </div>
                                 <div class="dropdown-item-desc">
-                                   Rocket LMS Version 1.9.9
-                                   <div class="time text-primary">All rights reserved for Rocket Soft</div>
+                                    HR Training Project Version 1.9.9
+                                   <div class="time text-primary">All rights reserved for HR Training Project</div>
                                 </div>
                             </a>
                     </div>

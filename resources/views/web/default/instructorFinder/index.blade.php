@@ -13,7 +13,7 @@
                                 <img class="col-md-3" src="/assets/default/img/plugin.svg" alt="image">
                                 <h3 class="mt-3 mb-10">This is a paid plugin!</h3>
                                 <h5 class="lead">
-                                    You can purchase it by <strong><a class="text-danger" href="https://codecanyon.net/item/universal-plugins-bundle-for-rocket-lms/33297004">this link</a></strong> on Codecanyon.
+                                    You can purchase it by <strong><a class="text-danger" href="">this link</a></strong> on HR Training Project.
                                 </h5>             
                               </div>
 

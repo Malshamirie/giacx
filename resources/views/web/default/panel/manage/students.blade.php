@@ -57,6 +57,12 @@
                                 <thead>
                                 <tr>
                                     <th class="text-left text-gray">{{ trans('auth.name') }}</th>
+                                    <th class="text-left text-gray">
+                                        Candidate
+                                    </th>
+                                    <th class="text-left text-gray">
+                                        Manager
+                                    </th>
                                     <th class="text-left text-gray">{{ trans('auth.email') }}</th>
                                     <th class="text-center text-gray">{{ trans('public.phone') }}</th>
                                     <th class="text-center text-gray">{{ trans('webinars.webinars') }}</th>
@@ -79,6 +85,19 @@
                                                     <span class="d-block text-dark-blue font-weight-500">{{ $user->full_name }}</span>
                                                     <span class="mt-5 d-block font-12 text-{{ ($user->status == 'active') ? 'gray' : 'danger' }}">{{ ($user->status == 'active') ? trans('public.active') : trans('public.inactive') }}</span>
                                                 </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" id="candidateSwitch{{ $user->id }}" name="candidate_user[]" value="{{ $user->id }}" class="custom-control-input">
+                                                <label class="custom-control-label" for="candidateSwitch{{ $user->id }}"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" id="managerSwitch{{ $user->id }}" name="manager_user[]" value="{{ $user->id }}" class="custom-control-input">
+                                                <label class="custom-control-label" for="managerSwitch{{ $user->id }}"></label>
                                             </div>
                                         </td>
                                         <td class="text-left">

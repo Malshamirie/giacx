@@ -444,4 +444,33 @@ return [
     'status_cancelled' => 'ملغي',
     'status_pending' => 'معلق',
     'select_project' => 'اختر المشروع',
+    
+    // Organizational Chart translations
+    'expand_chart' => 'توسيع الرسم البياني',
+    'fit_chart' => 'ملائمة الرسم البياني',
+    'zoom_in' => 'تكبير',
+    'zoom_out' => 'تصغير',
+    'reset_chart' => 'إعادة تعيين',
+    'ceo' => 'الرئيس التنفيذي',
+    'personal_assistant' => 'المساعد الشخصي',
+    'assistant' => 'مساعد',
+    'hr_manager' => 'مدير الموارد البشرية',
+    'hr_department' => 'قسم الموارد البشرية',
+    'it_department' => 'قسم تكنولوجيا المعلومات',
+    'core_team_lead' => 'قائد الفريق الأساسي',
+    'ui_team_lead' => 'قائد فريق واجهة المستخدم',
+    'sales_manager' => 'مدير المبيعات',
+    'sales_department' => 'قسم المبيعات',
+    
+    // Student-related translations
+    'student_name' => 'اسم الطالب',
+    'email' => 'البريد الإلكتروني',
+    'phone' => 'الهاتف',
+    'registered_courses' => 'الدورات المسجلة',
+    'registration_date' => 'تاريخ التسجيل',
+    'view_profile' => 'عرض الملف الشخصي',
+    'send_message' => 'إرسال رسالة',
+    'no_students_found' => 'لم يتم العثور على طلاب',
+    'no_students_in_project_courses' => 'لا يوجد طلاب مسجلين في دورات هذا المشروع',
+    'students' => 'الطلاب',
 ];

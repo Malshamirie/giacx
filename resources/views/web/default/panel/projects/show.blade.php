@@ -156,6 +156,266 @@
             font-weight: bold;
             color: #667eea;
         }
+        
+        /* Organizational Chart Styles */
+        .org-chart-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 20px;
+        }
+        
+        .org-level {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+        }
+        
+        .ceo-level {
+            margin-bottom: 40px;
+        }
+        
+        .ceo-level::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #ddd;
+        }
+        
+        .department-level {
+            position: relative;
+        }
+        
+        .department-level::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: #ddd;
+        }
+        
+        .org-node {
+            position: relative;
+        }
+        
+        .org-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            min-width: 200px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .org-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .ceo-card {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+        
+        .assistant-card {
+            border-color: #FF9800;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+        }
+        
+        .hr-card {
+            border-color: #FFC107;
+            background: linear-gradient(135deg, #FFC107 0%, #FFA000 100%);
+            color: white;
+        }
+        
+        .it-card {
+            border-color: #2196F3;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+        }
+        
+        .sales-card {
+            border-color: #FF5722;
+            background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);
+            color: white;
+        }
+        
+        .org-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+        
+        .org-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        
+        .org-avatar-sm {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .org-info {
+            flex: 1;
+        }
+        
+        .org-name {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        .org-name-sm {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+        
+        .org-title {
+            font-size: 12px;
+            opacity: 0.9;
+            display: block;
+            margin-top: 2px;
+        }
+        
+        .org-badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .org-badge-sm {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .org-actions {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .org-actions:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .org-card-footer {
+            text-align: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .collapse-btn {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .collapse-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .org-sub-members {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .org-sub-member {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .org-sub-info {
+            flex: 1;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .chart-controls .btn {
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Connection Lines */
+        .assistant-node::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            width: 30px;
+            height: 2px;
+            background: #ddd;
+            transform: translateY(-50%);
+        }
+        
+        .department-node::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: #ddd;
+            transform: translateX(-50%);
+        }
     </style>
 @endpush
 
@@ -302,7 +562,7 @@
         <div class="col-md-2">
             <div class="card stats-card">
                 <div class="card-body">
-                    <div class="stats-number text-danger">{{ $project->participants_count ?? 0 }}</div>
+                    <div class="stats-number text-danger">{{ $project->getStudentsCountAttribute() }}</div>
                     <div class="stats-label">{{ trans('panel.total_participants') }}</div>
                 </div>
             </div>
@@ -310,7 +570,7 @@
         <div class="col-md-2">
             <div class="card stats-card">
                 <div class="card-body">
-                    <div class="stats-number text-purple">{{ $project->webinars_count ?? 0 }}</div>
+                    <div class="stats-number text-purple">{{ $project->getWebinarsCountAttribute() }}</div>
                     <div class="stats-label">{{ trans('panel.total_courses') }}</div>
                 </div>
             </div>
@@ -516,11 +776,93 @@
         <div class="tab-pane fade" id="candidates">
             <div class="card">
                 <div class="card-body">
-                    <div class="text-center py-4">
-                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                        <h5 class="text-muted">{{ trans('panel.candidates_section') }}</h5>
-                        <p class="text-muted">{{ trans('panel.candidates_section_description') }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">{{ trans('panel.candidates') }}</h5>
+                        <div class="d-flex align-items-center">
+                            <span class="badge badge-primary mr-2">{{ $project->getStudentsCountAttribute() }} {{ trans('panel.students') }}</span>
+                        </div>
                     </div>
+
+                    @php
+                        $students = $project->getStudentsFromCourses();
+                    @endphp
+
+                    @if($students->count() > 0)
+                    <div class="table-responsive">
+                        <table class="table custom-table text-center ">
+                            <thead>
+                            <tr>
+                                <th class="text-left text-gray">{{ trans('auth.name') }}</th>
+                                <th class="text-left text-gray">{{ trans('auth.email') }}</th>
+                                <th class="text-center text-gray">{{ trans('public.phone') }}</th>
+                                <th class="text-center text-gray">{{ trans('webinars.webinars') }}</th>
+                                <th class="text-center text-gray">{{ trans('quiz.quizzes') }}</th>
+                                <th class="text-center text-gray">{{ trans('panel.certificates') }}</th>
+                                <th class="text-center text-gray">{{ trans('public.date') }}</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($students as $user)
+
+                                <tr>
+                                    <td class="text-left">
+                                        <div class="user-inline-avatar d-flex align-items-center">
+                                            <div class="avatar bg-gray200">
+                                                <img src="{{ $user->getAvatar() }}" class="img-cover" alt="">
+                                            </div>
+                                            <div class=" ml-5">
+                                                <span class="d-block text-dark-blue font-weight-500">{{ $user->full_name }}</span>
+                                                <span class="mt-5 d-block font-12 text-{{ ($user->status == 'active') ? 'gray' : 'danger' }}">{{ ($user->status == 'active') ? trans('public.active') : trans('public.inactive') }}</span>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    
+                                    <td class="text-left">
+                                        <div class="">
+                                            <span class="d-block text-dark-blue font-weight-500">{{ $user->email }}</span>
+                                            <span class="mt-5 d-block font-12 text-gray">id : {{ $user->id }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="text-dark-blue font-weight-500">{{ $user->mobile }}</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="text-dark-blue font-weight-500">{{ count($user->getPurchasedCoursesIds()) }}</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="text-dark-blue font-weight-500">{{ count($user->getActiveQuizzesResults()) }}</span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="text-dark-blue font-weight-500">{{ count($user->certificates) }}</span>
+                                    </td>
+                                    <td class="text-dark-blue font-weight-500 align-middle">{{ dateTimeFormat($user->created_at,'j M Y | H:i') }}</td>
+
+                                    <td class="text-right align-middle">
+                                        <div class="btn-group dropdown table-actions">
+                                            <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i data-feather="more-vertical" height="20"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a href="{{ $user->getProfileUrl() }}" class="btn-transparent webinar-actions d-block mt-10">{{ trans('public.profile') }}</a>
+                                                <a href="/panel/manage/students/{{ $user->id }}/edit" class="btn-transparent webinar-actions d-block mt-10">{{ trans('public.edit') }}</a>
+                                                <a href="/panel/manage/students/{{ $user->id }}/delete" class="webinar-actions d-block mt-10 delete-action">{{ trans('public.delete') }}</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    @else
+                        <div class="text-center py-4">
+                            <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">{{ trans('panel.no_students_found') }}</h5>
+                            <p class="text-muted">{{ trans('panel.no_students_in_project_courses') }}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -529,10 +871,128 @@
         <div class="tab-pane fade" id="organizational-chart">
             <div class="card">
                 <div class="card-body">
-                    <div class="text-center py-4">
-                        <i class="fas fa-sitemap fa-3x text-muted mb-3"></i>
-                        <h5 class="text-muted">{{ trans('panel.organizational_chart_section') }}</h5>
-                        <p class="text-muted">{{ trans('panel.organizational_chart_description') }}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0">{{ trans('panel.organizational_chart') }}</h5>
+                        <div class="chart-controls">
+                            <button class="btn btn-sm btn-outline-secondary" id="expandChart" title="{{ trans('panel.expand_chart') }}">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" id="fitChart" title="{{ trans('panel.fit_chart') }}">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" id="zoomIn" title="{{ trans('panel.zoom_in') }}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" id="zoomOut" title="{{ trans('panel.zoom_out') }}">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" id="resetChart" title="{{ trans('panel.reset_chart') }}">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="org-chart-container" style="background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%); min-height: 600px; padding: 20px; border-radius: 15px;">
+                        <div class="org-chart" id="orgChart">
+                            <!-- CEO Level -->
+                            <div class="org-level ceo-level">
+                                <div class="org-node ceo-node">
+                                    <div class="org-card ceo-card">
+                                        <div class="org-card-header">
+                                            <img src="https://via.placeholder.com/60x60/4CAF50/ffffff?text=NP" alt="CEO" class="org-avatar">
+                                            <div class="org-info">
+                                                <h6 class="org-name">{{ $project->projectManager->full_name ?? 'Nicky Phillips' }}</h6>
+                                                <span class="org-title">{{ trans('panel.ceo') }}</span>
+                                            </div>
+                                            <div class="org-badge">2</div>
+                                            <div class="org-actions">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                            </div>
+                                        </div>
+                                        <div class="org-card-footer">
+                                            <i class="fas fa-minus collapse-btn"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Personal Assistant -->
+                                <div class="org-node assistant-node">
+                                    <div class="org-card assistant-card">
+                                        <div class="org-card-header">
+                                            <img src="https://via.placeholder.com/60x60/FF9800/ffffff?text=LM" alt="Assistant" class="org-avatar">
+                                            <div class="org-info">
+                                                <h6 class="org-name">{{ trans('panel.personal_assistant') }}</h6>
+                                                <span class="org-title">{{ trans('panel.assistant') }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Department Level -->
+                            <div class="org-level department-level">
+                                <!-- HR Department -->
+                                <div class="org-node department-node">
+                                    <div class="org-card hr-card">
+                                        <div class="org-card-header">
+                                            <img src="https://via.placeholder.com/60x60/FFC107/ffffff?text=JH" alt="HR Manager" class="org-avatar">
+                                            <div class="org-info">
+                                                <h6 class="org-name">{{ trans('panel.hr_manager') }}</h6>
+                                                <span class="org-title">{{ trans('panel.hr_department') }}</span>
+                                            </div>
+                                            <div class="org-badge">2</div>
+                                            <div class="org-actions">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- IT Department -->
+                                <div class="org-node department-node">
+                                    <div class="org-card it-card">
+                                        <div class="org-card-header">
+                                            <div class="org-info">
+                                                <h6 class="org-name">{{ trans('panel.it_department') }}</h6>
+                                            </div>
+                                        </div>
+                                        <div class="org-sub-members">
+                                            <div class="org-sub-member">
+                                                <img src="https://via.placeholder.com/50x50/2196F3/ffffff?text=CR" alt="Core Lead" class="org-avatar-sm">
+                                                <div class="org-sub-info">
+                                                    <h6 class="org-name-sm">{{ trans('panel.core_team_lead') }}</h6>
+                                                    <div class="org-badge-sm">3</div>
+                                                </div>
+                                            </div>
+                                            <div class="org-sub-member">
+                                                <img src="https://via.placeholder.com/50x50/9C27B0/ffffff?text=LF" alt="UI Lead" class="org-avatar-sm">
+                                                <div class="org-sub-info">
+                                                    <h6 class="org-name-sm">{{ trans('panel.ui_team_lead') }}</h6>
+                                                    <div class="org-badge-sm">3</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sales Department -->
+                                <div class="org-node department-node">
+                                    <div class="org-card sales-card">
+                                        <div class="org-card-header">
+                                            <img src="https://via.placeholder.com/60x60/FF5722/ffffff?text=TC" alt="Sales Manager" class="org-avatar">
+                                            <div class="org-info">
+                                                <h6 class="org-name">{{ trans('panel.sales_manager') }}</h6>
+                                                <span class="org-title">{{ trans('panel.sales_department') }}</span>
+                                            </div>
+                                            <div class="org-badge">2</div>
+                                            <div class="org-actions">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -548,6 +1008,94 @@ $(document).ready(function() {
     $('.nav-pills a').on('click', function (e) {
         e.preventDefault();
         $(this).tab('show');
+    });
+    
+    // Organizational Chart Controls
+    let currentZoom = 1;
+    const zoomStep = 0.1;
+    const minZoom = 0.5;
+    const maxZoom = 2;
+    
+    $('#zoomIn').on('click', function() {
+        if (currentZoom < maxZoom) {
+            currentZoom += zoomStep;
+            updateChartZoom();
+        }
+    });
+    
+    $('#zoomOut').on('click', function() {
+        if (currentZoom > minZoom) {
+            currentZoom -= zoomStep;
+            updateChartZoom();
+        }
+    });
+    
+    $('#fitChart').on('click', function() {
+        currentZoom = 1;
+        updateChartZoom();
+        centerChart();
+    });
+    
+    $('#expandChart').on('click', function() {
+        $('.org-chart-container').toggleClass('fullscreen');
+    });
+    
+    $('#resetChart').on('click', function() {
+        currentZoom = 1;
+        updateChartZoom();
+        centerChart();
+        $('.org-chart-container').removeClass('fullscreen');
+    });
+    
+    function updateChartZoom() {
+        $('#orgChart').css('transform', `scale(${currentZoom})`);
+    }
+    
+    function centerChart() {
+        const container = $('.org-chart-container');
+        const chart = $('#orgChart');
+        const containerWidth = container.width();
+        const containerHeight = container.height();
+        const chartWidth = chart.width() * currentZoom;
+        const chartHeight = chart.height() * currentZoom;
+        
+        const left = (containerWidth - chartWidth) / 2;
+        const top = (containerHeight - chartHeight) / 2;
+        
+        chart.css({
+            'transform-origin': 'center center',
+            'position': 'absolute',
+            'left': left + 'px',
+            'top': top + 'px'
+        });
+    }
+    
+    // Collapse/Expand functionality
+    $('.collapse-btn').on('click', function() {
+        const card = $(this).closest('.org-card');
+        const level = card.closest('.org-level');
+        
+        if (level.hasClass('collapsed')) {
+            level.removeClass('collapsed');
+            $(this).removeClass('fa-plus').addClass('fa-minus');
+        } else {
+            level.addClass('collapsed');
+            $(this).removeClass('fa-minus').addClass('fa-plus');
+        }
+    });
+    
+    // Card hover effects
+    $('.org-card').on('mouseenter', function() {
+        $(this).addClass('hovered');
+    }).on('mouseleave', function() {
+        $(this).removeClass('hovered');
+    });
+    
+    // Actions menu
+    $('.org-actions').on('click', function(e) {
+        e.stopPropagation();
+        // Here you can add dropdown menu functionality
+        console.log('Actions clicked for:', $(this).closest('.org-card').find('.org-name').text());
     });
 });
 </script>

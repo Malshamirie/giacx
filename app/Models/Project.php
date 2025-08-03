@@ -69,6 +69,37 @@ class Project extends Model
         return $this->belongsToMany('App\User', 'project_participants', 'project_id', 'user_id');
     }
 
+    public function getStudentsFromCourses()
+    {
+        $webinarIds = $this->webinars()->pluck('id')->toArray();
+        
+        if (empty($webinarIds)) {
+            return collect();
+        }
+
+        $studentIds = \App\Models\Sale::whereIn('webinar_id', $webinarIds)
+            ->whereNull('refund_at')
+            ->distinct('buyer_id')
+            ->pluck('buyer_id')
+            ->toArray();
+
+        return \App\User::whereIn('id', $studentIds)->get();
+    }
+
+    public function getStudentsCountAttribute()
+    {
+        $webinarIds = $this->webinars()->pluck('id')->toArray();
+        
+        if (empty($webinarIds)) {
+            return 0;
+        }
+
+        return \App\Models\Sale::whereIn('webinar_id', $webinarIds)
+            ->whereNull('refund_at')
+            ->distinct('buyer_id')
+            ->count('buyer_id');
+    }
+
     // Accessors
     public function getFieldLabelAttribute()
     {
