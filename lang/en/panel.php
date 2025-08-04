@@ -469,7 +469,7 @@ return [
     'status_cancelled' => 'Cancelled',
     'status_pending' => 'Pending',
     'select_project' => 'Select Project',
-    'managers' => 'Managers',
+    'managers' => 'Team Members',
     'filter_managers' => 'Filter Managers',
     'managers_list' => 'Managers List',
     'manager' => 'Manager',

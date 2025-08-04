@@ -166,19 +166,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-lg-6 mt-35">
-                <div class="bg-white monthly-sales-card rounded-sm panel-shadow py-10 py-md-20 px-15 px-md-30">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="font-16 text-dark-blue font-weight-bold">{{ ($authUser->isUser()) ? trans('panel.learning_statistics') : trans('panel.monthly_sales') }}</h3>
 
-                        <span class="font-16 font-weight-500 text-gray">{{ dateTimeFormat(time(),'M Y') }}</span>
-                    </div>
-
-                    <div class="monthly-sales-chart">
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -213,12 +201,9 @@
 
 @push('scripts_bottom')
     <script src="/assets/default/vendors/apexcharts/apexcharts.min.js"></script>
-    <script src="/assets/default/vendors/chartjs/chart.min.js"></script>
 
     <script>
         var offlineSuccess = '{{ trans('panel.offline_success') }}';
-        var $chartDataMonths = @json($monthlyChart['months']);
-        var $chartData = @json($monthlyChart['data']);
     </script>
 
     <script src="/assets/default/js/panel/dashboard.min.js"></script>
