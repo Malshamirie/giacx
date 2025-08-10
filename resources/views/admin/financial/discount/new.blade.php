@@ -247,7 +247,7 @@
                                         {{ $message }}
                                     </div>
                                     @enderror
-                                    <div class="text-muted text-small mt-1">{{ trans('admin/main.discount_code_hint') }}</div>
+                                    <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.discount_code_hint') }}</div>
                                 </div>
 
                                 <div class="form-group">
@@ -276,7 +276,7 @@
                                         <span class="custom-switch-indicator"></span>
                                         <label class="custom-switch-description mb-0 cursor-pointer" for="forFirstPurchaseSwitch">{{ trans('update.apply_only_for_the_first_purchase') }}</label>
                                     </label>
-                                    <div class="text-muted text-small mt-1">{{ trans('update.apply_only_for_the_first_purchase_hint') }}</div>
+                                    <div class="text-gray-500 text-small mt-1">{{ trans('update.apply_only_for_the_first_purchase_hint') }}</div>
                                 </div>
 
                                 <div class=" mt-4">
@@ -292,5 +292,5 @@
 @endsection
 
 @push('scripts_bottom')
-    <script src="/assets/default/js/admin/discount.min.js"></script>
+    <script src="/assets/admin/js/parts/discount.min.js"></script>
 @endpush

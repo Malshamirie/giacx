@@ -51,7 +51,7 @@
 
                                     @foreach($filter->options as $option)
                                         <div class="form-group d-flex align-items-center justify-content-between">
-                                            <label class="cursor-pointer font-14 text-gray" for="filterOptions{{ $option->id }}">{{ $option->title }}</label>
+                                            <label class="cursor-pointer font-14 text-gray-500" for="filterOptions{{ $option->id }}">{{ $option->title }}</label>
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" name="filters[]" value="{{ $option->id }}" {{ ((!empty($productFilterOptions) && in_array($option->id, $productFilterOptions)) ? 'checked' : '') }} class="custom-control-input" id="filterOptions{{ $option->id }}">
                                                 <label class="custom-control-label" for="filterOptions{{ $option->id }}"></label>
@@ -65,6 +65,15 @@
 
                 </div>
             </div>
+        </div>
+
+        {{-- Related Products --}}
+        <div class="col-12 mt-20">
+            @include('admin.store.products.create.relatedProducts.add_related_product', [
+                    'relatedProductItemId' => $product->id,
+                     'relatedProductItemType' => 'product',
+                     'relatedProducts' => $product->relatedProducts
+                ])
         </div>
 
         {{-- Related Course --}}
@@ -94,11 +103,13 @@
                         @endforeach
                     </div>
                 @else
-                    @include(getTemplate() . '.includes.no-result',[
-                        'file_name' => 'files.png',
-                        'title' => trans('update.specifications_no_result'),
-                        'hint' => trans('update.specifications_no_result_hint'),
-                    ])
+                    <div class="d-flex-center flex-column px-32 py-120 text-center">
+                        <div class="d-flex-center size-64 rounded-12 bg-primary-30">
+                            <x-iconsax-bul-bill class="icons text-primary" width="32px" height="32px"/>
+                        </div>
+                        <h3 class="font-16 font-weight-bold mt-12">{{ trans('update.specifications_no_result') }}</h3>
+                        <p class="mt-4 font-12 text-gray-500">{!! trans('update.specifications_no_result_hint') !!}</p>
+                    </div>
                 @endif
             </div>
 
@@ -124,11 +135,13 @@
                         @endforeach
                     </div>
                 @else
-                    @include(getTemplate() . '.includes.no-result',[
-                        'file_name' => 'faq.png',
-                        'title' => trans('update.product_faq_no_result'),
-                        'hint' => trans('update.product_faq_no_result_hint'),
-                    ])
+                    <div class="d-flex-center flex-column px-32 py-120 text-center">
+                        <div class="d-flex-center size-64 rounded-12 bg-primary-30">
+                            <x-iconsax-bul-message-question class="icons text-primary" width="32px" height="32px"/>
+                        </div>
+                        <h3 class="font-16 font-weight-bold mt-12">{{ trans('update.product_faq_no_result') }}</h3>
+                        <p class="mt-4 font-12 text-gray-500">{!! trans('update.product_faq_no_result_hint') !!}</p>
+                    </div>
                 @endif
             </div>
 

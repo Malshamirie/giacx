@@ -72,5 +72,5 @@
 
 @push('scripts_bottom')
 
-    <script src="/assets/default/js/admin/settings/general.min.js"></script>
+    <script src="/assets/admin/js/parts/settings/general.min.js"></script>
 @endpush

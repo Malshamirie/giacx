@@ -63,7 +63,7 @@
                                                        value="{{ !empty($role) ? $role->name : old('name') }}"
                                                        placeholder=""/>
 
-                                                <p class="mt-1 text-muted">{{ trans('update.role_name_hint') }}</p>
+                                                <p class="mt-1 text-gray-500">{{ trans('update.role_name_hint') }}</p>
                                             </div>
 
                                             @error('name')
@@ -92,7 +92,7 @@
                                                     <span class="custom-switch-description">{{ trans('admin/main.is_admin') }}</span>
                                                 </label>
                                             </div>
-                                            <div class="text-muted text-small mt-1">{{ trans('admin/main.new_role_admin_access_hint') }}</div>
+                                            <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.new_role_admin_access_hint') }}</div>
                                         @endif
 
                                     </div>
@@ -109,8 +109,8 @@
                                     <div class="row">
                                         @foreach($sections as $section)
                                             <div class="section-card is_{{ $section->type }} col-12 col-md-6 col-lg-4 {{ (!empty($role) and $role->is_admin and $section->type == 'panel') ? 'd-none' : '' }} {{ (!empty($role) and !$role->is_admin and $section->type == 'admin') ? 'd-none' : '' }} {{ (empty($role) and $section->type == 'admin') ? 'd-none' : '' }}">
-                                                <div class="card card-primary section-box">
-                                                    <div class="card-header">
+                                                <div class="card border section-box">
+                                                    <div class="card-header ml-30">
                                                         <input type="checkbox" name="permissions[]" id="permissions_{{ $section->id }}" value="{{ $section->id }}"
                                                                {{isset($permissions[$section->id]) ? 'checked' : ''}} class="form-check-input mt-0 section-parent">
                                                         <label class="form-check-label font-16 font-weight-bold cursor-pointer" for="permissions_{{ $section->id }}">
@@ -151,5 +151,5 @@
 @endsection
 
 @push('scripts_bottom')
-    <script src="/assets/default/js/admin/roles.min.js"></script>
+    <script src="/assets/admin/js/parts/roles.min.js"></script>
 @endpush

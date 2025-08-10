@@ -17,67 +17,66 @@
 
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-primary">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>{{trans('admin/main.total_reviews')}}</h4>
+                <div class="card-statistic">
+                    <div class="card-statistic__mask"></div>
+                    <div class="card-statistic__wrap">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <span class="text-gray-500 mt-8">{{trans('admin/main.total_reviews')}}</span>
+                            <div class="d-flex-center size-48 bg-primary-30 rounded-12">
+                                <x-iconsax-bul-star class="icons text-primary" width="24px" height="24px"/>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            {{ $totalReviews }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-success">
-                        <i class="fas fa-eye"></i></div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>{{trans('admin/main.published_reviews')}}</h4>
-                        </div>
-                        <div class="card-body">
-                            {{ $publishedReviews }}
-                        </div>
+                        <h5 class="font-24 mt-12 line-height-1 text-black">{{ $totalReviews }}</h5>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-warning">
-                        <i class="fas fa-calculator"></i></div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>{{trans('admin/main.rates_average')}}</h4>
+                <div class="card-statistic">
+                    <div class="card-statistic__mask"></div>
+                    <div class="card-statistic__wrap">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <span class="text-gray-500 mt-8">{{trans('admin/main.published_reviews')}}</span>
+                            <div class="d-flex-center size-48 bg-success-30 rounded-12">
+                                <x-iconsax-bul-star class="icons text-success" width="24px" height="24px"/>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            {{ $ratesAverage }}
-                        </div>
+                        <h5 class="font-24 mt-12 line-height-1 text-black">{{ $publishedReviews }}</h5>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="fas fa-comment-slash"></i></div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>{{trans('admin/main.classes_without_review')}}</h4>
+                <div class="card-statistic">
+                    <div class="card-statistic__mask"></div>
+                    <div class="card-statistic__wrap">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <span class="text-gray-500 mt-8">{{trans('admin/main.rates_average')}}</span>
+                            <div class="d-flex-center size-48 bg-secondary-30 rounded-12">
+                                <x-iconsax-bul-calculator class="icons text-secondary" width="24px" height="24px"/>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            {{ $classesWithoutReview }}
+                        <h5 class="font-24 mt-12 line-height-1 text-black">{{ $ratesAverage }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card-statistic">
+                    <div class="card-statistic__mask"></div>
+                    <div class="card-statistic__wrap">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <span class="text-gray-500 mt-8">{{trans('admin/main.classes_without_review')}}</span>
+                            <div class="d-flex-center size-48 bg-danger-30 rounded-12">
+                                <x-iconsax-bul-video-play class="icons text-danger" width="24px" height="24px"/>
+                            </div>
                         </div>
+                        <h5 class="font-24 mt-12 line-height-1 text-black">{{ $classesWithoutReview }}</h5>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="section-body">
-            <section class="card">
-                <div class="card-body">
+            <section class="card mt-32">
+                <div class="card-body pb-4">
                     <form method="get" class="mb-0">
                         <div class="row">
                             <div class="col-md-2">
@@ -131,11 +130,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2">
-                                <div class="form-group mt-1">
-                                    <label class="input-label mb-4"> </label>
-                                    <input type="submit" class="text-center btn btn-primary w-100" value="{{trans('admin/main.show_results')}}">
-                                </div>
+                            <div class="col-md-2 d-flex align-items-center ">
+                                <button type="submit" class="btn btn-primary btn-block btn-lg">{{trans('admin/main.show_results')}}</button>
                             </div>
 
                         </div>
@@ -145,7 +141,7 @@
 
             <section class="card">
                 <div class="card-body">
-                    <table class="table table-striped font-14" id="datatable-details">
+                    <table class="table custom-table font-14" id="datatable-details">
 
                         <tr>
                             <th class="text-left">{{trans('admin/main.title')}}</th>
@@ -161,11 +157,11 @@
 
                         @foreach($reviews as $review)
                             <tr>
-                                <td class="text-left">
+                                <td class="text-dark text-left">
                                     @if(!empty($review->webinar_id))
-                                        <a href="{{ $review->webinar->getUrl() }}" target="_blank">{{ $review->webinar->title }}</a>
+                                        <a href="{{ $review->webinar->getUrl() }}" class="text-dark" target="_blank">{{ $review->webinar->title }}</a>
                                     @elseif(!empty($review->bundle_id))
-                                        <a href="{{ $review->bundle->getUrl() }}" target="_blank">{{ $review->bundle->title }}</a>
+                                        <a href="{{ $review->bundle->getUrl() }}" class="text-dark" target="_blank">{{ $review->bundle->title }}</a>
                                     @endif
                                 </td>
 
@@ -180,7 +176,7 @@
                                 </td>
 
                                 <td>
-                                    <button type="button" class="js-show-description btn btn-outline-primary">{{ trans('admin/main.show') }}</button>
+                                    <button type="button" class="js-show-description btn btn-sm btn-outline-primary">{{ trans('admin/main.show') }}</button>
                                     <input type="hidden" value="{{ nl2br($review->description) }}">
                                 </td>
 
@@ -192,44 +188,71 @@
 
                                 <td class="">
                                     @if($review->status == 'active')
-                                        <b class="f-w-b text-success">{{trans('admin/main.published')}}</b>
+                                        <span class="badge-status text-success bg-success-30">{{ trans('admin/main.published') }}</span>
                                     @else
-                                        <b class="f-w-b text-warning">{{trans('admin/main.hidden')}}</b>
-                                    @endif
+                                    <span class="badge-status text-warning bg-warning-30">{{ trans('admin/main.hidden') }}</span>                                    @endif
                                 </td>
-                                <td class="" width="50">
-                                    @can('admin_reviews_status_toggle')
-                                        <a href="{{ getAdminPanelUrl() }}/reviews/{{ $review->id }}/toggleStatus" class="btn-transparent text-primary mr-1" data-toggle="tooltip" data-placement="top" title="{{ ($review->status == 'active') ? 'Hidden' : 'Publish' }}">
-                                            @if($review->status == 'active')
-                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                            @else
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            @endif
-                                        </a>
-                                    @endcan
-
-                                    @can('admin_reviews_detail_show')
-                                        <input type="hidden" class="js-content_quality" value="{{ $review->content_quality }}">
-                                        <input type="hidden" class="js-instructor_skills" value="{{ $review->instructor_skills }}">
-                                        <input type="hidden" class="js-purchase_worth" value="{{ $review->purchase_worth }}">
-                                        <input type="hidden" class="js-support_quality" value="{{ $review->support_quality }}">
 
 
-                                        <button type="button" class="js-show-review-details btn-transparent text-primary mr-1" data-toggle="tooltip" data-placement="top" title="Rate Detail">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                        </button>
-                                    @endcan
+                      <td>
+                        <div class="btn-group dropdown table-actions position-relative">
+                            <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <x-iconsax-lin-more class="icons text-gray-500" width="20px" height="20px" />
+                            </button>
 
-                                    @can('admin_reviews_reply')
-                                        <a href="{{ getAdminPanelUrl("/reviews/{$review->id}/reply") }}" target="_blank" class="btn-transparent text-primary mr-1" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.reply') }}">
-                                            <i class="fa fa-reply"></i>
-                                        </a>
-                                    @endcan
+                            <div class="dropdown-menu dropdown-menu-right">
 
-                                    @can('admin_reviews_delete')
-                                        @include('admin.includes.delete_button',['url' => getAdminPanelUrl().'/reviews/'. $review->id.'/delete','btnClass' => ''])
-                                    @endcan
-                                </td>
+                                @can('admin_reviews_status_toggle')
+                                    <a href="{{ getAdminPanelUrl() }}/reviews/{{ $review->id }}/toggleStatus"
+                                       class="dropdown-item d-flex align-items-center mb-3 py-3 px-0 gap-4">
+                                        @if($review->status == 'active')
+                                            <x-iconsax-lin-eye-slash class="icons text-warning mr-2" width="18px" height="18px"/>
+                                            <span class="text-warning">Hide</span>
+                                        @else
+                                            <x-iconsax-lin-eye class="icons text-success mr-2" width="18px" height="18px"/>
+                                            <span class="text-success">Publish</span>
+                                        @endif
+                                    </a>
+                                @endcan
+
+                                @can('admin_reviews_detail_show')
+                                    <input type="hidden" class="js-content_quality" value="{{ $review->content_quality }}">
+                                    <input type="hidden" class="js-instructor_skills" value="{{ $review->instructor_skills }}">
+                                    <input type="hidden" class="js-purchase_worth" value="{{ $review->purchase_worth }}">
+                                    <input type="hidden" class="js-support_quality" value="{{ $review->support_quality }}">
+
+                                    <button type="button"
+                                            class="dropdown-item d-flex align-items-center mb-3 py-3 px-0 gap-4 js-show-review-details">
+                                        <x-iconsax-lin-star class="icons text-gray-500 mr-2" width="18px" height="18px"/>
+                                        <span class="text-gray-500 font-14">Rate Detail</span>
+                                    </button>
+                                @endcan
+
+                                @can('admin_reviews_reply')
+                                    <a href="{{ getAdminPanelUrl("/reviews/{$review->id}/reply") }}"
+                                       target="_blank"
+                                       class="dropdown-item d-flex align-items-center mb-3 py-3 px-0 gap-4">
+                                        <x-iconsax-lin-message class="icons text-gray-500 mr-2" width="18px" height="18px"/>
+                                        <span class="text-gray-500 font-14">{{ trans('admin/main.reply') }}</span>
+                                    </a>
+                                @endcan
+
+                                @can('admin_reviews_delete')
+                                    @include('admin.includes.delete_button', [
+                                        'url' => getAdminPanelUrl() . '/reviews/' . $review->id . '/delete',
+                                        'btnClass' => 'dropdown-item text-danger mb-0 py-3 px-0 font-14 d-flex align-items-center gap-4',
+                                        'btnText' => trans("admin/main.delete"),
+                                        'btnIcon' => 'trash',
+                                        'iconType' => 'lin',
+                                        'iconClass' => 'text-danger mr-2',
+                                    ])
+                                @endcan
+
+                            </div>
+                        </div>
+                    </td>
+
+
                             </tr>
                         @endforeach
 
@@ -303,5 +326,5 @@
 @endsection
 
 @push('scripts_bottom')
-    <script src="/assets/default/js/admin/reviews.min.js"></script>
+    <script src="/assets/admin/js/parts/reviews.min.js"></script>
 @endpush

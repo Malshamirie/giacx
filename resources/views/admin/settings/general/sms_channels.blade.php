@@ -18,7 +18,11 @@
                     <div class="form-group">
                         <label class="input-label">{{ trans('update.sms_sending_channel') }}</label>
                         <select name="value[sms_sending_channel]" class="form-control">
-                        <option>Paid Plugin</option>
+                            <option value="">{{ trans('update.select_a_sms_channel') }}</option>
+
+                            @foreach(\App\Mixins\Notifications\SendSMS::allChannels as $smsChannel)
+                                <option value="{{ $smsChannel }}" {{ (!empty($itemValue) and !empty($itemValue["sms_sending_channel"]) and $itemValue["sms_sending_channel"] == $smsChannel) ? 'selected' : '' }}>{{ trans("update.sms_channel_{$smsChannel}") }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -35,7 +39,7 @@
                             <label class="custom-switch-description mb-0 cursor-pointer"
                                    for="checkMobileNumberSwitch">{{ trans('update.check_mobile_number') }}</label>
                         </label>
-                        <div class="text-muted text-small mt-1">{{ trans('update.check_mobile_number_switch_hint') }}</div>
+                        <div class="text-gray-500 text-small mt-1">{{ trans('update.check_mobile_number_switch_hint') }}</div>
                     </div>
 
                     <div class="js-check-mobile-number-digits-filed {{ (!empty($itemValue) and !empty($itemValue['check_mobile_number']) and $itemValue['check_mobile_number']) ? '' : 'd-none' }}">
@@ -44,7 +48,7 @@
                             <input type="number" name="value[number_of_digits_in_mobile_number]" id="number_of_digits_in_mobile_number"
                                    value="{{ (!empty($itemValue) and !empty($itemValue['number_of_digits_in_mobile_number'])) ? $itemValue['number_of_digits_in_mobile_number'] : 1 }}"
                                    class="form-control"/>
-                            <p class="font-12 text-gray mt-1 mb-0">{{ trans('update.number_of_digits_in_mobile_number_input_hint') }}</p>
+                            <p class="font-12 text-gray-500 mt-1 mb-0">{{ trans('update.number_of_digits_in_mobile_number_input_hint') }}</p>
                         </div>
                     </div>
                 </div>

@@ -31,6 +31,7 @@
         "intervention/image": "^2.7",
         "irakan/paylink": "^1.1",
         "iyzico/iyzipay-php": "^2.0",
+
         "james-heinrich/getid3": "^1.9",
         "jenssegers/agent": "^2.6",
         "joisarjignesh/bigbluebutton": "*",
@@ -67,6 +68,7 @@
         "pishran/zarinpal": "^4.3",
         "ptuchik/omnipay-yandex": "^1.0",
         "razorpay/razorpay": "^2.8",
+        "saade/blade-iconsax": "^1.2.0",
         "samir-hussein/paymob": "^2.0",
         "sebacarrasco93/laravel-payku": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",

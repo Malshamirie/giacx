@@ -79,7 +79,7 @@
                                             <div class="form-group mt-15">
                                                 <label class="input-label">{{ trans('update.required_points') }}</label>
                                                 <input type="text" name="points" value="{{ !empty($bundle) ? $bundle->points : old('points') }}" class="form-control @error('points')  is-invalid @enderror" placeholder="Empty means inactive this mode"/>
-                                                <div class="text-muted text-small mt-1">{{ trans('update.product_points_hint') }}</div>
+                                                <div class="text-gray-500 text-small mt-1">{{ trans('update.product_points_hint') }}</div>
                                                 @error('points')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -90,7 +90,7 @@
                                             <div class="form-group mt-15">
                                                 <label class="input-label">{{ trans('update.bundle_url') }}</label>
                                                 <input type="text" name="slug" value="{{ !empty($bundle) ? $bundle->slug : old('slug') }}" class="form-control @error('slug')  is-invalid @enderror" placeholder=""/>
-                                                <div class="text-muted text-small mt-1">{{ trans('update.bundle_url_hint') }}</div>
+                                                <div class="text-gray-500 text-small mt-1">{{ trans('update.bundle_url_hint') }}</div>
                                                 @error('slug')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -134,7 +134,7 @@
                                             <div class="form-group mt-15">
                                                 <label class="input-label">{{ trans('public.seo_description') }}</label>
                                                 <input type="text" name="seo_description" value="{{ !empty($bundle) ? $bundle->seo_description : old('seo_description') }}" class="form-control @error('seo_description')  is-invalid @enderror"/>
-                                                <div class="text-muted text-small mt-1">{{ trans('admin/main.seo_description_hint') }}</div>
+                                                <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.seo_description_hint') }}</div>
                                                 @error('seo_description')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -240,6 +240,17 @@
                                                 </div>
                                             </div>
 
+
+                                            <div class="form-group mt-15">
+                                                <label class="input-label">{{ trans('public.summary') }}</label>
+                                                <textarea name="summary" rows="5" class="form-control @error('summary')  is-invalid @enderror" placeholder="{{ trans('forms.webinar_summary_placeholder') }}">{!! !empty($bundle) ? $bundle->summary : old('summary')  !!}</textarea>
+                                                @error('summary')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -272,7 +283,7 @@
                                                     </div>
                                                 </div>
 
-                                                <p class="mt-10 font-12 text-gray">- {{ trans('update.bundle_completion_certificate_hint') }}</p>
+                                                <p class="mt-10 font-12 font-12 text-gray-500">- {{ trans('update.bundle_completion_certificate_hint') }}</p>
                                             </div>
 
 
@@ -358,7 +369,7 @@
 
                                                             @foreach($filter->options as $option)
                                                                 <div class="form-group mt-3 d-flex align-items-center justify-content-between">
-                                                                    <label class="text-gray font-14" for="filterOptions{{ $option->id }}">{{ $option->title }}</label>
+                                                                    <label class="font-12 text-gray-500 font-14" for="filterOptions{{ $option->id }}">{{ $option->title }}</label>
                                                                     <div class="custom-control custom-checkbox">
                                                                         <input type="checkbox" name="filters[]" value="{{ $option->id }}" {{ ((!empty($bundleFilterOptions) && in_array($option->id,$bundleFilterOptions)) ? 'checked' : '') }} class="custom-control-input" id="filterOptions{{ $option->id }}">
                                                                         <label class="custom-control-label" for="filterOptions{{ $option->id }}"></label>
@@ -386,14 +397,14 @@
 
                                                 @if(!empty($tickets) and !$tickets->isEmpty())
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped text-center font-14">
+                                                        <table class="table custom-table text-center font-14">
 
                                                             <tr>
                                                                 <th>{{ trans('public.title') }}</th>
                                                                 <th>{{ trans('public.discount') }}</th>
                                                                 <th>{{ trans('public.capacity') }}</th>
                                                                 <th>{{ trans('public.date') }}</th>
-                                                                <th></th>
+                                                                <th width="80px">{{ trans('admin/main.action') }}</th>
                                                             </tr>
 
                                                             @foreach($tickets as $ticket)
@@ -403,11 +414,30 @@
                                                                     <td>{{ $ticket->capacity }}</td>
                                                                     <td>{{ dateTimeFormat($ticket->start_date,'j F Y') }} - {{ (new DateTime())->setTimestamp($ticket->end_date)->format('j F Y') }}</td>
                                                                     <td>
-                                                                        <button type="button" data-ticket-id="{{ $ticket->id }}" data-webinar-id="{{ !empty($bundle) ? $bundle->id : '' }}" class="edit-ticket btn-transparent text-primary mt-1" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.edit') }}">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
+                                                                        <div class="btn-group dropdown table-actions position-relative">
+                                                                            <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown">
+                                                                                <x-iconsax-lin-more class="icons text-gray-500" width="20px" height="20px"/>
+                                                                            </button>
 
-                                                                        @include('admin.includes.delete_button',['url' => getAdminPanelUrl().'/tickets/'. $ticket->id .'/delete', 'btnClass' => ' mt-1'])
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <button type="button"
+                                                                                        data-ticket-id="{{ $ticket->id }}"
+                                                                                        data-webinar-id="{{ !empty($bundle) ? $bundle->id : '' }}"
+                                                                                        class="dropdown-item d-flex align-items-center mb-3 py-3 px-0 gap-4 edit-ticket">
+                                                                                    <x-iconsax-lin-edit-2 class="icons text-gray-500 mr-2" width="18px" height="18px"/>
+                                                                                    <span class="text-gray-500 font-14">{{ trans('admin/main.edit') }}</span>
+                                                                                </button>
+
+                                                                                @include('admin.includes.delete_button',[
+                                                                                    'url' => getAdminPanelUrl().'/tickets/'.$ticket->id.'/delete',
+                                                                                    'btnClass' => 'dropdown-item text-danger mb-0 py-3 px-0 font-14',
+                                                                                    'btnText' => trans('admin/main.delete'),
+                                                                                    'btnIcon' => 'trash',
+                                                                                    'iconType' => 'lin',
+                                                                                    'iconClass' => 'text-danger mr-2'
+                                                                                ])
+                                                                            </div>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -415,11 +445,13 @@
                                                         </table>
                                                     </div>
                                                 @else
-                                                    @include('admin.includes.no-result',[
-                                                        'file_name' => 'ticket.png',
-                                                        'title' => trans('public.ticket_no_result'),
-                                                        'hint' => trans('public.ticket_no_result_hint'),
-                                                    ])
+                                                    <div class="d-flex-center flex-column px-32 py-120 text-center">
+                                                        <div class="d-flex-center size-64 rounded-12 bg-primary-30">
+                                                            <x-iconsax-bul-receipt-2 class="icons text-primary" width="32px" height="32px"/>
+                                                        </div>
+                                                        <h3 class="font-16 font-weight-bold mt-12">{{ trans('public.ticket_no_result') }}</h3>
+                                                        <p class="mt-4 font-12 text-gray-500">{!! trans('public.ticket_no_result_hint') !!}</p>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -436,14 +468,14 @@
                                             <div class="col-12">
                                                 @if(!empty($bundleWebinars) and !$bundleWebinars->isEmpty())
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped text-center font-14">
+                                                        <table class="table custom-table text-center font-14">
 
                                                             <tr>
                                                                 <th>{{ trans('public.title') }}</th>
                                                                 <th class="text-left">{{ trans('public.instructor') }}</th>
                                                                 <th>{{ trans('public.price') }}</th>
                                                                 <th>{{ trans('public.publish_date') }}</th>
-                                                                <th></th>
+                                                               <th width="80px">{{ trans('admin/main.action') }}</th>
                                                             </tr>
 
                                                             @foreach($bundleWebinars as $bundleWebinar)
@@ -455,11 +487,30 @@
                                                                         <td>{{ dateTimeFormat($bundleWebinar->webinar->created_at,'j F Y | H:i') }}</td>
 
                                                                         <td>
-                                                                            <button type="button" data-item-id="{{ $bundleWebinar->id }}" data-bundle-id="{{ !empty($bundle) ? $bundle->id : '' }}" class="edit-bundle-webinar btn-transparent text-primary mt-1" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.edit') }}">
-                                                                                <i class="fa fa-edit"></i>
-                                                                            </button>
+                                                                            <div class="btn-group dropdown table-actions position-relative">
+                                                                                <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown">
+                                                                                    <x-iconsax-lin-more class="icons text-gray-500" width="20px" height="20px"/>
+                                                                                </button>
 
-                                                                            @include('admin.includes.delete_button',['url' => getAdminPanelUrl().'/bundle-webinars/'. $bundleWebinar->id .'/delete', 'btnClass' => ' mt-1'])
+                                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                                    <button type="button"
+                                                                                            data-item-id="{{ $bundleWebinar->id }}"
+                                                                                            data-bundle-id="{{ !empty($bundle) ? $bundle->id : '' }}"
+                                                                                            class="dropdown-item d-flex align-items-center mb-3 py-3 px-0 gap-4 edit-bundle-webinar">
+                                                                                        <x-iconsax-lin-edit-2 class="icons text-gray-500 mr-2" width="18px" height="18px"/>
+                                                                                        <span class="text-gray-500 font-14">{{ trans('admin/main.edit') }}</span>
+                                                                                    </button>
+
+                                                                                    @include('admin.includes.delete_button',[
+                                                                                        'url' => getAdminPanelUrl().'/bundle-webinars/'.$bundleWebinar->id.'/delete',
+                                                                                        'btnClass' => 'dropdown-item text-danger mb-0 py-3 px-0 font-14',
+                                                                                        'btnText' => trans('admin/main.delete'),
+                                                                                        'btnIcon' => 'trash',
+                                                                                        'iconType' => 'lin',
+                                                                                        'iconClass' => 'text-danger mr-2'
+                                                                                    ])
+                                                                                </div>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                 @endif
@@ -468,11 +519,13 @@
                                                         </table>
                                                     </div>
                                                 @else
-                                                    @include('admin.includes.no-result',[
-                                                        'file_name' => 'comment.png',
-                                                        'title' => trans('update.bundle_webinar_no_result'),
-                                                        'hint' => trans('update.bundle_webinar_no_result_hint'),
-                                                    ])
+                                                    <div class="d-flex-center flex-column px-32 py-120 text-center">
+                                                        <div class="d-flex-center size-64 rounded-12 bg-primary-30">
+                                                            <x-iconsax-bul-video-play class="icons text-primary" width="32px" height="32px"/>
+                                                        </div>
+                                                        <h3 class="font-16 font-weight-bold mt-12">{{ trans('update.bundle_webinar_no_result') }}</h3>
+                                                        <p class="mt-4 font-12 text-gray-500">{!! trans('update.bundle_webinar_no_result_hint') !!}</p>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -495,12 +548,12 @@
                                             <div class="col-12">
                                                 @if(!empty($faqs) and !$faqs->isEmpty())
                                                     <div class="table-responsive">
-                                                        <table class="table table-striped text-center font-14">
+                                                        <table class="table custom-table text-center font-14">
 
                                                             <tr>
                                                                 <th>{{ trans('public.title') }}</th>
                                                                 <th>{{ trans('public.answer') }}</th>
-                                                                <th></th>
+                                                                <th width="80px">{{ trans('admin/main.action') }}</th>
                                                             </tr>
 
                                                             @foreach($faqs as $faq)
@@ -511,12 +564,31 @@
                                                                         <input type="hidden" value="{{ $faq->answer }}"/>
                                                                     </td>
 
-                                                                    <td class="text-right">
-                                                                        <button type="button" data-faq-id="{{ $faq->id }}" data-webinar-id="{{ !empty($bundle) ? $bundle->id : '' }}" class="edit-faq btn-transparent text-primary mt-1" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.edit') }}">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
+                                                                    <td>
+                                                                        <div class="btn-group dropdown table-actions position-relative">
+                                                                            <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown">
+                                                                                <x-iconsax-lin-more class="icons text-gray-500" width="20px" height="20px"/>
+                                                                            </button>
 
-                                                                        @include('admin.includes.delete_button',['url' => getAdminPanelUrl().'/faqs/'. $faq->id .'/delete', 'btnClass' => ' mt-1'])
+                                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                                <button type="button"
+                                                                                        data-faq-id="{{ $faq->id }}"
+                                                                                        data-bundle-id="{{ !empty($bundle) ? $bundle->id : '' }}"
+                                                                                        class="dropdown-item d-flex align-items-center mb-3 py-3 px-0 gap-4 edit-faq">
+                                                                                    <x-iconsax-lin-edit-2 class="icons text-gray-500 mr-2" width="18px" height="18px"/>
+                                                                                    <span class="text-gray-500 font-14">{{ trans('admin/main.edit') }}</span>
+                                                                                </button>
+
+                                                                                @include('admin.includes.delete_button',[
+                                                                                    'url' => getAdminPanelUrl().'/faqs/'.$faq->id.'/delete',
+                                                                                    'btnClass' => 'dropdown-item text-danger mb-0 py-3 px-0 font-14',
+                                                                                    'btnText' => trans('admin/main.delete'),
+                                                                                    'btnIcon' => 'trash',
+                                                                                    'iconType' => 'lin',
+                                                                                    'iconClass' => 'text-danger mr-2'
+                                                                                ])
+                                                                            </div>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -524,11 +596,13 @@
                                                         </table>
                                                     </div>
                                                 @else
-                                                    @include('admin.includes.no-result',[
-                                                        'file_name' => 'faq.png',
-                                                        'title' => trans('public.faq_no_result'),
-                                                        'hint' => trans('public.faq_no_result_hint'),
-                                                    ])
+                                                    <div class="d-flex-center flex-column px-32 py-120 text-center">
+                                                        <div class="d-flex-center size-64 rounded-12 bg-primary-30">
+                                                            <x-iconsax-bul-message-question class="icons text-primary" width="32px" height="32px"/>
+                                                        </div>
+                                                        <h3 class="font-16 font-weight-bold mt-12">{{ trans('public.faq_no_result') }}</h3>
+                                                        <p class="mt-4 font-12 text-gray-500">{!! trans('public.faq_no_result_hint') !!}</p>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -592,5 +666,5 @@
     <script src="/assets/default/vendors/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
     <script src="/assets/default/vendors/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
     <script src="/assets/vendors/summernote/summernote-bs4.min.js"></script>
-    <script src="/assets/admin/js/webinar.min.js"></script>
+    <script src="/assets/admin/js/parts/webinar.min.js"></script>
 @endpush

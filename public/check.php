@@ -253,6 +253,18 @@ $requirements['mcrypt_enabled'] = extension_loaded("mcrypt_encrypt");
 // BCMath
 $requirements['bcmath_enabled'] = extension_loaded("bcmath");
 
+// ZipArchive
+$requirements['zip_enabled'] = extension_loaded("zip");
+
+// EXIF
+$requirements['exif_enabled'] = extension_loaded("exif");
+
+// Fileinfo
+$requirements['fileinfo_enabled'] = extension_loaded("fileinfo");
+
+// GD
+$requirements['gd_enabled'] = extension_loaded("gd");
+
 // mod_rewrite
 $requirements['mod_rewrite_enabled'] = null;
 
@@ -333,7 +345,7 @@ if (function_exists('apache_get_modules')) {
    
 
     <h1>Server Requirements.</h1>
-    <p>HR Training Project Version : 1.9.9</p>
+    <p>Rocket LMS Version : 2.0 (Full version)</p>
     <br/>
 
     <p>
@@ -389,6 +401,11 @@ if (function_exists('apache_get_modules')) {
     <?php if (isset($reqList[$laravelVersion]['bcmath']) && $reqList[$laravelVersion]['bcmath']) : ?>
         <p>BCmath PHP Extension <?php echo $requirements['bcmath_enabled'] ? $strOk : $strFail; ?></p>
     <?php endif ?>
+
+    <p>Zip PHP Extension <?php echo $requirements['zip_enabled'] ? $strOk : $strFail; ?></p>
+    <p>EXIF PHP Extension <?php echo $requirements['exif_enabled'] ? $strOk : $strFail; ?></p>
+    <p>Fileinfo PHP Extension <?php echo $requirements['fileinfo_enabled'] ? $strOk : $strFail; ?></p>
+    <p>GD PHP Extension <?php echo $requirements['gd_enabled'] ? $strOk : $strFail; ?></p>
 
     <?php if (!empty($reqList[$laravelVersion]['obs'])): ?>
         <p class="obs"><?php echo $reqList[$laravelVersion]['obs'] ?></p>

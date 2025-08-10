@@ -48,7 +48,7 @@
         <div class="form-group mt-15">
             <label class="input-label">{{ trans('admin/main.class_url') }}</label>
             <input type="text" name="slug" value="{{ !empty($upcomingCourse) ? $upcomingCourse->slug : old('slug') }}" class="form-control @error('slug')  is-invalid @enderror" placeholder=""/>
-            <div class="text-muted text-small mt-1">{{ trans('admin/main.class_url_hint') }}</div>
+            <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.class_url_hint') }}</div>
             @error('slug')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -91,7 +91,7 @@
         <div class="form-group mt-15">
             <label class="input-label">{{ trans('public.seo_description') }}</label>
             <input type="text" name="seo_description" value="{{ !empty($upcomingCourse) ? $upcomingCourse->seo_description : old('seo_description') }}" class="form-control @error('seo_description')  is-invalid @enderror"/>
-            <div class="text-muted text-small mt-1">{{ trans('admin/main.seo_description_hint') }}</div>
+            <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.seo_description_hint') }}</div>
             @error('seo_description')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -195,6 +195,16 @@
 
                 <div class="invalid-feedback"></div>
             </div>
+        </div>
+
+        <div class="form-group mt-15">
+            <label class="input-label">{{ trans('public.summary') }}</label>
+            <textarea name="summary" rows="5" class="form-control @error('summary')  is-invalid @enderror" placeholder="{{ trans('forms.webinar_summary_placeholder') }}">{!! !empty($upcomingCourse) ? $upcomingCourse->summary : old('summary')  !!}</textarea>
+            @error('summary')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
 
     </div>

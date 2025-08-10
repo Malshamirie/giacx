@@ -41,8 +41,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="username">{{ trans('auth.email_or_mobile') }}:</label>
-                                            <input name="username" type="text" class="form-control @error('email') is-invalid @enderror @error('mobile') is-invalid @enderror" id="username" value="{{ old('email') }}" aria-describedby="emailHelp">
+                                            <label for="email_or_mobile">{{ trans('auth.email_or_mobile') }}:</label>
+                                            <input name="email_or_mobile" type="text" class="form-control @error('email') is-invalid @enderror @error('mobile') is-invalid @enderror" id="email_or_mobile" value="{{ old('email') }}" aria-describedby="emailHelp">
                                             @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -133,4 +133,3 @@
 @push('scripts_bottom')
 
 @endpush
-

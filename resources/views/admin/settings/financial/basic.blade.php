@@ -38,7 +38,7 @@
                         </div>
                         <input type="number" name="value[minimum_payout]" value="{{ (!empty($itemValue) and !empty($itemValue['minimum_payout'])) ? $itemValue['minimum_payout'] : old('minimum_payout') }}" class="form-control text-center" min="0"/>
                     </div>
-                    <div class="text-muted text-small mt-1">{{ trans('admin/main.minimum_payout_amount_hint') }}</div>
+                    <div class="text-gray-500 text-small mt-1">{{ trans('admin/main.minimum_payout_amount_hint') }}</div>
                 </div>
 
                 <div class="form-group">

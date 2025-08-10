@@ -17,6 +17,22 @@
                     @enderror
                 </div>
 
+
+                <div class="form-group">
+                    <label>{{ trans('update.username') }}</label>
+                    <input type="text" name="username"
+                           class="form-control  @error('username') is-invalid @enderror"
+                           value="{{ !empty($user) ? $user->username : old('username') }}"
+                           placeholder="{{ trans('update.username_input_placeholder') }}"/>
+                    @error('username')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+
+                    <div class="text-muted mt-8 font-12">{{ trans('update.username_input_placeholder') }}</div>
+                </div>
+
                 @can('admin_update_user_role_in_edit_page')
                     <div class="form-group">
                         <label>{{ trans('/admin/main.role_name') }}</label>
@@ -246,7 +262,7 @@
                         <span class="custom-switch-indicator"></span>
                         <label class="custom-switch-description mb-0 cursor-pointer" for="canCreateStoreSwitch">{{ trans('update.store') }}</label>
                     </label>
-                    <div class="text-muted text-small">{{ trans('update.admin_user_edit_can_create_store_hint') }}</div>
+                    <div class="text-gray-500 text-small">{{ trans('update.admin_user_edit_can_create_store_hint') }}</div>
                 </div>
 
                 <div class="form-group custom-switches-stacked mt-2">
@@ -256,7 +272,7 @@
                         <span class="custom-switch-indicator"></span>
                         <label class="custom-switch-description mb-0 cursor-pointer" for="contentAccessLimitationSwitch">{{ trans('update.content_access_limitation') }}</label>
                     </label>
-                    <div class="text-muted text-small">{{ trans('update.admin_user_edit_content_access_limitation_hint') }}</div>
+                    <div class="text-gray-500 text-small">{{ trans('update.admin_user_edit_content_access_limitation_hint') }}</div>
                 </div>
 
                 @if(!empty($user) and !$user->isUser())
@@ -267,7 +283,7 @@
                             <span class="custom-switch-indicator"></span>
                             <label class="custom-switch-description mb-0 cursor-pointer" for="aiContentLimitationSwitch">{{ trans('update.enable_ai_content') }}</label>
                         </label>
-                        <div class="text-muted text-small">{{ trans('update.admin_user_edit_enable_ai_content_hint') }}</div>
+                        <div class="text-gray-500 text-small">{{ trans('update.admin_user_edit_enable_ai_content_hint') }}</div>
                     </div>
                 @endif
 
