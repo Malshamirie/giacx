@@ -385,5 +385,181 @@ class PermissionsTableSeeder extends Seeder
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104007], ['allow' => 1]); // panel_organization_managers_create
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104008], ['allow' => 1]); // panel_organization_managers_edit
         \App\Models\Permission::updateOrCreate(['role_id' => 5, 'section_id' => 104009], ['allow' => 1]); // panel_organization_managers_delete
+
+        // ========== ORGANIZATION PERMISSIONS (role_id = 3) ==========
+        
+        // Organization Instructors 1 - 9
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100001], ['allow' => 1]); // panel_organization_instructors
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100002], ['allow' => 1]); // panel_organization_instructors_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100003], ['allow' => 1]); // panel_organization_instructors_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100004], ['allow' => 1]); // panel_organization_instructors_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100005], ['allow' => 1]); // panel_organization_instructors_delete
+
+        // Organization Students 10 - 19
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100010], ['allow' => 1]); // panel_organization_students
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100011], ['allow' => 1]); // panel_organization_students_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100012], ['allow' => 1]); // panel_organization_students_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100013], ['allow' => 1]); // panel_organization_students_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100014], ['allow' => 1]); // panel_organization_students_delete
+
+        // Webinars 20 - 39
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100020], ['allow' => 1]); // panel_webinars
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100021], ['allow' => 1]); // panel_webinars_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100022], ['allow' => 1]); // panel_webinars_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100023], ['allow' => 1]); // panel_webinars_delete
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100024], ['allow' => 1]); // panel_webinars_learning_page
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100025], ['allow' => 1]); // panel_webinars_invited_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100026], ['allow' => 1]); // panel_webinars_organization_classes
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100027], ['allow' => 1]); // panel_webinars_my_purchases
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100028], ['allow' => 1]); // panel_webinars_my_class_comments
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100029], ['allow' => 1]); // panel_webinars_comments
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100030], ['allow' => 1]); // panel_webinars_favorites
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100031], ['allow' => 1]); // panel_webinars_personal_course_notes
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100032], ['allow' => 1]); // panel_webinars_duplicate
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100033], ['allow' => 1]); // panel_webinars_export_students_list
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100034], ['allow' => 1]); // panel_webinars_invoice
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100035], ['allow' => 1]); // panel_webinars_statistics
+
+        // Upcoming Courses 40 - 49
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100040], ['allow' => 1]); // panel_upcoming_courses
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100041], ['allow' => 1]); // panel_upcoming_courses_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100042], ['allow' => 1]); // panel_upcoming_courses_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100043], ['allow' => 1]); // panel_upcoming_courses_delete
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100044], ['allow' => 1]); // panel_upcoming_courses_followings
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100045], ['allow' => 1]); // panel_upcoming_courses_followers
+
+        // Bundles 50 - 59
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100050], ['allow' => 1]); // panel_bundles
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100051], ['allow' => 1]); // panel_bundles_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100052], ['allow' => 1]); // panel_bundles_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100053], ['allow' => 1]); // panel_bundles_delete
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100054], ['allow' => 1]); // panel_bundles_export_students_list
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100055], ['allow' => 1]); // panel_bundles_courses
+
+        // Assignments 60 - 69
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100060], ['allow' => 1]); // panel_assignments
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100061], ['allow' => 1]); // panel_assignments_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100062], ['allow' => 1]); // panel_assignments_my_courses_assignments
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100063], ['allow' => 1]); // panel_assignments_students
+
+        // Meetings 70 - 79
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100070], ['allow' => 1]); // panel_meetings
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100071], ['allow' => 1]); // panel_meetings_my_reservation
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100072], ['allow' => 1]); // panel_meetings_requests
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100073], ['allow' => 1]); // panel_meetings_settings
+
+        // Quizzes 80 - 89
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100080], ['allow' => 1]); // panel_quizzes
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100081], ['allow' => 1]); // panel_quizzes_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100082], ['allow' => 1]); // panel_quizzes_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100083], ['allow' => 1]); // panel_quizzes_delete
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100084], ['allow' => 1]); // panel_quizzes_results
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100085], ['allow' => 1]); // panel_quizzes_my_results
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100086], ['allow' => 1]); // panel_quizzes_not_participated
+
+        // Certificates 90 - 99
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100090], ['allow' => 1]); // panel_certificates
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100091], ['allow' => 1]); // panel_certificates_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100092], ['allow' => 1]); // panel_certificates_achievements
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100093], ['allow' => 1]); // panel_certificates_course_certificates
+
+        // Products (Store) 100 - 119
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100100], ['allow' => 1]); // panel_products
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100101], ['allow' => 1]); // panel_products_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100102], ['allow' => 1]); // panel_products_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100103], ['allow' => 1]); // panel_products_delete
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100104], ['allow' => 1]); // panel_products_sales
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100105], ['allow' => 1]); // panel_products_purchases
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100106], ['allow' => 1]); // panel_products_comments
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100107], ['allow' => 1]); // panel_products_my_comments
+
+        // Financial 120 - 139
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100120], ['allow' => 1]); // panel_financial
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100121], ['allow' => 1]); // panel_financial_sales_reports
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100122], ['allow' => 1]); // panel_financial_summary
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100123], ['allow' => 1]); // panel_financial_payout
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100124], ['allow' => 1]); // panel_financial_charge_account
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100125], ['allow' => 1]); // panel_financial_subscribes
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100126], ['allow' => 1]); // panel_financial_registration_packages
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100127], ['allow' => 1]); // panel_financial_installments
+
+        // Support 140 - 159
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100140], ['allow' => 1]); // panel_support
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100141], ['allow' => 1]); // panel_support_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100142], ['allow' => 1]); // panel_support_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100143], ['allow' => 1]); // panel_support_tickets
+
+        // Marketing 160 - 179
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100160], ['allow' => 1]); // panel_marketing
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100161], ['allow' => 1]); // panel_marketing_special_offers
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100162], ['allow' => 1]); // panel_marketing_promotions
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100163], ['allow' => 1]); // panel_marketing_affiliates
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100164], ['allow' => 1]); // panel_marketing_registration_bonus
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100165], ['allow' => 1]); // panel_marketing_coupons
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100166], ['allow' => 1]); // panel_marketing_new_coupon
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100167], ['allow' => 1]); // panel_marketing_delete_coupon
+
+        // Forums 180 - 199
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100180], ['allow' => 1]); // panel_forums
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100181], ['allow' => 1]); // panel_forums_new_topic
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100182], ['allow' => 1]); // panel_forums_my_topics
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100183], ['allow' => 1]); // panel_forums_my_posts
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100184], ['allow' => 1]); // panel_forums_bookmarks
+
+        // Blog 200 - 219
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100200], ['allow' => 1]); // panel_blog
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100201], ['allow' => 1]); // panel_blog_new_article
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100202], ['allow' => 1]); // panel_blog_my_articles
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100203], ['allow' => 1]); // panel_blog_delete_article
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100204], ['allow' => 1]); // panel_blog_comments
+
+        // Noticeboard 220 - 239
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100220], ['allow' => 1]); // panel_noticeboard
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100221], ['allow' => 1]); // panel_noticeboard_history
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100222], ['allow' => 1]); // panel_noticeboard_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100223], ['allow' => 1]); // panel_noticeboard_delete
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100224], ['allow' => 1]); // panel_noticeboard_course_notices
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100225], ['allow' => 1]); // panel_noticeboard_course_notices_create
+
+        // Rewards 240 - 259
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100240], ['allow' => 1]); // panel_rewards
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100241], ['allow' => 1]); // panel_rewards_lists
+
+        // AI Contents 260 - 279
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100260], ['allow' => 1]); // panel_ai_contents
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100261], ['allow' => 1]); // panel_ai_contents_lists
+
+        // Notifications 280 - 299
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100280], ['allow' => 1]); // panel_notifications
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100281], ['allow' => 1]); // panel_notifications_lists
+
+        // Others 300 - 319
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100300], ['allow' => 1]); // panel_others
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100301], ['allow' => 1]); // panel_others_profile_setting
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100302], ['allow' => 1]); // panel_others_profile_url
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100303], ['allow' => 1]); // panel_others_logout
+
+        // Organization Managers 4005 - 4009
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104005], ['allow' => 1]); // panel_organization_managers
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104006], ['allow' => 1]); // panel_organization_managers_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104007], ['allow' => 1]); // panel_organization_managers_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104008], ['allow' => 1]); // panel_organization_managers_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 104009], ['allow' => 1]); // panel_organization_managers_delete
+
+        // Projects 200 - 204
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100200], ['allow' => 1]); // panel_projects
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100201], ['allow' => 1]); // panel_projects_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100202], ['allow' => 1]); // panel_projects_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100203], ['allow' => 1]); // panel_projects_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100204], ['allow' => 1]); // panel_projects_delete
+
+        // Organization Projects 205 - 209
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100205], ['allow' => 1]); // panel_organization_projects
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100206], ['allow' => 1]); // panel_organization_projects_lists
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100207], ['allow' => 1]); // panel_organization_projects_create
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100208], ['allow' => 1]); // panel_organization_projects_edit
+        \App\Models\Permission::updateOrCreate(['role_id' => 3, 'section_id' => 100209], ['allow' => 1]); // panel_organization_projects_delete
+
+        // ========== END ORGANIZATION PERMISSIONS ==========
     }
 }

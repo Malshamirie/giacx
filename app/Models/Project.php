@@ -69,6 +69,16 @@ class Project extends Model
         return $this->belongsToMany('App\User', 'project_participants', 'project_id', 'user_id');
     }
 
+    public function candidates()
+    {
+        return $this->hasMany(\App\Models\ProjectCandidate::class, 'project_id', 'id');
+    }
+
+    public function projectParticipants()
+    {
+        return $this->hasMany('App\Models\ProjectParticipant', 'project_id', 'id');
+    }
+
     public function getStudentsFromCourses()
     {
         $webinarIds = $this->webinars()->pluck('id')->toArray();

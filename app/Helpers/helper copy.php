@@ -1592,31 +1592,12 @@ function getPageBackgroundSettings($page = null)
     return App\Models\Setting::getPageBackgroundSettings($page);
 }
 
-/**
- * @param null $page => admin_login, admin_dashboard, login, register, remember_pass, search, categories,
- * become_instructor, certificate_validation, blog, instructors
- * ,dashboard, panel_sidebar, user_avatar, user_cover, instructor_finder_wizard, products_lists
- * @return string|array => [all pages]
- */
-function getThemePageBackgroundSettings($page = null)
-{
-    return App\Models\Setting::getPageBackgroundSettings($page);
-}
 
 /**
  * @param null $key => css, js
  * @return string|array => {css, js}
  */
 function getCustomCssAndJs($key = null)
-{
-    return App\Models\Setting::getCustomCssAndJs($key);
-}
-
-/**
- * @param null $key => css, js
- * @return string|array => {css, js}
- */
-function getThemeCustomCssAndJs($key = null)
 {
     return App\Models\Setting::getCustomCssAndJs($key);
 }
@@ -2375,7 +2356,8 @@ function getTranslateAttributeValue($model, $key, $loca = null)
         $model->locale = $locale;
 
         return $model->translate(mb_strtolower($locale))->{$key};
-    } catch (\Exception $e) {        // this conditions get client side
+    } catch (\Exception $e) {
+        // this conditions get client side
 
         if (empty($contentLocale) and empty($loca)) { //  first get translate by site default language
             $defaultLocale = getDefaultLocale();

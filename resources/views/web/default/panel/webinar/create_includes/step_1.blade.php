@@ -135,7 +135,14 @@
                 <select name="video_demo_source"
                         class="js-video-demo-source form-control"
                 >
-                    @foreach(getFeaturesSettings('available_sources') as $source)
+                    @php
+                        $availableSources = getFeaturesSettings('available_sources');
+                        // Ensure it's an array
+                        if (!is_array($availableSources)) {
+                            $availableSources = [];
+                        }
+                    @endphp
+                    @foreach($availableSources as $source)
                         <option value="{{ $source }}" @if(!empty($webinar) and $webinar->video_demo_source == $source) selected @endif>{{ trans('update.file_source_'.$source) }}</option>
                     @endforeach
                 </select>

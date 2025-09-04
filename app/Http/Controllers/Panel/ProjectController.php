@@ -75,7 +75,7 @@ class ProjectController extends Controller
             'project_coordinator_id' => 'nullable|exists:users,id',
             'project_consultant_id' => 'nullable|exists:users,id',
             'venue_type' => 'required|in:hotel,client_venue,center_venue',
-            'logistics_services' => 'required|in:coffee_break,lunch,other',
+            'logistics' => 'required|in:coffee_break,lunch,other',
             'instructions' => 'nullable|string',
             'uploaded_files' => 'nullable|array',
             'uploaded_files.*' => 'exists:project_files,id'
@@ -98,7 +98,7 @@ class ProjectController extends Controller
         $data['project_coordinator_id'] = $request->project_coordinator_id;
         $data['project_consultant_id'] = $request->project_consultant_id;
         $data['venue_type'] = $request->venue_type;
-        $data['logistics_services'] = $request->logistics_services;
+        $data['logistics'] = $request->logistics;
         $data['start_date'] = $request->start_date;
         $data['end_date'] = $request->end_date;
         $data['status'] = 'active';
@@ -552,6 +552,8 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('msg', trans('panel.participant_removed_successfully'));
     }
+
+
 
     // Webinars management methods
     public function webinars($projectId)

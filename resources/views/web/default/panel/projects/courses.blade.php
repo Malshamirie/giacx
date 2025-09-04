@@ -118,41 +118,7 @@
         </div>
     </section>
 
-    <!-- Add Course Modal -->
-    @can('panel_organization_projects_edit')
-        <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="addCourseModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCourseModalLabel">{{ trans('panel.add_course_to_project') }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="/panel/projects/{{ $project->id }}/courses/add" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="input-label">{{ trans('panel.select_course') }}</label>
-                                <select name="webinar_id" class="form-control select2" required>
-                                    <option value="">{{ trans('panel.select_course') }}</option>
-                                    @foreach($availableWebinars as $webinar)
-                                        <option value="{{ $webinar->id }}">
-                                            {{ $webinar->title }} - {{ $webinar->teacher->full_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('public.close') }}</button>
-                            <button type="submit" class="btn btn-primary">{{ trans('panel.add_course') }}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endcan
+
 @endsection
 
 @push('scripts_bottom')

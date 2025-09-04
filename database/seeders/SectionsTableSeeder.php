@@ -637,6 +637,13 @@ class SectionsTableSeeder extends Seeder
         $this->createPanelSection(['id' => 203], ['name' => 'panel_projects_edit', 'section_group_id' => 200, 'caption' => 'Edit']);
         $this->createPanelSection(['id' => 204], ['name' => 'panel_projects_delete', 'section_group_id' => 200, 'caption' => 'Delete']);
 
+        // Organization Projects sections
+        $this->createPanelSection(['id' => 205], ['name' => 'panel_organization_projects', 'caption' => 'Organization Projects']);
+        $this->createPanelSection(['id' => 206], ['name' => 'panel_organization_projects_lists', 'section_group_id' => 205, 'caption' => 'Lists']);
+        $this->createPanelSection(['id' => 207], ['name' => 'panel_organization_projects_create', 'section_group_id' => 205, 'caption' => 'Create']);
+        $this->createPanelSection(['id' => 208], ['name' => 'panel_organization_projects_edit', 'section_group_id' => 205, 'caption' => 'Edit']);
+        $this->createPanelSection(['id' => 209], ['name' => 'panel_organization_projects_delete', 'section_group_id' => 205, 'caption' => 'Delete']);
+
         /* Run Panel Sections */
         $this->runPanelSections();
     }

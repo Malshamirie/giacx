@@ -1164,4 +1164,14 @@ class Webinar extends Model implements TranslatableContract
         return $count;
     }
 
+    public function participants()
+    {
+        return $this->hasMany(\App\Models\WebinarParticipant::class, 'webinar_id', 'id');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(\App\Models\Project::class, 'project_id', 'id');
+    }
+
 }

@@ -46,7 +46,20 @@
         </div>
     </section>
 
+
     <section class="course-statistic-stat-icons row">
+
+        <div class="col-6 col-md-3 mt-20">
+            <div class="dashboard-stats rounded-sm panel-shadow p-10 p-md-20 d-flex align-items-center">
+                <div class="stat-icon stat-icon-participants">
+                    <img src="/assets/default/img/icons/course-statistics/participants.svg" alt="">
+                </div>
+                <div class="d-flex flex-column ml-5 ml-md-15">
+                    <span class="font-30 text-secondary">{{ $webinar->participants->count() }}</span>
+                    <span class="font-16 text-gray font-weight-500">{{ trans('panel.participants') }}</span>
+                </div>
+            </div>
+        </div>
 
         <div class="col-6 col-md-3 mt-20">
             <div class="dashboard-stats rounded-sm panel-shadow p-10 p-md-20 d-flex align-items-center">
@@ -84,18 +97,32 @@
             </div>
         </div>
 
-        <div class="col-6 col-md-3 mt-20">
-            <div class="dashboard-stats rounded-sm panel-shadow p-10 p-md-20 d-flex align-items-center">
-                <div class="stat-icon stat-icon-pending-assignments">
-                    <img src="/assets/default/img/icons/course-statistics/4.svg" alt="">
-                </div>
-                <div class="d-flex flex-column ml-5 ml-md-15">
-                    <span class="font-30 text-secondary">{{ $pendingAssignmentsCount }}</span>
-                    <span class="font-16 text-gray font-weight-500">{{ trans('update.pending_assignments') }}</span>
+    </section>
+
+    <!-- كارد إدارة المشاركين -->
+    <section class="mt-20">
+        <div class="row">
+            <div class="col-12">
+                <div class="course-statistic-cards-shadow py-20 px-15 py-md-30 px-md-20 rounded-sm bg-white">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="/assets/default/img/activity/participants.svg" width="64" height="64" alt="">
+                            <div class="ml-15">
+                                <h4 class="font-20 text-secondary font-weight-bold">{{ trans('panel.course_participants') }}</h4>
+                                <p class="text-gray font-14">{{ trans('panel.manage_course_participants') }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="font-30 text-secondary font-weight-bold mr-15">{{ $webinar->participants->count() }}</span>
+                            <a href="{{ route('panel.webinar.participants.index', $webinar->id) }}" class="btn btn-primary">
+                                <i class="fas fa-users me-2"></i>
+                                {{ trans('panel.manage_participants') }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </section>
 
     <section>

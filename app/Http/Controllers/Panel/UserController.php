@@ -670,19 +670,19 @@ class UserController extends Controller
 
     public function storeUser(Request $request, $user_type)
     {
+        // return $user_type;
         $this->authorize("panel_organization_{$user_type}_create");
 
         $valid_type = ['instructors', 'students', 'managers'];
         $organization = auth()->user();
-
         if ($organization->isOrganization() and in_array($user_type, $valid_type)) {
             $this->validate($request, [
                 'full_name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
                 'mobile' => 'nullable|string|max:255',
                 'password' => 'required|string|min:6',
-                'role_name' => 'required|string',
             ]);
+
 
             $data = $request->all();
 

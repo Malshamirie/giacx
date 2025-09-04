@@ -41,6 +41,14 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
             Route::group(['prefix' => '{webinar_id}/statistics'], function () {
                 Route::get('/', 'WebinarStatisticController@index');
             });
+
+            Route::group(['prefix' => '{webinar_id}/participants'], function () {
+                Route::get('/', 'WebinarParticipantController@index')->name('panel.webinar.participants.index');
+                Route::post('/store', 'WebinarParticipantController@store')->name('panel.webinar.participants.store');
+                Route::put('/{participant_id}', 'WebinarParticipantController@update')->name('panel.webinar.participants.update');
+                Route::delete('/{participant_id}', 'WebinarParticipantController@destroy')->name('panel.webinar.participants.destroy');
+                Route::post('/destroy-multiple', 'WebinarParticipantController@destroyMultiple')->name('panel.webinar.participants.destroyMultiple');
+            });
         });
 
         Route::get('/organization_classes', 'WebinarController@organizationClasses');
@@ -520,6 +528,16 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
             Route::get('/{project_id}', 'ProjectController@participants');
             Route::post('/{project_id}/add', 'ProjectController@addParticipant');
             Route::get('/{project_id}/{user_id}/remove', 'ProjectController@removeParticipant');
+        });
+        
+        // Project candidates routes
+        Route::group(['prefix' => 'candidates'], function () {
+            Route::get('/{project_id}', 'ProjectCandidateController@index')->name('panel.projects.candidates.index');
+            Route::post('/{project_id}/store', 'ProjectCandidateController@store')->name('panel.projects.candidates.store');
+            Route::post('/{project_id}/search', 'ProjectCandidateController@search')->name('panel.projects.candidates.search');
+            Route::put('/{project_id}/{candidate_id}', 'ProjectCandidateController@update')->name('panel.projects.candidates.update');
+            Route::delete('/{project_id}/{candidate_id}', 'ProjectCandidateController@destroy')->name('panel.projects.candidates.destroy');
+            Route::post('/{project_id}/destroy-multiple', 'ProjectCandidateController@destroyMultiple')->name('panel.projects.candidates.destroyMultiple');
         });
         
         // Project courses management
