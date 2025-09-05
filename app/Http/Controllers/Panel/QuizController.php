@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Http\Controllers\Controller;
-use App\Models\Quiz;
-use App\Models\Reward;
-use App\Models\RewardAccounting;
-use App\Models\Role;
-use App\Models\Translation\QuizTranslation;
-use App\Models\WebinarChapter;
-use App\Models\WebinarChapterItem;
 use App\User;
+use App\Models\Quiz;
+use App\Models\Role;
+use App\Models\Reward;
 use App\Models\Webinar;
-use App\Models\QuizzesResult;
-use App\Models\QuizzesQuestion;
-use App\Models\QuizzesQuestionsAnswer;
+use App\Models\QuizCategory;
 use Illuminate\Http\Request;
+use App\Models\QuizzesResult;
+use App\Models\WebinarChapter;
+use App\Models\QuizzesQuestion;
+use App\Models\RewardAccounting;
+use App\Models\WebinarChapterItem;
+use App\Http\Controllers\Controller;
+use App\Models\QuizzesQuestionsAnswer;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Translation\QuizTranslation;
 
 class QuizController extends Controller
 {
@@ -91,10 +92,12 @@ class QuizController extends Controller
         $total_mark = $request->get('total_mark');
         $status = $request->get('status');
         $active_quizzes = $request->get('active_quizzes');
+        
 
 
         $query = fromAndToDateFilter($from, $to, $query, 'created_at');
 
+       
         if (!empty($quiz_id) and $quiz_id != 'all') {
             $query->where('id', $quiz_id);
         }
@@ -131,6 +134,7 @@ class QuizController extends Controller
 
         $data = [
             'pageTitle' => trans('quiz.new_quiz_page_title'),
+            'categories' => QuizCategory::all(),
             'webinars' => $webinars,
             'userLanguages' => getUserLanguagesLists(),
             'locale' => mb_strtolower($locale),
@@ -148,6 +152,7 @@ class QuizController extends Controller
         $locale = $data['locale'] ?? getDefaultLocale();
 
         $rules = [
+            'category_id' => 'required|exists:quiz_categories,id',
             'title' => 'required|max:255',
             'webinar_id' => 'nullable',
             'pass_mark' => 'required',
@@ -184,6 +189,7 @@ class QuizController extends Controller
         }
 
         $quiz = Quiz::create([
+            'category_id' => $data['category_id'],
             'webinar_id' => !empty($webinar) ? $webinar->id : null,
             'chapter_id' => !empty($chapter) ? $chapter->id : null,
             'creator_id' => $user->id,
@@ -271,6 +277,7 @@ class QuizController extends Controller
 
             $data = [
                 'pageTitle' => trans('public.edit') . ' ' . $quiz->title,
+                'categories' => QuizCategory::all(),
                 'webinars' => $webinars,
                 'quiz' => $quiz,
                 'quizQuestions' => $quiz->quizQuestions,
@@ -322,6 +329,7 @@ class QuizController extends Controller
             $locale = $data['locale'] ?? getDefaultLocale();
 
             $rules = [
+                'category_id' => 'required|exists:quiz_categories,id',
                 'title' => 'required|max:255',
                 'webinar_id' => 'nullable',
                 'pass_mark' => 'required',
@@ -345,6 +353,7 @@ class QuizController extends Controller
             }
 
             $quiz->update([
+                'category_id' => $data['category_id'],
                 'webinar_id' => !empty($webinar) ? $webinar->id : null,
                 'chapter_id' => !empty($chapter) ? $chapter->id : null,
                 'attempt' => $data['attempt'] ?? null,

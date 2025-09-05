@@ -510,7 +510,8 @@ return [
     'admin_payment_channel_delete' => 'حذف بوابة الدفع',
 
 //Quiz
-    'quizzes' => 'الاختبارات',
+    'quizzes' => 'فئات الكويزات',
+    'quiz_category_new_page_title' => 'فئة كويز جديدة',
     'quizzes_list' => 'قائمة الاختبارات',
     'quiz_results' => 'النتائج',
     'question_count' => 'الاسئلة',
@@ -1444,4 +1445,7 @@ return [
     'notification_forms' => 'استمارة',
     'notification_submit_form_by_users' => 'استمارة التسجيل( للإدارة)',
     'form_title' => 'عنوان الإستمارة',
+    'new_quiz_category' => 'فئة كويز جديدة',
+    'manage_quiz_categories' => 'إدارة جميع فئات الكويزات في مكان واحد',
+    'sub_categories' => 'الفئات الفرعية',
 ];

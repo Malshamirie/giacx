@@ -328,6 +328,16 @@ Route::group(['prefix' => $prefix, 'namespace' => 'Admin', 'middleware' => ['web
             });
         });
 
+
+        Route::group(['prefix' => 'quiz-categories'], function () {
+            Route::get('/', 'QuizCategoryController@index');
+            Route::get('/create', 'QuizCategoryController@create');
+            Route::post('/store', 'QuizCategoryController@store');
+            Route::get('/{id}/edit', 'QuizCategoryController@edit')->name('adminEditQuizCategory');
+            Route::post('/{id}/update', 'QuizCategoryController@update');
+            Route::get('/{id}/delete', 'QuizCategoryController@destroy');
+        });
+
         Route::group(['prefix' => 'quizzes'], function () {
             Route::get('/', 'QuizController@index');
             Route::get('/create', 'QuizController@create');

@@ -469,7 +469,7 @@
                         </a>
                     </div>
                     <div class="mb-3">
-                        <a href="#" class="text-decoration-none d-flex align-items-center">
+                        <a href="/panel/projects/notes/{{ $project->id }}" class="text-decoration-none d-flex align-items-center">
                             <i class="fas fa-arrow-left mr-2 text-primary"></i>
                             {{ trans('panel.add_note') }}
                         </a>
@@ -596,6 +596,11 @@
                         <i class="fas fa-sitemap mr-2"></i>{{ trans('panel.organizational_chart') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#project-notes" data-toggle="tab">
+                        <i class="fas fa-sticky-note mr-2"></i>{{ trans('panel.notes_tab') }}
+                    </a>
+                </li>
             </ul>
         </div>
         
@@ -610,7 +615,7 @@
         @include('web.default.panel.projects.show_includes.candidates')
 
         <!-- Organizational Chart Tab -->
-        @include('web.default.panel.projects.show_includes.chart')
+        @include('web.default.panel.projects.show_includes.chart')        
     </div>
 </section>
 @endsection
@@ -623,6 +628,8 @@ $(document).ready(function() {
         e.preventDefault();
         $(this).tab('show');
     });
+
+    
     
     // Organizational Chart Controls
     let currentZoom = 1;

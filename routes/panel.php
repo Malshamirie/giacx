@@ -544,6 +544,26 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
         Route::get('/{projectId}/courses', 'ProjectController@courses')->name('panelProjectsCourses');
         Route::post('/{projectId}/courses/add', 'ProjectController@addWebinar')->name('panelProjectsAddCourse');
         Route::post('/{projectId}/courses/{webinarId}/remove', 'ProjectController@removeWebinar')->name('panelProjectsRemoveCourse');
+        
+        // Project notes routes
+        // Route::get('/{projectId}/notes', 'ProjectNoteController@notesPage')->name('panel.projects.notes.page');
+        Route::group(['prefix' => 'notes'], function () {
+            Route::get('/{projectId}', 'ProjectNoteController@index')->name('panel.projects.notes.index');
+            Route::post('/{projectId}/store', 'ProjectNoteController@store')->name('panel.projects.notes.store');
+            Route::get('/{projectId}/{noteId}', 'ProjectNoteController@show')->name('panel.projects.notes.show');
+            Route::put('/{projectId}/{noteId}/update', 'ProjectNoteController@update')->name('panel.projects.notes.update');
+            Route::delete('/{projectId}/{noteId}/destroy', 'ProjectNoteController@destroy')->name('panel.projects.notes.destroy');
+        });
+
+        // Project Organizational Chart Routes
+        Route::group(['prefix' => '{projectId}/organizational-chart'], function () {
+            Route::get('/', 'ProjectOrganizationalChartController@index');
+            Route::post('/', 'ProjectOrganizationalChartController@store');
+            Route::put('/{chartId}', 'ProjectOrganizationalChartController@update');
+            Route::delete('/{chartId}', 'ProjectOrganizationalChartController@destroy');
+            Route::post('/connect', 'ProjectOrganizationalChartController@connectManagers');
+            Route::delete('/connections/{connectionId}', 'ProjectOrganizationalChartController@disconnectManagers');
+        });
     });
 
 });

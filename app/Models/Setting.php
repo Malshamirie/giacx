@@ -149,6 +149,11 @@ class Setting extends Model implements TranslatableContract
 
         if (!empty($static) and !empty($static->value) and isset($static->value)) {
             $value = json_decode($static->value, true);
+            
+            // If json_decode fails, try to handle as comma-separated string
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $value = !empty($static->value) ? explode(',', $static->value) : [];
+            }
         }
 
         if (!empty($value) and !empty($key)) {

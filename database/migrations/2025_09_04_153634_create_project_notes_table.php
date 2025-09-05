@@ -13,23 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('webinar_participants', function (Blueprint $table) {
+        Schema::create('project_notes', function (Blueprint $table) {
             $table->engine = "InnoDB";
             $table->increments('id');
-            $table->integer('webinar_id')->unsigned();
-            $table->integer('user_id')->unsigned();
             $table->integer('project_id')->unsigned();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->integer('user_id')->unsigned();
+            $table->text('content');
             $table->timestamps();
 
-            // Foreign keys
-            $table->foreign('webinar_id')->on('webinars')->references('id')->cascadeOnDelete();
-            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->foreign('project_id')->on('projects')->references('id')->cascadeOnDelete();
-
-            // Indexes
-            $table->index(['webinar_id', 'user_id']);
-            $table->index(['project_id']);
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
         });
     }
 
@@ -40,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('webinar_participants');
+        Schema::dropIfExists('project_notes');
     }
 };

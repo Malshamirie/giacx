@@ -3,20 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\User;
+use App\Models\Quiz;
+use App\Models\Webinar;
+use App\Models\QuizCategory;
+use Illuminate\Http\Request;
+use App\Models\QuizzesResult;
+use App\Models\WebinarChapter;
+use App\Models\QuizzesQuestion;
+use App\Models\WebinarChapterItem;
+use Illuminate\Support\Facades\DB;
 use App\Exports\QuizzesAdminExport;
 use App\Http\Controllers\Controller;
-use App\Models\Quiz;
-use App\Models\QuizzesQuestion;
-use App\Models\QuizzesResult;
-use App\Models\Translation\QuizTranslation;
-use App\Models\Webinar;
-use App\Models\WebinarChapter;
-use App\Models\WebinarChapterItem;
-use App\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Translation\QuizTranslation;
 
 class QuizController extends Controller
 {
@@ -163,6 +164,7 @@ class QuizController extends Controller
         $this->authorize('admin_quizzes_create');
 
         $data = [
+            'categories' => QuizCategory::all(),
             'pageTitle' => trans('quiz.new_quiz'),
         ];
 
@@ -177,6 +179,7 @@ class QuizController extends Controller
         $locale = $data['locale'] ?? getDefaultLocale();
 
         $rules = [
+            'category_id' => 'required|exists:quiz_categories,id',
             'title' => 'required|max:255',
             'webinar_id' => 'required|exists:webinars,id',
             'pass_mark' => 'required',
@@ -205,6 +208,7 @@ class QuizController extends Controller
             }
 
             $quiz = Quiz::create([
+                'category_id' => $data['category_id'],
                 'webinar_id' => $webinar->id,
                 'chapter_id' => !empty($chapter) ? $chapter->id : null,
                 'creator_id' => $webinar->creator_id,
@@ -318,6 +322,7 @@ class QuizController extends Controller
         $locale = $data['locale'] ?? getDefaultLocale();
 
         $rules = [
+            'category_id' => 'required|exists:quiz_categories,id',
             'title' => 'required|max:255',
             'webinar_id' => 'required|exists:webinars,id',
             'pass_mark' => 'required',
@@ -347,6 +352,7 @@ class QuizController extends Controller
         }
 
         $quiz->update([
+            'category_id' => $data['category_id'],
             'webinar_id' => !empty($webinar) ? $webinar->id : null,
             'chapter_id' => !empty($chapter) ? $chapter->id : null,
             'attempt' => $data['attempt'] ?? null,

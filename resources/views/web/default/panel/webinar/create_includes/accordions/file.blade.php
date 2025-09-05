@@ -87,7 +87,16 @@
                                 <select name="ajax[{{ !empty($file) ? $file->id : 'new' }}][storage]"
                                         class="js-file-storage form-control"
                                 >
-                                    @foreach(getFeaturesSettings('available_sources') as $source)
+                                    @php
+                                        $availableSources = getFeaturesSettings('available_sources');
+                                        // Handle both array and string cases
+                                        if (is_string($availableSources)) {
+                                            $availableSources = !empty($availableSources) ? explode(',', $availableSources) : ['upload'];
+                                        } elseif (!is_array($availableSources)) {
+                                            $availableSources = ['upload'];
+                                        }
+                                    @endphp
+                                    @foreach($availableSources as $source)
                                         <option value="{{ $source }}" @if(!empty($file) and $file->storage == $source) selected @endif>{{ trans('update.file_source_'.$source) }}</option>
                                     @endforeach
                                 </select>

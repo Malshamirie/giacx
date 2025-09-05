@@ -68,6 +68,11 @@ class Quiz extends Model implements TranslatableContract
         return $this->morphOne('App\Models\CoursePersonalNote', 'targetable');
     }
 
+    public function quizCategory()
+    {
+        return $this->belongsTo('App\Models\QuizCategory', 'category_id', 'id');
+    }
+
 
     public function increaseTotalMark($grade)
     {

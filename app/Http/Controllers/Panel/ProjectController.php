@@ -155,7 +155,8 @@ class ProjectController extends Controller
             'projectCoordinator', 
             'projectConsultant',
             'files',
-            'participants.user'
+            'participants.user',
+            'notes.user'
         ])
         ->findOrFail($id);
 
@@ -267,8 +268,6 @@ class ProjectController extends Controller
         $project->webinars()->delete();
         $project->participants()->delete();
         $project->delete();
-
-        return redirect('/panel/projects')->with('msg', trans('panel.project_deleted_successfully'));
 
         return redirect('/panel/projects')->with('msg', trans('panel.project_deleted_successfully'));
     }

@@ -79,6 +79,21 @@ class Project extends Model
         return $this->hasMany('App\Models\ProjectParticipant', 'project_id', 'id');
     }
 
+    public function notes()
+    {
+        return $this->hasMany('App\Models\ProjectNote', 'project_id', 'id');
+    }
+
+    public function organizationalCharts()
+    {
+        return $this->hasMany(ProjectOrganizationalChart::class, 'project_id', 'id');
+    }
+
+    public function managerConnections()
+    {
+        return $this->hasMany(ProjectManagerConnection::class, 'project_id', 'id');
+    }
+
     public function getStudentsFromCourses()
     {
         $webinarIds = $this->webinars()->pluck('id')->toArray();

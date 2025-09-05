@@ -206,6 +206,7 @@
                                 <table class="table custom-table font-14">
                                     <tr>
                                         <th class="text-left">{{ trans('admin/main.title') }}</th>
+                                        <th class="text-left">{{ trans('admin/main.quiz_category') }}</th>
                                         <th class="text-left">{{ trans('admin/main.instructor') }}</th>
                                         <th class="text-center">{{ trans('admin/main.question_count') }}</th>
                                         <th class="text-center">{{ trans('admin/main.students_count') }}</th>
@@ -223,6 +224,7 @@
                                                     <small class="d-block text-left text-gray-500">{{ $quiz->webinar->title }}</small>
                                                 @endif
                                             </td>
+                                            <td class="text-left">{{ $quiz->quizCategory->title }}</td>
 
                                             <td class="text-left">{{ $quiz->teacher->full_name }}</td>
 

@@ -109,11 +109,24 @@
             @endcan()
 
             @can('admin_quizzes')
-                <li class="{{ (request()->is(getAdminPanelUrl('/quizzes*', false))) ? 'active' : '' }}">
-                    <a class="nav-link " href="{{ getAdminPanelUrl() }}/quizzes">
+                <li class="nav-item dropdown {{ (request()->is(getAdminPanelUrl('/quizzes*', false)) or request()->is(getAdminPanelUrl('/quiz-categories*', false))) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                         <x-iconsax-bul-task-square class="icons" width="24px" height="24px"/>
                         <span>{{ trans('admin/main.quizzes') }}</span>
                     </a>
+                    <ul class="dropdown-menu">
+                        @can('admin_quizzes_list')
+                            <li class="{{ (request()->is(getAdminPanelUrl('/quizzes', false))) ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ getAdminPanelUrl() }}/quizzes">{{ trans('admin/main.quizzes') }}</a>
+                            </li>
+                        @endcan
+
+                        @can('admin_quiz_categories_list')
+                            <li class="{{ (request()->is(getAdminPanelUrl('/quiz-categories', false))) ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ getAdminPanelUrl() }}/quiz-categories">{{ trans('admin/main.quiz_categories') }}</a>
+                            </li>
+                        @endcan
+                    </ul>
                 </li>
             @endcan()
 

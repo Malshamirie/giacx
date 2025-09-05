@@ -1510,4 +1510,9 @@ By enabling this feature, newly registered users will require approval using thi
 'discount_amount' => 'Discount Amount',
 'discount_title' => 'Discount Title',
 
+'quiz_categories' => 'Quiz Categories',
+'quiz_category_new_page_title' => 'New Quiz Category',
+'manage_quiz_categories' => 'Manage all quiz categories in a single place',
+'sub_categories' => 'Sub Categories',
+
 ];

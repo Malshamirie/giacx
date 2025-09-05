@@ -2,6 +2,16 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">{{ trans('panel.organizational_chart') }} ({{ $project->organizationalCharts()->count() }})</h5>
+                <div class="d-flex align-items-center">
+                    
+                    <a href="/panel/projects/{{ $project->id }}/organizational-chart" class="btn btn-outline-primary ml-2">
+                        <i class="fas fa-list"></i>
+                        {{ trans('panel.organizational_chart') }}
+                    </a>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="mb-0">{{ trans('panel.organizational_chart') }}</h5>
                 <div class="chart-controls">
                     <button class="btn btn-sm btn-outline-secondary" id="expandChart" title="{{ trans('panel.expand_chart') }}">

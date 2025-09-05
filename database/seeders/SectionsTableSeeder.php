@@ -112,6 +112,13 @@ class SectionsTableSeeder extends Seeder
         Section::updateOrCreate(['id' => 303], ['name' => 'admin_filters_edit', 'section_group_id' => 300, 'caption' => trans('/admin/pages/filters.admin_filters_edit')]);
         Section::updateOrCreate(['id' => 304], ['name' => 'admin_filters_delete', 'section_group_id' => 300, 'caption' => trans('/admin/pages/filters.admin_filters_delete')]);
 
+        // Quiz Categories 350 - 399
+        Section::updateOrCreate(['id' => 5350], ['name' => 'admin_quiz_categories', 'caption' => trans('/admin/pages/quiz_categories.admin_quiz_categories')]);
+        Section::updateOrCreate(['id' => 5351], ['name' => 'admin_quiz_categories_list', 'section_group_id' => 350, 'caption' => trans('/admin/pages/quiz_categories.admin_quiz_categories_list')]);
+        Section::updateOrCreate(['id' => 5352], ['name' => 'admin_quiz_categories_create', 'section_group_id' => 350, 'caption' => trans('/admin/pages/quiz_categories.admin_quiz_categories_create')]);
+        Section::updateOrCreate(['id' => 5353], ['name' => 'admin_quiz_categories_edit', 'section_group_id' => 350, 'caption' => trans('/admin/pages/quiz_categories.admin_quiz_categories_edit')]);
+        Section::updateOrCreate(['id' => 5354], ['name' => 'admin_quiz_categories_delete', 'section_group_id' => 350, 'caption' => trans('/admin/pages/quiz_categories.admin_quiz_categories_delete')]);
+
         // Quiz 350 - 399
         Section::updateOrCreate(['id' => 350], ['name' => 'admin_quizzes', 'caption' => trans('/admin/pages/quiz.admin_quizzes')]);
         Section::updateOrCreate(['id' => 351], ['name' => 'admin_quizzes_list', 'section_group_id' => 350, 'caption' => trans('/admin/pages/quiz.admin_quizzes_list')]);

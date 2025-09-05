@@ -7,6 +7,16 @@
             <div class="row">
                 <div class="col-12 col-md-4">
 
+                    <div class="form-group">
+                        <label class="input-label">{{ trans('admin/main.quiz_category') }}</label>
+                        <select name="ajax[{{ !empty($quiz) ? $quiz->id : 'new' }}][category_id]" class="form-control">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ (!empty($quiz) and $quiz->category_id == $category->id) ? 'selected' : '' }}>{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+
                     @if(!empty(getGeneralSettings('content_translate')))
                         <div class="form-group mt-25">
                             <label class="input-label">{{ trans('auth.language') }}</label>
