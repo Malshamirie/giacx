@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use App\Models\Webinar;
 use App\Models\Project;
-use App\Models\ProjectCandidate;
+use App\Models\ProjectStudent;
 use App\Models\WebinarParticipant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -47,8 +47,8 @@ class WebinarParticipantController extends Controller
         $this->authorize('panel_organization_projects_edit');
 
         $request->validate([
-            'candidate_ids' => 'required|array|min:1',
-            'candidate_ids.*' => 'required|exists:project_candidates,id'
+            'student_ids' => 'required|array|min:1',
+            'student_ids.*' => 'required|exists:project_students,id'
         ]);
 
         $webinar = Webinar::findOrFail($webinarId);
@@ -72,16 +72,16 @@ class WebinarParticipantController extends Controller
 
         $addedCount = 0;
 
-        foreach ($request->candidate_ids as $candidateId) {
-            // التحقق من أن المرشح ينتمي للمشروع
-            $candidate = ProjectCandidate::where('id', $candidateId)
+        foreach ($request->student_ids as $studentId) {
+            // التحقق من أن الطالب ينتمي للمشروع
+            $student = ProjectStudent::where('id', $studentId)
                 ->where('project_id', $project->id)
                 ->first();
 
-            if ($candidate && !$webinar->participants()->where('user_id', $candidate->user_id)->exists()) {
+            if ($student && !$webinar->participants()->where('user_id', $student->user_id)->exists()) {
                 WebinarParticipant::create([
                     'webinar_id' => $webinar->id,
-                    'user_id' => $candidate->user_id,
+                    'user_id' => $student->user_id,
                     'project_id' => $project->id,
                     'status' => 'active'
                 ]);

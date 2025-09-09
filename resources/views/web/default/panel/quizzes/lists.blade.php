@@ -74,9 +74,21 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-12 col-lg-6">
                     <div class="row">
-                        <div class="col-12 col-lg-6">
+                        <div class="col-12 col-lg-4">
+                            <div class="form-group">
+                                <label class="input-label">{{ trans('lang.quiz_category') }}</label>
+                                <select name="category_id" class="form-control select2" data-placeholder="{{ trans('public.all') }}">
+                                    <option value="all">{{ trans('public.all') }}</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}" @if(request()->get('category_id') == $category->id) selected @endif>{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
                             <div class="form-group">
                                 <label class="input-label">{{ trans('quiz.quiz_or_webinar') }}</label>
                                 <select name="quiz_id" class="form-control select2" data-placeholder="{{ trans('public.all') }}">
@@ -88,7 +100,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6">
+
+                        <div class="col-12 col-lg-4">
                             <div class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
@@ -142,6 +155,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-left">{{ trans('public.title') }}</th>
+                                    <th class="text-center">{{ trans('back.quiz_category') }}</th>
                                     <th class="text-center">{{ trans('public.questions') }}</th>
                                     <th class="text-center">{{ trans('public.time') }} <span class="braces">({{ trans('public.min') }})</span></th>
                                     <th class="text-center">{{ trans('public.total_mark') }}</th>
@@ -166,6 +180,9 @@
                                                     {{ trans('panel.not_assign_any_webinar') }}
                                                 @endif
                                         </span>
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            {{ $quiz->category->title }}
                                         </td>
                                         <td class="text-center align-middle">
                                             {{ $quiz->quizQuestions->count() }}

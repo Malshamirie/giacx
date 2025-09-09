@@ -108,15 +108,15 @@
                         <div class="d-flex align-items-center">
                             <img src="/assets/default/img/activity/participants.svg" width="64" height="64" alt="">
                             <div class="ml-15">
-                                <h4 class="font-20 text-secondary font-weight-bold">{{ trans('panel.course_participants') }}</h4>
-                                <p class="text-gray font-14">{{ trans('panel.manage_course_participants') }}</p>
+                                <h4 class="font-20 text-secondary font-weight-bold">{{ trans('lang.course_participants') }}</h4>
+                                <p class="text-gray font-14">{{ trans('lang.manage_course_participants') }}</p>
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
                             <span class="font-30 text-secondary font-weight-bold mr-15">{{ $webinar->participants->count() }}</span>
                             <a href="{{ route('panel.webinar.participants.index', $webinar->id) }}" class="btn btn-primary">
                                 <i class="fas fa-users me-2"></i>
-                                {{ trans('panel.manage_participants') }}
+                                {{ trans('lang.manage_participants') }}
                             </a>
                         </div>
                     </div>

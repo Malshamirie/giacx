@@ -58,7 +58,7 @@
                                 <tr>
                                     <th class="text-left text-gray">{{ trans('auth.name') }}</th>
                                     <th class="text-left text-gray">
-                                        Candidate
+                                        student
                                     </th>
                                     <th class="text-left text-gray">
                                         Manager
@@ -90,8 +90,8 @@
                                         </td>
                                         <td>
                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" id="candidateSwitch{{ $user->id }}" name="candidate_user[]" value="{{ $user->id }}" class="custom-control-input">
-                                                <label class="custom-control-label" for="candidateSwitch{{ $user->id }}"></label>
+                                                <input type="checkbox" id="studentswitch{{ $user->id }}" name="student_user[]" value="{{ $user->id }}" class="custom-control-input">
+                                                <label class="custom-control-label" for="studentswitch{{ $user->id }}"></label>
                                             </div>
                                         </td>
                                         <td>

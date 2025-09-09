@@ -260,6 +260,94 @@
                                                 </div>
                                             </div>
 
+
+<div class="form-group mt-15">
+    <label class="input-label d-block">{{ trans('lang.training_type') }}</label>
+    <select name="training_type" class="custom-select @error('training_type') is-invalid @enderror" id="training_type">
+        <option value="online" @if((!empty($webinar) && $webinar->training_type == 'online') || old('training_type') == 'online') selected @endif>{{ trans('lang.online_training') }}</option>
+        <option value="in_person" @if((!empty($webinar) && $webinar->training_type == 'in_person') || old('training_type') == 'in_person') selected @endif>{{ trans('lang.in_person_training') }}</option>
+    </select>
+    @error('training_type')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<!-- حقول التدريب الحضوري -->
+<div id="in_person_fields" class="training-type-fields" style="display: none;">
+    <div class="form-group mt-15">
+        <label class="input-label">{{ trans('lang.training_location_name') }}</label>
+        <input type="text" name="training_location_name" value="{{ (!empty($webinar) ? $webinar->training_location_name : old('training_location_name')) }}" class="form-control @error('training_location_name') is-invalid @enderror" placeholder="{{ trans('lang.enter_location_name') }}"/>
+        @error('training_location_name')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group mt-15">
+        <label class="input-label">{{ trans('lang.training_date') }}</label>
+        <input type="date" name="training_date" value="{{ (!empty($webinar) && $webinar->training_date) ? date('Y-m-d', $webinar->training_date) : old('training_date') }}" class="form-control @error('training_date') is-invalid @enderror"/>
+        @error('training_date')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group mt-15">
+        <label class="input-label">{{ trans('lang.training_time') }}</label>
+        <input type="time" name="training_time" value="{{ (!empty($webinar) ? $webinar->training_time : old('training_time')) }}" class="form-control @error('training_time') is-invalid @enderror"/>
+        @error('training_time')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group mt-15">
+        <label class="input-label">{{ trans('lang.training_location_link') }} ({{ trans('public.optional') }})</label>
+        <input type="url" name="training_location_link" value="{{ (!empty($webinar) ? $webinar->training_location_link : old('training_location_link')) }}" class="form-control @error('training_location_link') is-invalid @enderror" placeholder="{{ trans('lang.enter_location_link') }}"/>
+        @error('training_location_link')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
+<!-- حقول التدريب عن بعد -->
+<div id="online_fields" class="training-type-fields">
+    <div class="form-group mt-15">
+        <label class="input-label">{{ trans('lang.online_training_link') }}</label>
+        <input type="url" name="online_training_link" value="{{ (!empty($webinar) ? $webinar->online_training_link : old('online_training_link')) }}" class="form-control @error('online_training_link') is-invalid @enderror" placeholder="{{ trans('lang.enter_training_link') }}"/>
+        @error('online_training_link')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="form-group mt-15">
+        <label class="input-label">{{ trans('lang.online_link_activation_date') }}</label>
+        <input type="datetime-local" name="online_link_activation_date" value="{{ (!empty($webinar) && $webinar->online_link_activation_date) ? date('Y-m-d\TH:i', $webinar->online_link_activation_date) : old('online_link_activation_date') }}" class="form-control @error('online_link_activation_date') is-invalid @enderror"/>
+        @error('online_link_activation_date')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
+
+<div class="form-group mt-15">
+    <label class="input-label d-block">{{ trans('lang.registration_approval') }}</label>
+    <select name="registration_approval" class="custom-select @error('registration_approval') is-invalid @enderror">
+        <option value="automatic" @if((!empty($webinar) && $webinar->registration_approval == 'automatic') || old('registration_approval') == 'automatic') selected @endif>{{ trans('lang.automatic_approval') }}</option>
+        <option value="manual" @if((!empty($webinar) && $webinar->registration_approval == 'manual') || old('registration_approval') == 'manual') selected @endif>{{ trans('lang.manual_approval') }}</option>
+    </select>
+    @error('registration_approval')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<div class="form-group mt-15">
+    <label class="input-label d-block">{{ trans('lang.certificate_type') }}</label>
+    <select name="certificate_type" class="custom-select @error('certificate_type') is-invalid @enderror">
+        <option value="attendance" @if((!empty($webinar) && $webinar->certificate_type == 'attendance') || old('certificate_type') == 'attendance') selected @endif>{{ trans('lang.attendance_certificate') }}</option>
+        <option value="accredited_attendance" @if((!empty($webinar) && $webinar->certificate_type == 'accredited_attendance') || old('certificate_type') == 'accredited_attendance') selected @endif>{{ trans('lang.accredited_attendance_certificate') }}</option>
+    </select>
+    @error('certificate_type')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
                                             <div class="form-group js-video-demo-file-input {{ (!empty($webinar) and in_array($webinar->video_demo_source, ['secure_host', 's3'])) ? '' : 'd-none' }}">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
@@ -1068,4 +1156,29 @@
 
     <script src="/assets/admin/js/parts/quiz.min.js"></script>
     <script src="/assets/admin/js/parts/webinar.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // التحكم في إظهار/إخفاء الحقول حسب نوع التدريب
+            function toggleTrainingFields() {
+                var trainingType = $('#training_type').val();
+                
+                if (trainingType === 'in_person') {
+                    $('#in_person_fields').show();
+                    $('#online_fields').hide();
+                } else {
+                    $('#in_person_fields').hide();
+                    $('#online_fields').show();
+                }
+            }
+            
+            // تشغيل الدالة عند تحميل الصفحة
+            toggleTrainingFields();
+            
+            // تشغيل الدالة عند تغيير نوع التدريب
+            $('#training_type').on('change', function() {
+                toggleTrainingFields();
+            });
+        });
+    </script>
 @endpush

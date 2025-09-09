@@ -35,6 +35,16 @@ class Webinar extends Model implements TranslatableContract
     static $course = 'course';
     static $textLesson = 'text_lesson';
 
+    // إضافة الثوابت الجديدة
+    static $trainingTypeInPerson = 'in_person';
+    static $trainingTypeOnline = 'online';
+
+    static $registrationApprovalManual = 'manual';
+    static $registrationApprovalAutomatic = 'automatic';
+
+    static $certificateTypeAttendance = 'attendance';
+    static $certificateTypeAccreditedAttendance = 'accredited_attendance';
+
     static $statuses = [
         'active', 'pending', 'is_draft', 'inactive'
     ];

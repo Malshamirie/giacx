@@ -345,7 +345,22 @@ class WebinarController extends Controller
             'start_date' => 'required_if:type,webinar',
             'capacity' => 'nullable|numeric|min:0',
             'price' => 'nullable|numeric|min:0',
+            'training_type' => 'required|in:in_person,online',
+            'registration_approval' => 'required|in:manual,automatic',
+            'certificate_type' => 'required|in:attendance,accredited_attendance',
         ]);
+
+        if (!empty($data['training_type']) && $data['training_type'] == 'in_person') {
+            $rules['training_location_name'] = 'required|max:255';
+            $rules['training_date'] = 'required|date';
+            $rules['training_time'] = 'required|max:50';
+            $rules['training_location_link'] = 'nullable|url';
+        }
+
+        if (!empty($data['training_type']) && $data['training_type'] == 'online') {
+            $rules['online_training_link'] = 'required|url';
+            $rules['online_link_activation_date'] = 'required|date';
+        }
 
         $data = $request->all();
 
@@ -416,6 +431,17 @@ class WebinarController extends Controller
             'status' => Webinar::$pending,
             'created_at' => time(),
             'updated_at' => time(),
+
+            // إضافة الحقول الجديدة
+            'training_type' => $data['training_type'] ?? 'online',
+            'training_location_name' => $data['training_location_name'] ?? null,
+            'training_date' => !empty($data['training_date']) ? strtotime($data['training_date']) : null,
+            'training_time' => $data['training_time'] ?? null,
+            'training_location_link' => $data['training_location_link'] ?? null,
+            'online_training_link' => $data['online_training_link'] ?? null,
+            'online_link_activation_date' => !empty($data['online_link_activation_date']) ? strtotime($data['online_link_activation_date']) : null,
+            'registration_approval' => $data['registration_approval'] ?? 'automatic',
+            'certificate_type' => $data['certificate_type'] ?? 'attendance',
         ]);
 
         if ($webinar) {
@@ -581,6 +607,9 @@ class WebinarController extends Controller
             'teacher_id' => 'required|exists:users,id',
             'category_id' => 'required',
             'price' => 'nullable|numeric|min:0',
+            'training_type' => 'required|in:in_person,online',
+            'registration_approval' => 'required|in:manual,automatic',
+            'certificate_type' => 'required|in:attendance,accredited_attendance',
         ];
 
         if ($webinar->isWebinar()) {
@@ -711,6 +740,20 @@ class WebinarController extends Controller
 
         $data['price'] = !empty($data['price']) ? convertPriceToDefaultCurrency($data['price']) : null;
         $data['organization_price'] = !empty($data['organization_price']) ? convertPriceToDefaultCurrency($data['organization_price']) : null;
+
+        // معالجة التواريخ
+        if (!empty($data['training_date'])) {
+            $data['training_date'] = strtotime($data['training_date']);
+        }
+
+        if (!empty($data['online_link_activation_date'])) {
+            $data['online_link_activation_date'] = strtotime($data['online_link_activation_date']);
+        }
+
+        // التأكد من وجود القيم الافتراضية
+        $data['training_type'] = $data['training_type'] ?? 'online';
+        $data['registration_approval'] = $data['registration_approval'] ?? 'automatic';
+        $data['certificate_type'] = $data['certificate_type'] ?? 'attendance';
 
         $webinar->update([
             'slug' => $data['slug'],

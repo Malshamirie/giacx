@@ -587,8 +587,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#candidates" data-toggle="tab">
-                        <i class="fas fa-users mr-2"></i>{{ trans('panel.candidates') }}
+                    <a class="nav-link" href="#students" data-toggle="tab">
+                        <i class="fas fa-users mr-2"></i>{{ trans('panel.students') }}
                     </a>
                 </li>
                 <li class="nav-item">
@@ -596,11 +596,7 @@
                         <i class="fas fa-sitemap mr-2"></i>{{ trans('panel.organizational_chart') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#project-notes" data-toggle="tab">
-                        <i class="fas fa-sticky-note mr-2"></i>{{ trans('panel.notes_tab') }}
-                    </a>
-                </li>
+               
             </ul>
         </div>
         
@@ -611,8 +607,8 @@
         <!-- Project Logbook Tab -->
         @include('web.default.panel.projects.show_includes.courses')
 
-        <!-- Candidates Tab -->
-        @include('web.default.panel.projects.show_includes.candidates')
+        <!-- students Tab -->
+        @include('web.default.panel.projects.show_includes.students')
 
         <!-- Organizational Chart Tab -->
         @include('web.default.panel.projects.show_includes.chart')        
@@ -720,5 +716,5 @@ $(document).ready(function() {
     });
 });
 </script>
-@include('web.default.panel.projects.candidates.js')
+@include('web.default.panel.projects.students.js')
 @endpush 

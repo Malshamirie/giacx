@@ -69,9 +69,9 @@ class Project extends Model
         return $this->belongsToMany('App\User', 'project_participants', 'project_id', 'user_id');
     }
 
-    public function candidates()
+    public function students()
     {
-        return $this->hasMany(\App\Models\ProjectCandidate::class, 'project_id', 'id');
+        return $this->hasMany(\App\Models\ProjectStudent::class, 'project_id', 'id');
     }
 
     public function projectParticipants()

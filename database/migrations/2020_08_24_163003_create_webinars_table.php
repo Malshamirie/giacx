@@ -33,6 +33,26 @@ class CreateWebinarsTable extends Migration
             $table->boolean('subscribe')->default(false);
             $table->text('message_for_reviewer')->nullable();
             $table->enum('status', ['active', 'pending', 'is_draft', 'inactive']);
+
+            // نوع الدورة (حضوري أو عن بعد)
+            $table->enum('training_type', ['in_person', 'online'])->default('online');
+            
+            // بيانات التدريب الحضوري
+            $table->string('training_location_name')->nullable(); // اسم المكان
+            $table->integer('training_date')->nullable(); // التاريخ
+            $table->string('training_time')->nullable(); // الساعة
+            $table->text('training_location_link')->nullable(); // رابط اللوكيشن
+            
+            // بيانات التدريب عن بعد
+            $table->text('online_training_link')->nullable(); // رابط التدريب
+            $table->integer('online_link_activation_date')->nullable(); // موعد تفعيل الرابط
+            
+            // موافقة التسجيل
+            $table->enum('registration_approval', ['manual', 'automatic'])->default('automatic');
+            
+            // نوع الشهادة
+            $table->enum('certificate_type', ['attendance', 'accredited_attendance'])->default('attendance');
+
             $table->integer('created_at');
             $table->integer('updated_at')->nullable();
             $table->integer('deleted_at')->nullable();

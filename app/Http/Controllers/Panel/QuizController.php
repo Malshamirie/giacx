@@ -97,6 +97,9 @@ class QuizController extends Controller
 
         $query = fromAndToDateFilter($from, $to, $query, 'created_at');
 
+        if (!empty($category_id) and $category_id != 'all') {
+            $query->where('category_id', $category_id);
+        }
        
         if (!empty($quiz_id) and $quiz_id != 'all') {
             $query->where('id', $quiz_id);

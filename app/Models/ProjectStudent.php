@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectCandidate extends Model
+class ProjectStudent extends Model
 {
-    protected $table = 'project_candidates';
+    protected $table = 'project_students';
     protected $guarded = ['id'];
 
     // Constants
     const STATUS_ACTIVE = 'active';
     const STATUS_INACTIVE = 'inactive';
+    const TYPE_PARTICIPANT = 'participant';
+    const TYPE_CANDIDATE = 'candidate';
 
     // Relationships
     public function project()
@@ -35,6 +37,16 @@ class ProjectCandidate extends Model
         return $query->where('status', self::STATUS_INACTIVE);
     }
 
+    public function scopeParticipants($query)
+    {
+        return $query->where('type', self::TYPE_PARTICIPANT);
+    }
+
+    public function scopeCandidates($query)
+    {
+        return $query->where('type', self::TYPE_CANDIDATE);
+    }
+
     // Accessors
     public function getStatusLabelAttribute()
     {
@@ -44,5 +56,15 @@ class ProjectCandidate extends Model
         ];
 
         return $labels[$this->status] ?? $this->status;
+    }
+
+    public function getTypeLabelAttribute()
+    {
+        $labels = [
+            self::TYPE_PARTICIPANT => trans('panel.participant'),
+            self::TYPE_CANDIDATE => trans('panel.candidate'),
+        ];
+
+        return $labels[$this->type] ?? $this->type;
     }
 }

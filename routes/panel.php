@@ -530,16 +530,22 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => ['imp
             Route::get('/{project_id}/{user_id}/remove', 'ProjectController@removeParticipant');
         });
         
-        // Project candidates routes
-        Route::group(['prefix' => 'candidates'], function () {
-            Route::get('/{project_id}', 'ProjectCandidateController@index')->name('panel.projects.candidates.index');
-            Route::post('/{project_id}/store', 'ProjectCandidateController@store')->name('panel.projects.candidates.store');
-            Route::post('/{project_id}/search', 'ProjectCandidateController@search')->name('panel.projects.candidates.search');
-            Route::put('/{project_id}/{candidate_id}', 'ProjectCandidateController@update')->name('panel.projects.candidates.update');
-            Route::delete('/{project_id}/{candidate_id}', 'ProjectCandidateController@destroy')->name('panel.projects.candidates.destroy');
-            Route::post('/{project_id}/destroy-multiple', 'ProjectCandidateController@destroyMultiple')->name('panel.projects.candidates.destroyMultiple');
+        // Project students routes
+        Route::group(['prefix' => 'students'], function () {
+            Route::get('/{project_id}', 'ProjectStudentController@index')->name('panel.projects.students.index');
+            Route::post('/{project_id}/store', 'ProjectStudentController@store')->name('panel.projects.students.store');
+            Route::post('/{project_id}/search', 'ProjectStudentController@search')->name('panel.projects.students.search');
+            Route::put('/{project_id}/{student_id}', 'ProjectStudentController@update')->name('panel.projects.students.update');
+            Route::delete('/{project_id}/{student_id}', 'ProjectStudentController@destroy')->name('panel.projects.students.destroy');
+            Route::post('/{project_id}/destroy-multiple', 'ProjectStudentController@destroyMultiple')->name('panel.projects.students.destroy-multiple');
+            Route::post('/{student_id}/convert-type', 'ProjectStudentController@convertType')->name('panel.projects.students.convert-type');
+            
+            // الروتات الجديدة للعمليات الجماعية
+            Route::post('/{project_id}/bulk-convert-type', 'ProjectStudentController@bulkConvertType')->name('panel.projects.students.bulk-convert-type');
+            Route::post('/{project_id}/bulk-update-status', 'ProjectStudentController@bulkUpdateStatus')->name('panel.projects.students.bulk-update-status');
         });
         
+
         // Project courses management
         Route::get('/{projectId}/courses', 'ProjectController@courses')->name('panelProjectsCourses');
         Route::post('/{projectId}/courses/add', 'ProjectController@addWebinar')->name('panelProjectsAddCourse');

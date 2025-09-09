@@ -7,12 +7,12 @@
 @endpush
 
 @section('content')
-    <div class="page-header d-print-none">
+    <div class="page-header d-print-none mb-3">
         <div class="container-xl">
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">
-                        {{ trans('panel.webinar_participants') }} - {{ $webinar->title }}
+                        {{ trans('lang.webinar_participants') }} - {{ $webinar->title }}
                     </h2>
                     <div class="page-subtitle">
                         {{ trans('panel.project') }}: {{ $project->name }}
@@ -22,8 +22,12 @@
                     <div class="btn-list">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addParticipantsModal">
                             <i class="fas fa-plus"></i>
-                            {{ trans('panel.add_participants') }}
+                            {{ trans('lang.add_participants') }}
                         </button>
+                    <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-right"></i>
+                        {{ trans('lang.back') }}
+                    </a>
                     </div>
                 </div>
             </div>
@@ -34,12 +38,12 @@
         <div class="container-xl">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ trans('panel.participants_list') }}</h3>
+                    <h3 class="card-title">{{ trans('lang.participants_list') }}</h3>
                 </div>
                 <div class="card-body">
                     @if($webinar->participants->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-vcenter card-table">
+                            <table class="table text-center font-14">
                                 <thead>
                                     <tr>
                                         <th>{{ trans('auth.name') }}</th>
@@ -47,7 +51,7 @@
                                         <th>{{ trans('public.phone') }}</th>
                                         <th>{{ trans('panel.status') }}</th>
                                         <th>{{ trans('public.date') }}</th>
-                                        <th class="w-1">{{ trans('public.actions') }}</th>
+                                        <th class="w-1"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,11 +75,10 @@
                                             </td>
                                             <td>{{ dateTimeFormat($participant->created_at, 'j M Y | H:i') }}</td>
                                             <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        {{ trans('public.actions') }}
-                                                    </button>
-                                                    <ul class="dropdown-menu">
+                                                <div class="dropdown table-actions">
+                                                    <button type="button" class="btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i data-feather="more-vertical" width="20"></i>
+                                                    </button>                                                    <ul class="dropdown-menu">
                                                         <li>
                                                             <a class="dropdown-item" href="{{ $participant->user->getProfileUrl() }}" target="_blank">
                                                                 <i class="fas fa-eye me-2"></i>
@@ -106,8 +109,8 @@
                     @else
                         <div class="text-center py-4">
                             <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                            <h5 class="text-muted">{{ trans('panel.no_participants_found') }}</h5>
-                            <p class="text-muted">{{ trans('panel.add_participants_to_get_started') }}</p>
+                            <h5 class="text-muted">{{ trans('lang.no_participants_found') }}</h5>
+                            <p class="text-muted">{{ trans('lang.add_participants_to_get_started') }}</p>
                         </div>
                     @endif
                 </div>
@@ -120,7 +123,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addParticipantsModalLabel">{{ trans('panel.add_participants') }}</h5>
+                    <h5 class="modal-title" id="addParticipantsModalLabel">{{ trans('lang.add_participants') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -131,19 +134,19 @@
                     
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="input-label d-block">{{ trans('panel.select_candidates') }}</label>
-                            <select name="candidate_ids[]" class="form-control select2" multiple="multiple" data-placeholder="{{ trans('panel.search_and_select_candidates') }}">
+                            <label class="input-label d-block">{{ trans('lang.select_students') }}</label>
+                            <select name="student_ids[]" class="form-control select2" multiple="multiple" data-placeholder="{{ trans('lang.search_and_select_students') }}">
                                 @php
-                                    // جلب المرشحين التابعين للمشروع
-                                    $projectCandidates = $project->candidates()
+                                    // جلب الطالبين التابعين للمشروع
+                                    $projectstudents = $project->students()
                                         ->whereNotIn('user_id', $webinar->participants->pluck('user_id'))
                                         ->with('user')
                                         ->get();
                                 @endphp
                                 
-                                @foreach($projectCandidates as $candidate)
-                                    <option value="{{ $candidate->id }}">
-                                        {{ $candidate->user->full_name }} ({{ $candidate->user->email }})
+                                @foreach($projectstudents as $student)
+                                    <option value="{{ $student->id }}">
+                                        {{ $student->user->full_name }} ({{ $student->user->email }})
                                     </option>
                                 @endforeach
                             </select>
@@ -170,7 +173,7 @@
 $(document).ready(function() {
     // تفعيل Select2
     $('.select2').select2({
-        placeholder: '{{ trans("panel.search_and_select_candidates") }}',
+        placeholder: '{{ trans("lang.search_and_select_students") }}',
         allowClear: true,
         width: '100%'
     });
@@ -290,7 +293,7 @@ function updateParticipantStatus(participantId, newStatus) {
 function deleteParticipant(participantId) {
     Swal.fire({
         title: '{{ trans("panel.confirm_action") }}',
-        text: '{{ trans("panel.are_you_sure_delete_participant") }}',
+        text: '{{ trans("lang.are_you_sure_delete") }}',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: '{{ trans("public.yes") }}',

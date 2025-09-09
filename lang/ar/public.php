@@ -95,7 +95,7 @@ return [
     'moderator_password' => 'كلمة مرور الوسيط',
     'category' => 'فئة',
     'choose_category' => 'اختر تصنيف',
-    'category_filters' => 'مرشحات الفئات',
+    'category_filters' => 'طالبات الفئات',
     'tickets' => 'تذاكر',
     'add_ticket' => 'خطة تسعير جديدة',
     'add_plan' => 'خطة جديدة',
@@ -346,4 +346,26 @@ return [
     'topic_post' => 'مشاركة الموضوع',
     'forbidden_request_toast_lang' => 'طلب"ممنوع" ',
     'forbidden_request_toast_msg_lang' => 'غير مسموح لك بالولوج لهذا المحتوى',
+
+    // إضافة الترجمات العربية
+    'training_type' => 'نوع التدريب',
+    'online_training' => 'تدريب عن بعد',
+    'in_person_training' => 'تدريب حضوري',
+    'training_location_name' => 'اسم مكان التدريب',
+    'training_date' => 'تاريخ التدريب',
+    'training_time' => 'وقت التدريب',
+    'training_location_link' => 'رابط موقع التدريب',
+    'online_training_link' => 'رابط التدريب عن بعد',
+    'online_link_activation_date' => 'موعد تفعيل الرابط',
+    'registration_approval' => 'موافقة التسجيل',
+    'automatic_approval' => 'موافقة فورية',
+    'manual_approval' => 'تتطلب الموافقة',
+    'certificate_type' => 'نوع الشهادة',
+    'attendance_certificate' => 'شهادة حضور',
+    'accredited_attendance_certificate' => 'شهادة حضور معتمدة',
+    'enter_location_name' => 'أدخل اسم المكان',
+    'enter_location_link' => 'أدخل رابط الموقع',
+    'enter_training_link' => 'أدخل رابط التدريب',
+
+    
 ];

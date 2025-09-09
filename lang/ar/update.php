@@ -140,7 +140,7 @@ return [
 'im_flexible' => 'أنا مرن',
 'hour' => 'ساعة',
 'hours_tutoring' => 'ساعات التدريس',
-'filters' => 'المرشحات',
+'filters' => 'الطالبات',
 'student_level' => 'مستوى التدريب',
 'select_student_level' => 'اختر مستوى الطالب',
 'instructor_gender' => 'جنس المعلم',

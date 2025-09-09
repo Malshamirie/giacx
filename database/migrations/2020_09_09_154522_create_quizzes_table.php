@@ -24,6 +24,8 @@ class CreateQuizzesTable extends Migration
             $table->integer('attempt');
             $table->integer('pass_mark');
             $table->boolean('certificate');
+            $table->unsignedInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('quiz_categories')->onDelete('set null');
             $table->enum('status', ['active', 'inactive']);
             $table->integer('created_at');
             $table->integer('updated_at')->nullable();
